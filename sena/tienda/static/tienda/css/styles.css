@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: #FFFFFF;
+    font-size: 20px;
+    font-family: 'Outfit', sans-serif;
+}
+
+/*---------------------------INDEX---------------------------------*/
+
+/*Barra de navegación y banner principal*/
+#barra{
+    background-color:#FFFFFF !important;
+    color: black !important;
+    width: 100% !important;
+}
+
+#logo {
+    width: 70px;
+    height: 70px;
+}
+#usuario {
+    text-align:normal !important;
+}
+#miga {
+    background-color: #FFFFFF !important;
+}
+
+#banner {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+#boton_registrarse {
+    width: 100% !important;
+    background-color: #8F82B7 !important;
+    color: white !important;
+}
+
+#boton_registrarse:hover {
+    background-color: #FFFFFF !important; 
+    color:#8F82B7 !important;
+    border: solid 2px #8F82B7;
+}
+
+/*Nuestros productos*/
+
+#seccion_productos {
+    margin-top: 600px;
+}
+
+#titulo_lista-productos{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#contenedor__lista-productos {
+    text-align: center;
+    margin: auto;
+}
+
+#contenedor__producto{
+    display:block;
+}
+
+#boton_comprar {
+    border: solid 2px transparent;
+    color: #000000;
+    display: block;
+    justify-content: center;
+    margin: auto;
+    background-color: #FFDAF3;
+    width: 400px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+#boton_comprar:hover {
+    background-color: #ffdaf375;
+    border: 2px solid #FFDAF3;
+    color: #0000003d;
+}
+
+/*SOBRE NOSOTROS*/
+
+.titulo_sobre_nosotros {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.subtitulo_sobre_nosotros {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#contenedor__equipo{
+    justify-content: center;
+    text-align: center;
+    margin-left: 20px;
+    margin-top: 100px;
+}
+
+.equipo {
+    gap: 1px;
+    width: 400px;
+    max-width: 800px;
+    height: 200px;
+    position: relative;
+    margin-right: 60px;
+    display:flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/*Agendar cita*/
+
+#banner_cita {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+}
+
+#boton_cita {
+    display: block;
+    position: relative;
+    top: 130px;
+    left: 735px;
+    height: 160px;
+    width: 1030px;
+}
+
+#contenedor__contactanos {
+    justify-content: center;
+    position: relative;
+    margin-left: 400px;
+    margin-right: 500px;
+}
+
+.titulo_contactanos {
+    position: relative;
+    text-align: center;
+    margin-bottom: 80px;
+    margin-top: 300px;
+}
+
+#formulario_contactanos {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.form-control {
+}
+
+.input-group-text {
+    background-color: transparent;
+}
+
+#boton_enviar_contactanos {
+    background-color: #231F20; 
+    color: #FFFFFF; 
+    border: solid 2px transparent;
+}
+
+#boton_enviar_contactanos:hover {
+    background-color:#FFFFFF ; 
+    color: #231F20; 
+    border: solid 2px #231F20;
+}
+
+
+
+footer {
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+
+#demo {
+    border: 2px solid transparent;
+}
+
+
