@@ -1,0 +1,49 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+{% block title %} Crear Producto {% endblock %}
+{% block contenedor %}
+
+{% if id %}
+    <h3>Editar: {{ data.id }}</h3>
+{% else %}
+    <h3 class="m-3">Crear: </h3>
+{% endif %}
+
+<br> <br>
+<form method="post" action="{% url 'tienda:productos_guardar' %}">
+    {% csrf_token %}
+    <div class="input-group m-3">
+        <span class="input-group-text"><i class="bi bi-hash"></i></span>
+        <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
+    </div>
+    <div class="input-group m-3" width="600px">
+        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
+        <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="{{ data.nombre }}">
+    </div>
+    <div class="input-group m-3">
+        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+        <input type="number" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
+    </div>
+    <div class="input-group m-3">
+        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+        <input type="date" class="form-control" placeholder="Fecha de compra" name="fecha_compra" value="{{ data.fecha_compra|date:'Y-m-d' }}">
+    </div>
+    <div class="input-group m-3">
+        <span class="input-group-text"><i class="bi bi-bookmark"></i></span>
+        <select name="categoria" class="form-control">
+            <option value="">Seleccione:</option>
+            {% for c in categorias %}
+                <option value="{{ c.id }}" {% if data.categoria.id == c.id %}selected=""{% endif %}>{{ c.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <br>
+    {% if id %}
+    <button type="submit" class="btn btn-primary m-3">Actualizar</button>
+    {% else %}
+    <button type="submit" class="btn btn-primary m-3">Crear</button>
+    {% endif %}
+</form>
+
+{% endblock %}

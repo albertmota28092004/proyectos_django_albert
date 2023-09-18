@@ -2,38 +2,57 @@
 {% load static %}
 {% block title %}Alimento{% endblock %}
 {% block contenedor %}
-    <br>
+<br>
 
 <a class="btn btn-success m-3" href="{% url 'tienda:form' %}">Crear</a><br><br>
 
 <form class="d-flex" role="search" method="post" action="{% url 'tienda:alimento_buscar' %}">
     {% csrf_token %}
-    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar" value="{{ buscado }}">
-    <a class="btn btn-outline-success" href="{% url 'tienda:alimento' %}" type="button"><i class="bi bi-arrow-left-square"></i></a>
+    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar"
+           value="{{ buscado }}">
+    <a class="btn btn-outline-success" href="{% url 'tienda:alimento' %}" type="button"><i
+            class="bi bi-arrow-left-square"></i></a>
     <button class="btn btn-outline-success" type="submit">Buscar</button>
 </form>
 
-    {% if data %}
-        <table class="table table-hover m-3">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-            </tr>
-        {% for i in data %}
-            <tr>
-                <td>{{ i.id }}</td>
-                <td>{{ i.nombre }}</td>
-                <td>{{ i.descripcion }}</td>
-                <td>
-                    <a href="{% url 'tienda:editar' i.id %}" class="btn btn-info">Editar</a>
-                    <a href="javascript:confirmar_eliminar('{% url 'tienda:eliminar' i.id %}');" class="btn btn-danger" >Eliminar</a>
-                </td>
-            </tr>
-        {% endfor %}
-            </table>
-    {% else %}
-        No hay registros
-    {% endif %}
+{% if data %}
+<table class="table table-hover m-3">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.nombre }}</td>
+        <td>{{ i.descripcion }}</td>
+        <td>
+            <a href="{% url 'tienda:editar' i.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{% url 'tienda:eliminar' i.id %}');"
+               class="btn btn-danger">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active">
+            <a class="page-link" href="#">2 <span class="sr-only"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+{% else %}
+No hay registros
+{% endif %}
 {% endblock %}

@@ -98,6 +98,77 @@ def alimento_buscar(request):
     return HttpResponseRedirect(reverse("tienda:alimento", args=()))
 
 
+def productos(request):
+    query = Producto.objects.all()
+    context = {"data": query}
+    return render(request, "tienda/productos/listar.html", context)
+
+
+def productos_formulario(request):
+    query = Categoria.objects.all()
+    contexto = {"categorias": query}
+    return render(request, "tienda/productos/pro-form.html", contexto)
+
+
+def productos_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        nombre = request.POST.get("nombre")
+        precio = request.POST.get("precio")
+        fecha_compra = request.POST.get("fecha_compra")
+        # Foráneas deben ser instancias de su clase
+        categoria_instancia = Categoria.objects.get(pk=request.POST.get("categoria"))
+
+        if id == "":
+            # crear
+            try:
+                pro = Producto(
+                    nombre=nombre,
+                    precio=precio,
+                    fecha_compra=fecha_compra,
+                    categoria=categoria_instancia
+                )
+                pro.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Producto.objects.get(pk=id)
+                q.nombre = nombre
+                q.precio = precio
+                q.fecha_compra = fecha_compra
+                q.categoria = categoria_instancia
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:productos", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:productos_formulario", args=()))
+
+
+def productos_eliminar(request, id):
+    try:
+        q = Producto.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:productos", args=()))
+
+
+def productos_editar(request, id):
+    q = Producto.objects.get(pk=id)
+    query = Categoria.objects.all()
+    contexto = {"id": id, "data": q, "categorias": query}
+    return render(request, "tienda/productos/pro-form.html", contexto)
+
+
 def delimpieza(request):
     return render(request, "tienda/categorias_inicio/productos/delimpieza.html")
 
