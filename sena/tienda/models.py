@@ -19,3 +19,28 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class Servicio(models.Model):
+    nombre = models.CharField(max_length=254)
+    descripcion = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Usuario(models.Model):
+    ROLES = (
+        (1, 'Administrador'),
+        (2, 'Empleado'),
+        (3, 'Usuario'),
+    )
+    foto = models.ImageField(null=True, blank=True, upload_to='fotos', default='fotos/default.png')
+    nombre = models.CharField(max_length=254)
+    apellido = models.CharField(max_length=254)
+    nick = models.CharField(max_length=254)
+    password = models.CharField(max_length=254)
+    rol = models.IntegerField(choices=ROLES, default=3)
+
+    def __str__(self):
+        return self.nick

@@ -1,10 +1,19 @@
 {% extends 'tienda/base.html' %}
 {% load static %}
-{% block title %}Alimento{% endblock %}
+{% block title %}Servicios{% endblock %}
 {% block contenedor %}
-<br>
 
-<a class="btn btn-success m-3" href="{% url 'tienda:form' %}">Crear</a><br><br>
+    <div>
+        <nav aria-label="breadcrumb" id="miga">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item">Servicios</li>
+              <li class="breadcrumb-item active" aria-current="page">Servicio</li>
+            </ol>
+        </nav>
+    </div>
+
+<a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}">Crear</a><br><br>
 
 <form class="d-flex" role="search" method="post" action="{% url 'tienda:alimento_buscar' %}">
     {% csrf_token %}
@@ -23,14 +32,14 @@
         <th>Descripción</th>
         <th>Acciones</th>
     </tr>
-    {% for i in data %}
+    {% for e in data %}
     <tr>
-        <td>{{ i.id }}</td>
-        <td>{{ i.nombre }}</td>
-        <td>{{ i.descripcion }}</td>
+        <td>{{ e.id }}</td>
+        <td>{{ e.nombre }}</td>
+        <td>{{ e.descripcion }}</td>
         <td>
-            <a href="{% url 'tienda:editar' i.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{% url 'tienda:eliminar' i.id %}');"
+            <a href="{% url 'tienda:servicios_editar' e.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{% url 'tienda:servicios_eliminar' e.id %}');"
                class="btn btn-danger">Eliminar</a>
         </td>
     </tr>
@@ -52,7 +61,24 @@
         </li>
     </ul>
 </nav>
-{% else %}
-No hay registros
+    <script>
+        function validarUsuario(){
+            let u = document.getElementById("usuario").value;
+            let c = document.getElementById("contraseña").value;
+            if (u == "admin") {
+                if (c == "admin12345") {
+                    window.open("inicioAdmin.html")
+                }
+            }
+            else if (u == "empleado") {
+                if (c == "empleado12345") {
+                    window.open("inicioEmpleado.html")
+                }
+            }
+        }
+    </script>
+</body>
+</html>
 {% endif %}
+
 {% endblock %}

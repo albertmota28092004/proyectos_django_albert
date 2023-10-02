@@ -61,6 +61,8 @@ function register(){
         caja_trasera_login.style.opacity = "1";
     }
 }
+
+/*
 function mostrarAlerta(mensaje) {
     var alerta = document.createElement('div');
     alerta.classList.add('mi-alerta');
@@ -95,7 +97,7 @@ function validarUsuario() {
         mostrarAlerta("Por favor, ingresa un dato válido.");
         event.preventDefault();
     }
-}
+}*/
 
 function toggleMostrarContrasenaRegistro() {
     var inputContrasenaRegistro = document.getElementById("contrasenaRegistro");

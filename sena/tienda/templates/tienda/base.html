@@ -24,6 +24,8 @@
 </head>
 
 <body>
+
+
 <header>
     <nav id="barra" class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
         <div class="container-fluid">
@@ -37,20 +39,16 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item dropdown">
                         <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown">Productos</a>
+                           data-bs-toggle="dropdown">Categorías</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'tienda:alimento' %}">Alimento</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:delimpieza' %}">De limpieza</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:vacunas' %}">Vacunas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:alimento' %}">Listar categorías</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
                            data-bs-toggle="dropdown">Servicios</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'tienda:salud' %}">Salud</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:estetica' %}">Estética</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:vacunacion' %}">Vacunación</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:servicios' %}">Listar servicios</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -67,11 +65,9 @@
                     </li>
                    <li class="nav-item dropdown">
                         <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown">Ejercicio</a>
+                           data-bs-toggle="dropdown">Productos</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'tienda:productos' %}">Listar producto</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:historia' %}">Historia</a></li>
-                            <li><a class="dropdown-item" href="{% url 'tienda:patrocinios' %}">Patrocinios</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -89,6 +85,16 @@
         </div>
     </nav>
 </header>
+
+<div>
+    <nav aria-label="breadcrumb" id="miga">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item">{% block miga1 %} {% endblock %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% block miga2 %} {% endblock %}</li>
+        </ol>
+    </nav>
+</div>
 
 {% if messages %}
 {% for message in messages %}

@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import messages
-from .models import Categoria, Producto
+from .models import *
 from django.db.models import Q
 
 
@@ -13,7 +13,30 @@ def index(request):
 
 
 def login(request):
-    return render(request, "tienda/login.html")
+    if request.method == "POST":
+        usuario = request.POST.get("nick")
+        clave = request.POST.get("password")
+
+        try:
+            q = Usuario.objects.get(nick=usuario, password=clave)
+            messages.success(request, "Bienvenido!!")
+            datos = {
+                "rol": q.rol,
+                "nombre": f"{q.nombre} {q.apellido}",
+                "foto": q.foto.url,
+                "id" : q.id
+            }
+            request.session["sesion"] = datos
+            return HttpResponseRedirect(reverse("tienda:index"))
+        except Usuario.DoesNotExist:
+            messages.error(request, "Usuario o contraseña no válidos...")
+            return render(request, "tienda/login.html")
+    else:
+        return render(request, "tienda/login.html")
+
+
+def logout(request):
+    pass
 
 
 def inicioAdmin(request):
@@ -169,6 +192,67 @@ def productos_editar(request, id):
     return render(request, "tienda/productos/pro-form.html", contexto)
 
 
+def servicios(request):
+    query = Servicio.objects.all()
+    contexto = {"data": query}
+    return render(request, "tienda/servicios/servicios.html", contexto)
+
+
+def servicios_formulario(request):
+    return render(request, "tienda/servicios/ser-form.html")
+
+
+def servicios_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        nombre = request.POST.get("nombre")
+        descripcion = request.POST.get("descripcion")
+
+        if id == "":
+            # crear
+            try:
+                pro = Servicio(
+                    nombre=nombre,
+                    descripcion=descripcion
+                )
+                pro.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Servicio.objects.get(pk=id)
+                q.nombre = nombre
+                q.descripcion = descripcion
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:servicios", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:servicios_formulario", args=()))
+
+
+def servicios_eliminar(request, id):
+    try:
+        q = Servicio.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:servicios", args=()))
+
+
+def servicios_editar(request, id):
+    q = Servicio.objects.get(pk=id)
+    contexto = {"id": id, "data": q}
+    return render(request, "tienda/servicios/ser-form.html", contexto)
+
+
 def delimpieza(request):
     return render(request, "tienda/categorias_inicio/productos/delimpieza.html")
 
@@ -179,10 +263,6 @@ def vacunas(request):
 
 def estetica(request):
     return render(request, "tienda/categorias_inicio/servicios/estetica.html")
-
-
-def salud(request):
-    return render(request, "tienda/categorias_inicio/servicios/salud.html")
 
 
 def vacunacion(request):
