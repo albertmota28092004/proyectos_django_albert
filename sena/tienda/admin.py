@@ -24,7 +24,7 @@ class ServicioAdmin(admin.ModelAdmin):
 
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ["id", "nick", "foto", "sueldo", "rol", "nombre_completo", "ver_foto"]
+    list_display = ["id", "nick", "foto", "sueldo", "rol", "nombre_completo", "ver_foto", "password"]
 
     def sueldo(self, obj):
         return f"$ {obj.id * 3}"

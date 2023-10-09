@@ -2,173 +2,190 @@
 {% load static %}
 {% block title %}Inicio{% endblock %}
 {% block contenedor %}
-    <main>
-        <section>
-            <img id="banner" src="{% static 'tienda/img/banner_renovado.png' %}" alt="banner_original">
-        </section>
 
-        <section>
-            <a>
-               <img id="banner_cita" src="{% static 'tienda/img/banner_cita.png' %}" alt="">
-            </a>
+<!---{% if request.session.logueo %}
+    <a href="{% url 'tienda:logout' %}" class="btn btn-success">Cerrar Sesión</a>
+{% else %}
+    No hay sesión abierta...
+{% endif %} -->
 
-        </section>
 
-        <section id="seccion_productos">
-                <h1 id="titulo_lista-productos">¡Productos más comprados!</h1>
-                <div id="contenedor__lista-productos" class="row">
-                    <div id="contenedor__producto" class="col-lg-6">
-                        <h3 id="texto_producto">Tapetes absorbentes para mascotas</h3>
-                        <h3 id="texto_producto">$50.000</h3>
-                        <img id="imagen_producto" src="{% static 'tienda/img/producto1.png' %}" alt="">
-                        <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal2">Comprar</button>
-                    </div>
-                    <div id="contenedor__producto" class="col-lg-6">
-                        <h3 id="texto_producto">Dentalife juguete de cuidado oral</h3>
-                        <h3 id="texto_producto">$2.000</h3>
-                        <img id="imagen_producto" src="{% static 'tienda/img/producto2.png' %}" alt="">
-                        <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal2">Comprar</button>
-                    </div>
-                    <div id="contenedor__producto" class="col-lg-6">
-                        <h3 id="texto_producto">Pack de productos de limpieza</h3>
-                        <h3 id="texto_producto">$100.000</h3>
-                        <img id="imagen_producto" src="{% static 'tienda/img/producto3.png' %}" alt="">
-                        <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal2">Comprar</button>
-                    </div>
-                    <div id="contenedor__producto" class="col-lg-6">
-                        <h3 id="texto_producto">Pack de productos de limpieza</h3>
-                        <h3 id="texto_producto">$100.000</h3>
-                        <img id="imagen_producto" src="{% static 'tienda/img/producto3.png' %}" alt="">
-                        <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal2">Comprar</button>
-                    </div>
-                </div>
-        </section>
+<main>
+    <section>
+        <img id="banner" src="{% static 'tienda/img/banner_renovado.png' %}" alt="banner_original">
+    </section>
 
-        <section>
-            <h1 class="titulo_sobre_nosotros">Sobre nosotros</h1>
-            <h3 class="subtitulo_sobre_nosotros">Nuestro equipo de trabajo</h3>
-            <div id="contenedor__equipo" class="row">
-                <div class="equipo" class="col-lg-4">
-                    <h4>Albert Mota</h4>
-                    <h5>Desarrollador de software</h5>
-                    <img src="{% static 'tienda/img/albert.png' %}" alt="">
-                </div>
-                <div class="equipo" class="col-lg-4">
-                    <h4>Andrés Mauricio Bedoya</h4>
-                    <h5>Desarrollador de software</h5>
-                    <img src="{% static 'tienda/img/mauricio.png' %}" alt="">
-                </div>
-                <div class="equipo" class="col-lg-4">
-                    <h4>Carlos Andres Holguín</h4>
-                    <h5>Desarrollador de software</h5>
-                    <img src="{% static 'tienda/img/carlos.png' %}" alt="">
-                </div>
+    <section>
+        <a>
+            <img id="banner_cita" src="{% static 'tienda/img/banner_cita.png' %}" alt="">
+        </a>
+
+    </section>
+
+    <section id="seccion_productos">
+        <h1 id="titulo_lista-productos">¡Productos más comprados!</h1>
+        <div id="contenedor__lista-productos" class="row">
+            <div id="contenedor__producto" class="col-lg-6">
+                <h3 id="texto_producto">Tapetes absorbentes para mascotas</h3>
+                <h3 id="texto_producto">$50.000</h3>
+                <img id="imagen_producto" src="{% static 'tienda/img/producto1.png' %}" alt="">
+                <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#myModal2">Comprar
+                </button>
             </div>
-        </section>
-        <section class="contactanos-section">
-            <h1 class="titulo_contactanos" >Contáctanos</h1>
-            <div id="contenedor__contactanos" class="row">
-                <form class="col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                        <input type="text" class="form-control" placeholder="Nombre">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                        <input type="text" class="form-control" placeholder="Apellido">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text">@</span>
-                        <input type="text" class="form-control" placeholder="Correo electrónico">
-                    </div>
-                    <div class="input-group">
-                        <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Escribe un mensaje aquí..."></textarea>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="input-group">
-                        <input id="boton_enviar_contactanos" type="submit" class="form-control btn btn-primary" placeholder="Enviar" onclick="event.preventDefault()">
-                    </div>
-                </form>
-                <ul class="list-group col-lg-4">
-                    <li class="list-group-item"><i class="bi bi-whatsapp"></i> +57 304 5318796</li>
-                    <li class="list-group-item"><i class="bi bi-instagram"></i> mas_cotitas</li>
-                    <li class="list-group-item"><i class="bi bi-facebook"> +Cotitas</i></li>
-                  </ul>
+            <div id="contenedor__producto" class="col-lg-6">
+                <h3 id="texto_producto">Dentalife juguete de cuidado oral</h3>
+                <h3 id="texto_producto">$2.000</h3>
+                <img id="imagen_producto" src="{% static 'tienda/img/producto2.png' %}" alt="">
+                <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#myModal2">Comprar
+                </button>
             </div>
-        </section>
+            <div id="contenedor__producto" class="col-lg-6">
+                <h3 id="texto_producto">Pack de productos de limpieza</h3>
+                <h3 id="texto_producto">$100.000</h3>
+                <img id="imagen_producto" src="{% static 'tienda/img/producto3.png' %}" alt="">
+                <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#myModal2">Comprar
+                </button>
+            </div>
+            <div id="contenedor__producto" class="col-lg-6">
+                <h3 id="texto_producto">Pack de productos de limpieza</h3>
+                <h3 id="texto_producto">$100.000</h3>
+                <img id="imagen_producto" src="{% static 'tienda/img/producto3.png' %}" alt="">
+                <button id="boton_comprar" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#myModal2">Comprar
+                </button>
+            </div>
+        </div>
+    </section>
 
-        <!-- Modal -->
-        </section>
-    </main>
-
-    <!---------------- Modales ---------------->
-
-    <!-- The Modal Compra-->
-    <div class="modal fade" id="myModal2">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Atención!</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <section>
+        <h1 class="titulo_sobre_nosotros">Sobre nosotros</h1>
+        <h3 class="subtitulo_sobre_nosotros">Nuestro equipo de trabajo</h3>
+        <div id="contenedor__equipo" class="row">
+            <div class="equipo" class="col-lg-4">
+                <h4>Albert Mota</h4>
+                <h5>Desarrollador de software</h5>
+                <img src="{% static 'tienda/img/albert.png' %}" alt="">
+            </div>
+            <div class="equipo" class="col-lg-4">
+                <h4>Andrés Mauricio Bedoya</h4>
+                <h5>Desarrollador de software</h5>
+                <img src="{% static 'tienda/img/mauricio.png' %}" alt="">
+            </div>
+            <div class="equipo" class="col-lg-4">
+                <h4>Carlos Andres Holguín</h4>
+                <h5>Desarrollador de software</h5>
+                <img src="{% static 'tienda/img/carlos.png' %}" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="contactanos-section">
+        <h1 class="titulo_contactanos">Contáctanos</h1>
+        <div id="contenedor__contactanos" class="row">
+            <form class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                    <input type="text" class="form-control" placeholder="Nombre">
                 </div>
-
-                <!-- Modal body -->
-                <div class="modal-body d-flex justify-content-center">
-                    Necesitas iniciar sesión para comprar.
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                    <input type="text" class="form-control" placeholder="Apellido">
                 </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer d-flex justify-content-center">
-                    <a href="iniciarSesion_Registrarse.html">
-                        <button style="background-color: #8F82B7;" type="button" class="btn btn-primary glyphicon glyphicon-user" data-bs-toggle="modal"
-                        data-bs-target="#myModal">Iniciar sesión</button>
-                    </a>
+                <div class="input-group">
+                    <span class="input-group-text">@</span>
+                    <input type="text" class="form-control" placeholder="Correo electrónico">
                 </div>
+                <div class="input-group">
+                    <textarea class="form-control" rows="5" id="comment" name="text"
+                              placeholder="Escribe un mensaje aquí..."></textarea>
+                </div>
+                <br>
+                <br>
+                <div class="input-group">
+                    <input id="boton_enviar_contactanos" type="submit" class="form-control btn btn-primary"
+                           placeholder="Enviar" onclick="event.preventDefault()">
+                </div>
+            </form>
+            <ul class="list-group col-lg-4">
+                <li class="list-group-item"><i class="bi bi-whatsapp"></i> +57 304 5318796</li>
+                <li class="list-group-item"><i class="bi bi-instagram"></i> mas_cotitas</li>
+                <li class="list-group-item"><i class="bi bi-facebook"> +Cotitas</i></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    </section>
+</main>
+
+<!---------------- Modales ---------------->
+
+<!-- The Modal Compra-->
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Atención!</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body d-flex justify-content-center">
+                Necesitas iniciar sesión para comprar.
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="iniciarSesion_Registrarse.html">
+                    <button style="background-color: #8F82B7;" type="button"
+                            class="btn btn-primary glyphicon glyphicon-user" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Iniciar sesión
+                    </button>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Offcanvas Sidebar -->
-    <div class="offcanvas offcanvas-start" id="demo">
-        <div class="offcanvas-header">
-          <h1 class="offcanvas-title">Menú</h1>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+<!-- Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start" id="demo">
+    <div class="offcanvas-header">
+        <h1 class="offcanvas-title">Menú</h1>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            <h5>Productos</h5>
+            <ul>
+                <li><a class="nav-link" href="">Alimento</a></li>
+                <li><a class="nav-link" href="delimpieza.html">De limpieza</a></li>
+                <li><a class="nav-link" href="vacunas.html">Vacunas</a></li>
+            </ul>
         </div>
-        <div class="offcanvas-body">
-            <div>
-                <h5>Productos</h5>
-                <ul>
-                    <li><a class="nav-link" href="">Alimento</a></li>
-                    <li><a class="nav-link" href="delimpieza.html">De limpieza</a></li>
-                    <li><a class="nav-link" href="vacunas.html">Vacunas</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5>Servicios</h5>
-                <ul>
-                    <li><a class="nav-link" href="salud.html">Salud</a></li>
-                    <li><a class="nav-link" href="estetica.html">Estética</a></li>
-                    <li><a class="nav-link" href="vacunacion.html">Vacunación</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5>Quiénes somos</h5>
-                <ul>
-                    <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
-                    <li><a class="nav-link" href="historia.html">Historia</a></li>
-                    <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
-                </ul>
-            </div>
-            <h5><a class="nav-link" href="contactanos.html">Contáctanos</a></h5>
+        <div>
+            <h5>Servicios</h5>
+            <ul>
+                <li><a class="nav-link" href="salud.html">Salud</a></li>
+                <li><a class="nav-link" href="estetica.html">Estética</a></li>
+                <li><a class="nav-link" href="vacunacion.html">Vacunación</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>Quiénes somos</h5>
+            <ul>
+                <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
+                <li><a class="nav-link" href="historia.html">Historia</a></li>
+                <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
+            </ul>
+        </div>
+        <h5><a class="nav-link" href="contactanos.html">Contáctanos</a></h5>
 
-        </div>
-  </div>
+    </div>
+</div>
+
 
 {% endblock %}

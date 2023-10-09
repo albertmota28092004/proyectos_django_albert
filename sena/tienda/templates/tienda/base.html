@@ -25,8 +25,74 @@
 
 <body>
 
+{% if request.session.logueo %}
+    <header>
+    <nav id="barra" class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'tienda:index' %}">
+                <img id="logo" src="{% static 'tienda/img/logo_mascotitas.png' %}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    {% if request.session.logueo.nombre_rol != "Usuario" %}
+                        <li class="nav-item dropdown">
+                            <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown">Categorías</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'tienda:alimento' %}">Listar categorías</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown">Servicios</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'tienda:servicios' %}">Listar servicios</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown">Quiénes somos</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'tienda:nuestroequipo' %}">Nuestro equipo</a></li>
+                                <li><a class="dropdown-item" href="{% url 'tienda:historia' %}">Historia</a></li>
+                                <li><a class="dropdown-item" href="{% url 'tienda:patrocinios' %}">Patrocinios</a></li>
+                            </ul>
+                        </li>
 
-<header>
+                       <li class="nav-item dropdown">
+                            <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown">Productos</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'tienda:productos' %}">Listar producto</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                        <li class="nav-item">
+                            <a  href="{% url 'tienda:alimento' %}" id="barra" class="nav-link {% if request.session.logueo.nombre_rol == 'Usuario' %} disabled {% endif %}" >Categorias(copia)</a>
+                        </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown dropstart">
+                        <a id="barra" class="navbar-brand" href="#" role="button"
+                           data-bs-toggle="dropdown" style="z-index:1;" width="100px"><img src="{{ request.session.logueo.foto }}" width="100px" height="100px" style="border-radius:100px;"></a>
+                        <h6>{{ request.session.logueo.nombre }} </h6>
+                        <ul class="dropdown-menu" style="border:0px solid transparent;">
+                            <li><h6 style="font-size: 20px; text-align: center;">{% if request.session.logueo.nombre_rol == "Administrador" %}{{ request.session.logueo.nombre_rol }} {% endif %}</h6></li>
+                            <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 20px;">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% else %}
+    <header>
     <nav id="barra" class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'tienda:index' %}">
@@ -85,7 +151,7 @@
         </div>
     </nav>
 </header>
-
+{% endif %}
 <div>
     <nav aria-label="breadcrumb" id="miga">
         <ol class="breadcrumb">
@@ -95,7 +161,6 @@
         </ol>
     </nav>
 </div>
-
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible"
@@ -105,20 +170,13 @@
 </div>
 {% endfor %}
 {% endif %}
-
-
 {% block contenedor %}
-
 {% endblock %}
-
 <script src="{% static 'tienda/js/script.js' %}"></script>
 <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
-
 <footer>
     <h6>+Cotitas S.A.</h6>
     <h6>Todos los derechos reservados ®</h6>
 </footer>
-
 </body>
-
 </html>

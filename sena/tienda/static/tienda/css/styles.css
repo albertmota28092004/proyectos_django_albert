@@ -41,7 +41,7 @@
 }
 
 #boton_registrarse:hover {
-    background-color: #FFFFFF !important; 
+    background-color: #FFFFFF !important;
     color:#8F82B7 !important;
     border: solid 2px #8F82B7;
 }
@@ -161,14 +161,14 @@
 }
 
 #boton_enviar_contactanos {
-    background-color: #231F20; 
-    color: #FFFFFF; 
+    background-color: #231F20;
+    color: #FFFFFF;
     border: solid 2px transparent;
 }
 
 #boton_enviar_contactanos:hover {
-    background-color:#FFFFFF ; 
-    color: #231F20; 
+    background-color:#FFFFFF ;
+    color: #231F20;
     border: solid 2px #231F20;
 }
 

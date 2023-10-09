@@ -29,6 +29,17 @@ class Servicio(models.Model):
         return self.nombre
 
 
+"""class Pedido(models.Model):
+    fecha = models.DateField(max_length=254)
+    descripcion = models.TextField(null=True, blank=True)
+    precio = models.IntegerField()
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.id
+"""
+
+
 class Usuario(models.Model):
     ROLES = (
         (1, 'Administrador'),

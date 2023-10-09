@@ -9,7 +9,10 @@ from django.db.models import Q
 # Create your views here.
 
 def index(request):
-    return render(request, "tienda/index.html")
+    if request.session.get("logueo", False):
+        return render(request, "tienda/index.html")
+    else:
+        return HttpResponseRedirect(reverse("tienda:login"))
 
 
 def login(request):
@@ -19,24 +22,33 @@ def login(request):
 
         try:
             q = Usuario.objects.get(nick=usuario, password=clave)
-            messages.success(request, "Bienvenido!!")
+            messages.success(request, f"Bienvenido sr(a) {q.nombre}!!")
             datos = {
                 "rol": q.rol,
+                "nombre_rol": q.get_rol_display(),
                 "nombre": f"{q.nombre} {q.apellido}",
-                "foto": q.foto.url,
-                "id" : q.id
+                "foto": q.foto.url if q.foto else "/media/fotos/default.png",
+                "id": q.id
             }
-            request.session["sesion"] = datos
+            request.session["logueo"] = datos
             return HttpResponseRedirect(reverse("tienda:index"))
         except Usuario.DoesNotExist:
             messages.error(request, "Usuario o contraseña no válidos...")
-            return render(request, "tienda/login.html")
+            return render(request, "tienda/iniciarSesion_Registrarse.html")
     else:
-        return render(request, "tienda/login.html")
+        if request.session.get("logueo", False):
+            return HttpResponseRedirect(reverse("tienda:index"))
+        else:
+            return render(request, "tienda/iniciarSesion_Registrarse.html")
 
 
 def logout(request):
-    pass
+    try:
+        del request.session["logueo"]
+        messages.success(request, "Cesión cerrada correctamente")
+    except Exception as e:
+        messages.error(request, f"Error: {e}")
+    return HttpResponseRedirect(reverse("tienda:login"))
 
 
 def inicioAdmin(request):
@@ -48,10 +60,15 @@ def categorias(request):
 
 
 def alimento(request):
-    result = Categoria.objects.all()
-    context = {"data": result}
-    # select * from Categoria
-    return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
+    sesion = request.session.get("logueo", False)
+    if sesion["nombre_rol"] != "Usuario":
+        result = Categoria.objects.all()
+        context = {"data": result}
+        # select * from Categoria
+        return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
+    else:
+        messages.warning(request, "Usted no tiene permisos para acceder..." )
+        return HttpResponseRedirect(reverse("tienda:login"))
 
 
 def alimento_crear_formulario(request):
@@ -251,6 +268,12 @@ def servicios_editar(request, id):
     q = Servicio.objects.get(pk=id)
     contexto = {"id": id, "data": q}
     return render(request, "tienda/servicios/ser-form.html", contexto)
+
+
+def pedidos(request):
+    query = Pedido.objects.all()
+    contexto = {"data": query}
+    return render(request, "tienda/servicios/servicios.html", contexto)
 
 
 def delimpieza(request):
