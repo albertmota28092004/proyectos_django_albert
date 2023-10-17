@@ -15,6 +15,10 @@ def index(request):
         return HttpResponseRedirect(reverse("tienda:login"))
 
 
+def index2(request):
+    return render(request, "tienda/index2.html")
+
+
 def login(request):
     if request.method == "POST":
         usuario = request.POST.get("nick")
@@ -67,7 +71,7 @@ def alimento(request):
         # select * from Categoria
         return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
     else:
-        messages.warning(request, "Usted no tiene permisos para acceder..." )
+        messages.warning(request, "Usted no tiene permisos para acceder...")
         return HttpResponseRedirect(reverse("tienda:login"))
 
 
@@ -273,11 +277,139 @@ def servicios_editar(request, id):
 def pedidos(request):
     query = Pedido.objects.all()
     contexto = {"data": query}
-    return render(request, "tienda/servicios/servicios.html", contexto)
+    return render(request, "tienda/pedidos/pedidos.html", contexto)
 
 
-def delimpieza(request):
-    return render(request, "tienda/categorias_inicio/productos/delimpieza.html")
+def pedidos_formulario(request):
+    return render(request, "tienda/pedidos/ped-form.html")
+
+
+def pedidos_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        fecha = request.POST.get("fecha")
+        descripcion = request.POST.get("descripcion")
+        precio = request.POST.get("precio")
+        usuario_instancia = Usuario.objects.get(pk=request.POST.get("usuario"))
+
+        if id == "":
+            # crear
+            try:
+                pro = Pedido(
+                    nombre=fecha,
+                    descripcion=descripcion,
+                    precio=precio,
+                    usuario=usuario_instancia
+                )
+                pro.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Pedido.objects.get(pk=id)
+                q.fecha = fecha
+                q.descripcion = descripcion
+                q.precio = precio
+                q.usuario = usuario_instancia
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:pedidos", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:pedidos_formulario", args=()))
+
+
+def pedidos_eliminar(request, id):
+    try:
+        q = Pedido.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:pedidos", args=()))
+
+
+def pedidos_editar(request, id):
+    q = Pedido.objects.get(pk=id)
+    query = Usuario.objects.all()
+    contexto = {"id": id, "data": q, "usuarios": query}
+    return render(request, "tienda/pedidos/ped-form.html", contexto)
+
+
+def usuarios(request):
+    query = Usuario.objects.all()
+    contexto = {"data": query}
+    return render(request, "tienda/usuarios/usuarios.html", contexto)
+
+
+def usuarios_formulario(request):
+    return render(request, "tienda/usuarios/usu-form.html")
+
+
+def usuarios_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        nombre = request.POST.get("nombre")
+        apellido = request.POST.get("apellido")
+        nick = request.POST.get("nick")
+        password = request.POST.get("password")
+        rol = request.POST.get("rol")
+
+        if id == "":
+            # crear
+            try:
+                pro = Usuario(
+                    nombre=nombre,
+                    apellido=apellido,
+                    nick=nick,
+                    password=password,
+                    rol=rol
+                )
+                pro.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Usuario.objects.get(pk=id)
+                q.nombre = nombre
+                q.apellido = apellido
+                q.nick = nick
+                q.password = password
+                q.rol = rol
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:usuarios", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:usuarios_formulario", args=()))
+
+
+def usuarios_eliminar(request, id):
+    try:
+        q = Usuario.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:usuarios", args=()))
+
+
+def usuarios_editar(request, id):
+    q = Usuario.objects.get(pk=id)
+    contexto = {"id": id, "data": q}
+    return render(request, "tienda/usuarios/usu-form.html", contexto)
 
 
 def vacunas(request):

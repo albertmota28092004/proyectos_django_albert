@@ -54,11 +54,10 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown">Quiénes somos</a>
+                               data-bs-toggle="dropdown">Pedidos</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'tienda:nuestroequipo' %}">Nuestro equipo</a></li>
-                                <li><a class="dropdown-item" href="{% url 'tienda:historia' %}">Historia</a></li>
-                                <li><a class="dropdown-item" href="{% url 'tienda:patrocinios' %}">Patrocinios</a></li>
+                                <li><a class="dropdown-item" href="{% url 'tienda:pedidos' %}">Crear pedido</a></li>
+
                             </ul>
                         </li>
 
@@ -68,7 +67,15 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'tienda:productos' %}">Listar producto</a></li>
                             </ul>
-                        </li>
+                       </li>
+                    <li class="nav-item dropdown">
+                            <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown">Usuarios</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'tienda:usuarios' %}">Listar usuarios</a></li>
+                            </ul>
+                       </li>
+
                     {% endif %}
                         <li class="nav-item">
                             <a  href="{% url 'tienda:alimento' %}" id="barra" class="nav-link {% if request.session.logueo.nombre_rol == 'Usuario' %} disabled {% endif %}" >Categorias(copia)</a>

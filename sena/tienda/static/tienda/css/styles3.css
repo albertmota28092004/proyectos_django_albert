@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+}
+
+/*---------------------------INDEX-----------------------------------------------------------------------------------*/
+
+/*Barra de navegación y banner principal*/
+.barra {
+    background-color: #FFFFFF !important;
+    color: black !important;
+    width: 100% !important;
+}
+
+.apartados_index {
+    display: inline-block;
+}
+
+#menu_hamburguesa {
+    display: none;
+}
+
+#botones_registrarse_iniciarsesion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Dos columnas con igual anchura */
+    gap: 10px;
+    /* Espacio entre los botones */
+}
+
+#logo {
+    width: 70px;
+    height: 70px;
+}
+
+#usuario {
+    text-align: normal !important;
+}
+
+#miga {
+    background-color: #FFFFFF !important;
+}
+
+#banner {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+#boton_registrarse {
+    background-color: #8F82B7 !important;
+    color: white !important;
+}
+
+#boton_registrarse:hover {
+    background-color: #FFFFFF !important;
+    color: #8F82B7 !important;
+    border: solid 2px #8F82B7;
+}
+
+.titulos_apartados {
+    font-size: 45.15px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/*Nuestros productos*/
+
+
+
+#seccion_productos {
+    margin-top: 950px;
+}
+
+.titulo_lista-productos {
+    font-size: 45.15px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#contenedor__lista-productos {
+    text-align: center;
+    margin: auto;
+}
+
+.contenedor__producto {
+    display: block;
+}
+
+.boton_comprar {
+    border: solid 2px transparent;
+    background-color: #8F82B7 !important;
+    color: white !important;
+    display: block;
+    justify-content: center;
+    margin: auto;
+    width: 400px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.boton_comprar:hover {
+    background-color: #FFFFFF !important;
+    color: #8F82B7 !important;
+    border: 2px solid #FFDAF3;
+}
+
+/*SOBRE NOSOTROS*/
+
+.titulo_sobre_nosotros {
+    font-size: 45.15px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.subtitulo_sobre_nosotros {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#contenedor__equipo {
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    margin-left: 20px;
+    margin-top: 100px;
+}
+
+.equipo {
+    gap: 2px;
+    width: 400px;
+    max-width: 800px;
+    height: 400px;
+    position: relative;
+    margin-right: 60px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 1450px) {
+    .equipo {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .equipo h4 {
+        position: relative;
+        top: 0;
+        /* Restaura la posición original del nombre */
+    }
+}
+
+@media (max-width: 780px) {
+
+    #botones_registrarse_iniciarsesion {
+        grid-template-columns: 1fr;
+        /* Una sola columna */
+    }
+
+
+    .apartados_index {
+        display: none;
+    }
+}
+
+@media (max-width: 575.20px) {
+
+    #menu_hamburguesa {
+        display: inline-block;
+    }
+}
+
+/*Agendar cita*/
+
+#banner_cita {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+}
+
+
+/*Contáctanos*/
+
+
+#contenedor__contactanos {
+    justify-content: center;
+    position: relative;
+    margin-left: 400px;
+    margin-right: 500px;
+}
+
+.titulo_contactanos {
+    position: relative;
+    text-align: center;
+    margin-bottom: 80px;
+    margin-top: 200px;
+}
+
+#formulario_contactanos {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.input-group-text {
+    background-color: transparent;
+}
+
+#boton_enviar_contactanos {
+    background-color: #231F20;
+    color: #FFFFFF;
+    border: solid 2px transparent;
+}
+
+#boton_enviar_contactanos:hover {
+    background-color: #FFFFFF;
+    color: #231F20;
+    border: solid 2px #231F20;
+}
+
+@media (max-width: 1408px) {
+    #contenedor__contactanos {
+        margin-left: 80px;
+        margin-right: 0;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+footer {
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+
+
+/*-----------------------------------ALIMENTO----------------------------------------------------------*/
+
+
+.imagen_alimento {
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    justify-content: center;
+    margin-left: 70px;
+}
+
+
+.boton_comprar_alimento {
+    border: solid 2px transparent;
+    color: #FFFFFF;
+    display: block;
+    justify-content: center;
+    margin: auto;
+    background-color: #8F82B7;
+    width: 320px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.boton_comprar_alimento:hover {
+    background-color: #FFFFFF !important;
+    color: #8F82B7 !important;
+    border: solid 2px #8F82B7;
+}
+
+.filter-sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    color: #000000;
+    padding: 10px;
+    border: 2px solid #ececec;
+    border-radius: 10px;
+    box-shadow: 20px 20px 20px 20px #ececec;
+}
+
+.filter-sidebar h2 {
+    font-size: 18px;
+}
+
+.filter-sidebar label {
+    margin-left: 100px;
+    font-weight: 2px;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.filter-sidebar select {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-right: 200px;
+}
+
+.filter-sidebar select:hover {
+    background-color: #ececec;
+
+}
+
+
+.filter-sidebar button {
+    background-color: #8F82B7;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filter-sidebar button:hover {
+    background-color: #5E4C7C;
+}
+
+.content {
+    padding: 20px;
+}
+
+
+
+/*----------------------------SERVICIOS-----------------------------*/
+
+.barra-navegacion {
+    position: absolute;
+    height: 200px;
+    width: 250px;
+    color: black;
+}
+
+.barra-navegacion ul {
+    list-style-type: none;
+}
+
+.barra-navegacion ul li {
+    padding: 10px;
+}
+
+.barra-navegacion ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 30px;
+}
+
+#salud,
+#estetica,
+#vacunacion {
+    margin-left: 250px;
+    padding: 20px;
+    position: relative;
+    background-color: #8F82B7;
+}
+
+.tarjetas {
+    border: 2px solid #000000;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    padding: 10px;
+    margin-left: 200px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#num_1 {
+    display: absolute;
+    margin-top: 20px;
+    z-index: 1;
+    box-shadow: 0 10px 10px rgb(22, 22, 22);
+}
+
+#num_2 {
+    display: absolute;
+    margin-left: 378px;
+    margin-top: -210px;
+    z-index: 2;
+    box-shadow: 0 10px 10px rgb(22, 22, 22);
+}
+
+#num_3 {
+    display: absolute;
+    margin-left: 560px;
+    margin-top: -190px;
+    margin-bottom: 130px;
+    z-index: 1;
+    box-shadow: 0 10px 10px rgb(22, 22, 22);
+}
+
+.botones {
+    position: absolute;
+    margin-top: 130px;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #8F82B7 !important;
+    border-color: transparent !important;
+}
+
+.subtitulos_servicios{
+    background-color: #8F82B7;
+    color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.linea {
+    height: 2px;
+    background-color: #000000 !important;
+    border: none;
+    margin: 10px 0;
+    width: 200px;
+}
+
+#lista {
+    display: absolute;
+    background-color: #8F82B7 !important;
+    margin-left: 860px;
+    margin-top: -320px;
+}
+
+#lista a,
+#lista ul,
+#lista li {
+    text-decoration: none;
+    color: #000000;
+    background-color: #8F82B7;
+    text-decoration: none;
+    list-style-type: none;
+    font-size: 20px;
+}
+
+.mas_servicios{
+    background-color: #8F82B7;
+    color: white;
+
+}
+
+/* Estilos generales */
+

@@ -39,7 +39,12 @@ class UsuarioAdmin(admin.ModelAdmin):
             return f"Error, el archivo fue eliminado."
 
 
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ["id", "usuario", "fecha", "descripcion", "precio"]
+
+
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Pedido, PedidoAdmin)
