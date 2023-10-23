@@ -3,11 +3,7 @@
 {% block title %} Crear Usuario {% endblock %}
 {% block contenedor %}
 
-{% if id %}
-    <h3>Editar: {{ data.id }}</h3>
-{% else %}
-    <h3 class="m-3">Crear: </h3>
-{% endif %}
+<h3>Editar: {{ data.id }}</h3>
 
 <br> <br>
 <form method="post" action="{% url 'tienda:usuarios_guardar' %}">
@@ -38,11 +34,7 @@
     </div>
 
     <br>
-    {% if id %}
     <button type="submit" class="btn btn-primary m-3">Actualizar</button>
-    {% else %}
-    <button type="submit" class="btn btn-primary m-3">Crear</button>
-    {% endif %}
 </form>
 
 {% endblock %}

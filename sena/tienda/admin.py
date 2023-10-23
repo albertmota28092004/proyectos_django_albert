@@ -13,7 +13,6 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ["fecha_compra"]
 
 
-
 class ServicioAdmin(admin.ModelAdmin):
     list_display = ["id", "nombre", "descripcion"]
     search_fields = ["nombre", "descripcion"]

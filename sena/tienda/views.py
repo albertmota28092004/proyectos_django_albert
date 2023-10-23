@@ -18,8 +18,12 @@ def index(request):
 def index2(request):
     return render(request, "tienda/index2.html")
 
+
 def agendarcita(request):
     return render(request, "tienda/citas.html")
+
+
+
 
 def login(request):
     if request.method == "POST":
@@ -80,9 +84,7 @@ def productos(request):
 
 
 def productos_formulario(request):
-    query = Categoria.objects.all()
-    contexto = {"categorias": query}
-    return render(request, "tienda/productos/pro-form.html", contexto)
+    return render(request, "tienda/productos/pro-form.html")
 
 
 def productos_guardar(request):
@@ -91,8 +93,6 @@ def productos_guardar(request):
         nombre = request.POST.get("nombre")
         precio = request.POST.get("precio")
         fecha_compra = request.POST.get("fecha_compra")
-        # Foráneas deben ser instancias de su clase
-        categoria_instancia = Categoria.objects.get(pk=request.POST.get("categoria"))
 
         if id == "":
             # crear
@@ -100,8 +100,7 @@ def productos_guardar(request):
                 pro = Producto(
                     nombre=nombre,
                     precio=precio,
-                    fecha_compra=fecha_compra,
-                    categoria=categoria_instancia
+                    fecha_compra=fecha_compra
                 )
                 pro.save()
                 messages.success(request, "Guardado correctamente!!")
@@ -114,7 +113,6 @@ def productos_guardar(request):
                 q.nombre = nombre
                 q.precio = precio
                 q.fecha_compra = fecha_compra
-                q.categoria = categoria_instancia
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
             except Exception as e:
@@ -139,8 +137,7 @@ def productos_eliminar(request, id):
 
 def productos_editar(request, id):
     q = Producto.objects.get(pk=id)
-    query = Categoria.objects.all()
-    contexto = {"id": id, "data": q, "categorias": query}
+    contexto = {"id": id, "data": q}
     return render(request, "tienda/productos/pro-form.html", contexto)
 
 

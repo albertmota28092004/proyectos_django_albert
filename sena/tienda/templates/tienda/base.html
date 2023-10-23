@@ -21,6 +21,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'tienda/favicon_io/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'tienda/favicon_io/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'tienda/favicon_io/site.webmanifest' %}">
+
+    <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
 </head>
 
 <body>
@@ -81,13 +83,14 @@
             </div>
             <div>
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item dropdown dropstart">
+                    <li class="nav-item dropdown dropstart" style="">
                         <a id="barra" class="navbar-brand" href="#" role="button"
-                           data-bs-toggle="dropdown" style="z-index:1;" width="100px"><img src="{{ request.session.logueo.foto }}" width="100px" height="100px" style="border-radius:100px;"></a>
-                        <h6>{{ request.session.logueo.nombre }} </h6>
-                        <ul class="dropdown-menu" style="border:0px solid transparent;">
+                           data-bs-toggle="dropdown" style="z-index:1;" width="100px"><img src="{{ request.session.logueo.foto }}" width="70px" height="70px" style="border-radius:100px; margin-left: -20px"></a>
+                        <ul class="dropdown-menu" style="border:2px solid black; padding: 10px; border-radius: 40px 0px 40px 40px; margin-top: 70px">
+                            <li><h6 style="margin-left: 10px;">{{ request.session.logueo.nombre }} </h6></li>
                             <li><h6 style="font-size: 20px; text-align: center;">{% if request.session.logueo.nombre_rol == "Administrador" %}{{ request.session.logueo.nombre_rol }} {% endif %}</h6></li>
-                            <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 20px;">Cerrar Sesión</a></li>
+                            <li><a href="{% url 'tienda:usuarios_formulario' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Editar usuario</a></li>
+                            <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-top: 10px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -224,8 +227,7 @@
         <h5><a class="nav-link" href="contactanos.html">Contáctanos</a></h5>
     </div>
   </div>
-<script src="{% static 'tienda/js/script.js' %}"></script>
-<script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
+
 <footer>
     <h6>+Cotitas S.A.</h6>
     <h6>Todos los derechos reservados ®</h6>
