@@ -18,6 +18,8 @@ def index(request):
 def index2(request):
     return render(request, "tienda/index2.html")
 
+def agendarcita(request):
+    return render(request, "tienda/citas.html")
 
 def login(request):
     if request.method == "POST":
@@ -59,78 +61,7 @@ def inicioAdmin(request):
     return render(request, "tienda/inicioAdmin.html")
 
 
-def categorias(request):
-    return render(request, "tienda/categorias/listar.html")
-
-
-def alimento(request):
-    sesion = request.session.get("logueo", False)
-    if sesion["nombre_rol"] != "Usuario":
-        result = Categoria.objects.all()
-        context = {"data": result}
-        # select * from Categoria
-        return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
-    else:
-        messages.warning(request, "Usted no tiene permisos para acceder...")
-        return HttpResponseRedirect(reverse("tienda:login"))
-
-
-def alimento_crear_formulario(request):
-    return render(request, "tienda/categorias_inicio/productos/form.html")
-
-
-def alimento_editar_formulario(request, id):
-    q = Categoria.objects.get(pk=id)
-    contexto = {"id": id, "data": q}
-    return render(request, "tienda/categorias_inicio/productos/form.html", contexto)
-
-
-def alimento_eliminar_formulario(request, id):
-    try:
-        q = Categoria.objects.get(pk=id)
-        q.delete()
-        messages.success(request, "Eliminado correctamente!!")
-    except Exception as e:
-        messages.error(request, f"Error. {e}")
-    return HttpResponseRedirect(reverse("tienda:alimento", args=()))
-
-
-def alimento_guardar(request):
-    if request.method == "POST":
-        id = request.POST.get("id")
-        nombre = request.POST.get("nombre")
-        descripcion = request.POST.get("descripcion")
-
-        if id == "":
-            # crear
-            try:
-                cat = Categoria(
-                    nombre=nombre,
-                    descripcion=descripcion
-                )
-                cat.save()
-                messages.success(request, "Guardado correctamente!!")
-            except Exception as e:
-                messages.error(request, f"Error. {e}")
-        else:
-            # actualizar
-            try:
-                q = Categoria.objects.get(pk=id)
-                q.nombre = nombre
-                q.descripcion = descripcion
-                q.save()
-                messages.success(request, "Actualizado correctamente!!")
-            except Exception as e:
-                messages.error(request, f"Error. {e}")
-
-        return HttpResponseRedirect(reverse("tienda:alimento", args=()))
-
-    else:
-        messages.warning(request, "No se enviarion datos...")
-        return HttpResponseRedirect(reverse("tienda:form", args=()))
-
-
-def alimento_buscar(request):
+"""def alimento_buscar(request):
     if request.method == "POST":
         buscar = request.POST.get("buscar")
         query = Categoria.objects.filter(Q(nombre__istartswith=buscar) | Q(descripcion__istartswith=buscar))
@@ -139,7 +70,7 @@ def alimento_buscar(request):
         return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
     else:
         messages.warning(request, "No se enviaron datos...")
-    return HttpResponseRedirect(reverse("tienda:alimento", args=()))
+    return HttpResponseRedirect(reverse("tienda:alimento", args=()))"""
 
 
 def productos(request):

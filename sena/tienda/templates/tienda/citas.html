@@ -1,198 +1,436 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="../css/styles.css" rel="stylesheet">
-    <title>Agendar cita</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    </head>
-  <style>
-            body {
-        font-family: Arial, sans-serif;
-        background-color: #FFFFFF;
-        color: #000000;
-        }
+{% extends 'tienda/base.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block contenedor %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
 
-        h1 {
-        color: #8F82B7;
-        }
+  h1 {
+    color: #8F82B7;
+  }
 
-        form {
-        max-width: 400px;
-        margin: 0 auto;
-        }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 
-        label {
-        display: block;
-        margin-top: 10px;
-        color: #8F82B7;
-        }
+  label {
+    display: block;
+    margin-top: 10px;
+    color: #8F82B7;
+  }
 
-        select,
-        input[type="date"] {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #8F82B7;
-        box-sizing: border-box;
-        margin-top: 5px;
-        }
+  select,
+  input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #8F82B7;
+    box-sizing: border-box;
+    margin-top: 5px;
+  }
 
-        button[type="submit"] {
-        background-color: #8F82B7;
-        color: #FFFFFF;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-        }
+  .mi-alerta {
+    color: #FF0000;
+    margin-top: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
 
-        button[type="submit"]:hover {
-        background-color: #745A96;
-        }
+  /* Estilos para personalizar la apariencia de veterinaria */
+  .container {
+    background-color: #F3F3F3;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
-        .mi-alerta {
-        color: #FF0000;
-        margin-top: 10px;
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background-color: #ff0000;
-        color: #ffffff;
-        padding: 10px;
-        border-radius: 4px;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        }
+  }
 
-        /* Estilos para personalizar la apariencia de veterinaria */
-        .container {
-        background-color: #F3F3F3;
-        padding: 20px;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  #titulo_citas {
+    text-align: center;
+    margin-top: 80px;
+  }
 
-        }
+  .boton {
+    background-color: #8F82B7;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-top: 30px;
+  }
 
-        #titulo_citas {
-          text-align: center;
-          margin-top: 80px;
-        }
+  .boton:hover {
+    background-color: #745A96;
+  }
 
-        #boton {
-          margin-top: 30px;
-        }
+  #pestañas {
+    margin-top: 40px;
+    text-align: center;
+  }
 
-        #logo {
-          width: 70px;
-          height: 70px;
-        }
-  </style>
-</head>
+  #formularios {
+    text-align: center;
+  }
+
+  #pestaña1 {
+    border: 2px solid transparent;
+    border-radius: 50px 0 0 0px;
+    width: 200px;
+    background-color: #8F82B7;
+  }
+
+  #pestaña1:hover,
+  #pestaña2:hover,
+  #pestaña3:hover {
+    background-color: #745A96;
+  }
+
+  #pestaña2 {
+    border: 2px solid transparent;
+    width: 200px;
+    background-color: #8F82B7;
+
+  }
+
+  #pestaña3 {
+    width: 200px;
+    border: 2px solid transparent;
+    border-radius: 0 50px 0 0;
+    background-color: #8F82B7;
+
+  }
+
+
+
+
+
+
+
+</style>
 <body>
 
-  <a href="index.html">
-    <img id="logo" src="../images/logo_mascotitas.png" alt="" height="100px" width="100px" >
-  </a>
+<h1 id="titulo_citas">Agendar Cita</h1>
 
-  <h1 id="titulo_citas">Agendar Cita</h1>
 
-  <form class="col-lg-6">
-    <div class="input-group">
-      <label for="sede">Sede:</label>
-      <select id="sede" name="sede">
-        <option value="itagui">Itagüí</option>
-        <option value="medellin">Medellín</option>
-        <option value="envigado">Envigado</option>
-        <option value="robledo">Robledo</option>
-      </select>
+<div id="pestañas">
+    <button id="pestaña1" onclick="mostrar(1)">Información del Cliente</button>
+    <button id="pestaña2" onclick="mostrar(2)">Información de la Mascota</button>
+    <button id="pestaña3" onclick="mostrar(3)">Información de la Cita</button>
+</div>
+
+<div id="formularios">
+    <div id="text1" class="text">
+        <form class="col-lg-6">
+            <div class="mb-3 mt-3">
+                <label class="form-label">Nombre(s):</label>
+                <input type="text" class="form-control" id="nombres" placeholder="Ingresa tu(s) nombre(s)"
+                       name="nombres">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="apellidos" class="form-label">Apellido(s):</label>
+                <input type="text" class="form-control" id="apellidos" placeholder="Ingresa tu(s) apellido(s)"
+                       name="apellidos">
+            </div>
+            <div>
+                <label for="tipodocumento">Tipo de documento:</label>
+                <select id="tipodocumento" name="tipodocumento">
+                    <option value="CC">Cédula de Ciudadanía</option>
+                    <option value="CE">Cédula de Extranjería</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="PP">Pasaporte</option>
+                    <option value="DNI">Documento Nacional de Identificación</option>
+                    <option value="NIT">Número de Identificación Tributaria</option>
+                    <option value="PEP">Permiso Especial de Permanencia</option>
+                    <option value="PPT">Permiso de Protección Temporal</option>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="numerodocumento" class="form-label">Número de documento:</label>
+                <input type="number" class="form-control" id="numerodocumento"
+                       placeholder="Ingresa tu número de documento"
+                       name="numerodocumento">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="fechanacimiento" class="form-label">Fecha de Nacimiento:</label>
+                <input type="date" class="form-control" id="fechanacimiento"
+                       placeholder="Ingresa tu fecha de nacimiento"
+                       name="fechanacimiento">
+            </div>
+        </form>
+        <button class="boton" onclick="siguiente()">Siguiente</button>
     </div>
 
-    <div>
-      <label for="subservicio">Servicio:</label>
-      <select id="subservicio" name="subservicio">
-        <!-- Opciones de subservicio para Estética -->
-        <optgroup label="Estética">
-          <option value="corte_pelo">Corte de Pelo</option>
-          <option value="corte_unas">Corte de Uñas</option>
-          <option value="limpieza_corporal">Limpieza Corporal</option>
-        </optgroup>
-        
-        <!-- Opciones de subservicio para Salud -->
-        <optgroup label="Salud">
-          <option value="revision_medica">Revisión Médica</option>
-          <option value="aplicacion_vacunas">Aplicación de Vacunas</option>
-          <option value="cirugias">Cirugías</option>
-        </optgroup>
-      </select>
+    <div id="text2" class="text">
+        <form class="col-lg-6">
+            <div class="mb-3 mt-3">
+                <label for="nombremascota" class="form-label">Nombre de la Mascota:</label>
+                <input type="text" class="form-control" id="nombremascota" placeholder="Ingresa el nombre de tu mascota"
+                       name="nombremascota">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="fechanacimientomascota" class="form-label">Fecha de Nacimiento de la Mascota:</label>
+                <input type="date" class="form-control" id="fechanacimientomascota"
+                       placeholder="Ingresa la fecha de nacimiento de tu mascota" name="fechanacimientomascota">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="especiemascota" class="form-label">Especie de la Mascota:</label>
+                <input type="text" class="form-control" id="especiemascota"
+                       placeholder="Ingresa la especie de tu mascota"
+                       name="especiemascota">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="razamascota" class="form-label">Raza de la Mascota:</label>
+                <input type="text" class="form-control" id="razamascota" placeholder="Ingresa la raza de tu mascota"
+                       name="razamascota">
+            </div>
+        </form>
+        <button class="boton" onclick="anterior()">Anterior</button>
+        <button class="boton" onclick="siguiente()">Siguiente</button>
     </div>
 
-    <div>
-      <label for="profesional">Profesional:</label>
-      <select id="profesional" name="profesional">
-        <option value="albert_mota">Albert Mota</option>
-        <option value="mauricio_bedoya">Mauricio Bedoya</option>
-        <option value="carlos_holguin">Carlos Holguín</option>
-      </select>
+    <div id="text3" class="text">
+        <form class="col-lg-6">
+            <div class="mb-3 mt-3">
+                <label for="sede">Sede:</label>
+                <select id="sede" name="sede">
+                    <option value="itagui">Itagüí</option>
+                    <option value="medellin">Medellín</option>
+                    <option value="envigado">Envigado</option>
+                    <option value="robledo">Robledo</option>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="servicio">Servicio:</label>
+                <select id="servicio" name="servicio">
+                    <optgroup label="Salud">
+                        <option value="consultageneral">Consulta general</option>
+                        <option value="cardiologia">Cardiología</option>
+                        <option value="dentista">Dentista</option>
+                        <option value="cirugias">Cirugías</option>
+                        <option value="ecografias">Ecografías</option>
+                        <option value="rx">RX</option>
+                    </optgroup>
+                    <optgroup label="Estética">
+                        <option value="cortecabello">Corte de Cabello</option>
+                        <option value="corteunas">Corte de Uñas</option>
+                        <option value="controlpulgas">Control de Pulgas</option>
+                        <option value="masajesrelajantes">Masajes Relajantes</option>
+                        <option value="limpiezaoidos">Limpieza de oídos</option>
+                        <option value="baños">Baños</option>
+                    </optgroup>
+                    <optgroup label="Vacunación">
+                        <option value="moquillocanino">CMoquillo canino</option>
+                        <option value="hcc">Hepatitis canina crónica (HCC)</option>
+                        <option value="parvovirus">Parvovirus</option>
+                        <option value="leptospirosis">Leptospirosis</option>
+                        <option value="antirrábica">Antirrábica</option>
+                        <option value="parainfluenza">Parainfluenza</option>
+                        <option value="enfermedadlyme">Enfermedad de Lyme</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="dia">Día:</label>
+                <input type="date" id="dia" name="dia" min="2023-07-11" max="2023-12-31" onchange="validarDia()">
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="hora">Hora:</label>
+                <select id="hora" name="hora">
+                    <!-- Opciones de horarios disponibles -->
+                    <option value="06:00">06:00 AM</option>
+                    <option value="07:30">07:30 AM</option>
+                    <option value="09:00">09:00 AM</option>
+                    <option value="10:30">10:30 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:30">01:30 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="16:30">04:30 PM</option>
+                </select>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="profesional">Profesional:</label>
+                <select id="profesional" name="profesional">
+                    <option value="albert_mota">Albert Mota</option>
+                    <option value="mauricio_bedoya">Mauricio Bedoya</option>
+                    <option value="carlos_holguin">Carlos Holguín</option>
+                </select>
+            </div>
+        </form>
+        <button class="boton" onclick="anterior()">Anterior</button>
+        <button type="submit" class="boton" onclick="validarDatos()">Agendar Cita</button>
     </div>
+</div>
 
-    <div>
-      <label for="dia">Día:</label>
-      <input type="date" id="dia" name="dia" min="2023-07-11" max="2023-12-31" onchange="validarDia()">
-    </div>
 
-    <div>
-      <label for="hora">Hora:</label>
-      <select id="hora" name="hora">
-        <!-- Opciones de horarios disponibles -->
-        <option value="06:00">06:00 AM</option>
-        <option value="07:30">07:30 AM</option>
-        <option value="09:00">09:00 AM</option>
-        <option value="10:30">10:30 AM</option>
-        <option value="12:00">12:00 PM</option>
-        <option value="13:30">01:30 PM</option>
-        <option value="15:00">03:00 PM</option>
-        <option value="16:30">04:30 PM</option>
-      </select>
-    </div>
 
-    <button type="submit" id="boton">Agendar Cita</button>
-  </form>
+<script src="../js/script.js">
+  /*-----------------------------AGENDAR CITA----------------------------*/
 
-  <script>
-    function validarDia() {
-      var diaInput = document.getElementById("dia");
-      var diaSeleccionado = new Date(diaInput.value);
+    function validarDatos() {
+        // Obtener referencias a los campos del formulario
+        var nombres = document.getElementById("nombres").value;
+        var apellidos = document.getElementById("apellidos").value;
+        var tipoDocumento = document.getElementById("tipodocumento").value;
+        var numeroDocumento = document.getElementById("numerodocumento").value;
+        var fechaNacimiento = document.getElementById("fechanacimiento").value;
+        var nombreMascota = document.getElementById("nombremascota").value;
+        var fechaNacimientoMascota = document.getElementById("fechanacimientomascota").value;
+        var especieMascota = document.getElementById("especiemascota").value;
+        var razaMascota = document.getElementById("razamascota").value;
+        var sede = document.getElementById("sede").value;
+        var servicio = document.getElementById("servicio").value;
+        var dia = document.getElementById("dia").value;
+        var hora = document.getElementById("hora").value;
+        var profesional = document.getElementById("profesional").value;
 
-      // Obtener el día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
-      var diaSemana = diaSeleccionado.getDay();
-
-      // Deshabilitar los domingos
-      if (diaSemana === 6) {
-        mostrarAlerta("No se pueden seleccionar citas los domingos. Por favor, elige otro día.");
-        diaInput.value = "";
+        // Verificar si algún campo está vacío
+        if (
+          nombres.trim().length == 0 ||
+          apellidos.trim().length == 0 ||
+          tipoDocumento.trim().length == 0 ||
+          numeroDocumento.trim().length == 0 ||
+          fechaNacimiento.trim().length == 0 ||
+          nombreMascota.trim().length == 0 ||
+          fechaNacimientoMascota.trim().length == 0 ||
+          especieMascota.trim().length == 0 ||
+          razaMascota.trim().length == 0 ||
+          sede.trim().length == 0 ||
+          servicio.trim().length == 0 ||
+          dia.trim().length == 0 ||
+          hora.trim().length == 0 ||
+          profesional.trim().length == 0
+        ) {
+          mostrarAlerta("Por favor, completa todos los campos.", "rojo");
+        } else {
+          // Todos los campos están llenos, se puede enviar el formulario
+          mostrarAlerta("Cita agendada con éxito. Los campos han sido limpiados.", "verde");
+          limpiarCampos();
+        }
       }
+
+      function limpiarCampos() {
+        // Obtener referencias a los campos del formulario
+        document.getElementById("nombres").value = "";
+        document.getElementById("apellidos").value = "";
+        document.getElementById("tipodocumento").value = "";
+        document.getElementById("numerodocumento").value = "";
+        document.getElementById("fechanacimiento").value = "";
+        document.getElementById("nombremascota").value = "";
+        document.getElementById("fechanacimientomascota").value = "";
+        document.getElementById("especiemascota").value = "";
+        document.getElementById("razamascota").value = "";
+        document.getElementById("sede").value = "";
+        document.getElementById("servicio").value = "";
+        document.getElementById("dia").value = "";
+        document.getElementById("hora").value = "";
+        document.getElementById("profesional").value = "";
+      }
+
+      function mostrarAlerta(mensaje, color) {
+        var alerta = document.createElement('div');
+        alerta.classList.add('mi-alerta');
+        alerta.textContent = mensaje;
+
+        // Establecer el color de fondo y texto según el parámetro 'color'
+        if (color === "rojo") {
+          alerta.style.backgroundColor = "#FF0000";
+          alerta.style.color = "#FFFFFF";
+        } else if (color === "verde") {
+          alerta.style.backgroundColor = "#00FF00";
+          alerta.style.color = "#000000";
+        }
+
+        document.body.appendCild(alerta);
+
+        setTimeout(function () {
+          alerta.remove();
+        }, 3000);
+      }
+
+
+
+      function validarDia() {
+        var diaInput = document.getElementById("dia");
+        var diaSeleccionado = new Date(diaInput.value);
+
+        // Obtener el día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
+        var diaSemana = diaSeleccionado.getDay();
+
+        // Deshabilitar los domingos
+        if (diaSemana === 6) {
+          mostrarAlerta("No se pueden seleccionar citas los domingos. Por favor, elige otro día.");
+          diaInput.value = "";
+        }
+      }
+
+      document.getElementById("text2").style.display = "none";
+      document.getElementById("text3").style.display = "none";
+
+      function siguiente() {
+        let text1 = document.getElementById("text1");
+        let text2 = document.getElementById("text2");
+        let text3 = document.getElementById("text3");
+
+        if (text1.style.display !== "none") {
+          text1.style.display = "none";
+          text2.style.display = "block";
+        } else if (text2.style.display !== "none") {
+          text2.style.display = "none";
+          text3.style.display = "block";
+        }
+      }
+
+      function anterior() {
+        let text1 = document.getElementById("text1");
+        let text2 = document.getElementById("text2");
+        let text3 = document.getElementById("text3");
+
+        if (text3.style.display !== "none") {
+          text3.style.display = "none";
+          text2.style.display = "block";
+        } else if (text2.style.display !== "none") {
+          text2.style.display = "none";
+          text1.style.display = "block";
+        }
+      }
+
+ function mostrar(numero) {
+    let text1 = document.getElementById("text1");
+    let text2 = document.getElementById("text2");
+    let text3 = document.getElementById("text3");
+
+    if (numero == 1) {
+      text1.style.display = "block";
+      text2.style.display = "none";
+      text3.style.display = "none";
+    } else if (numero == 2) {
+      text2.style.display = "block";
+      text1.style.display = "none";
+      text3.style.display = "none";
+    } else if (numero == 3) {
+      text3.style.display = "block";
+      text2.style.display = "none";
+      text1.style.display = "none";
     }
 
-    function mostrarAlerta(mensaje) {
-    var alerta = document.createElement('div');
-    alerta.classList.add('mi-alerta');
-    alerta.textContent = mensaje;
-  
-    document.body.appendChild(alerta);
-  
-    setTimeout(function() {
-      alerta.remove();
-    }, 3000);
-  }
-  </script>
+</script>
 </body>
-</html>
+{% endblock %}
+

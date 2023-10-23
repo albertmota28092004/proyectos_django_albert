@@ -40,9 +40,9 @@
                     {% if request.session.logueo.nombre_rol != "Usuario" %}
                         <li class="nav-item dropdown">
                             <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown">Categorías</a>
+                               data-bs-toggle="dropdown">Citas</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'tienda:alimento' %}">Listar categorías</a></li>
+                                <li><a class="dropdown-item" href="#">Listar categorías</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -77,9 +77,6 @@
                        </li>
 
                     {% endif %}
-                        <li class="nav-item">
-                            <a  href="{% url 'tienda:alimento' %}" id="barra" class="nav-link {% if request.session.logueo.nombre_rol == 'Usuario' %} disabled {% endif %}" >Categorias(copia)</a>
-                        </li>
                 </ul>
             </div>
             <div>
@@ -112,9 +109,9 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item dropdown">
                         <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown">Categorías</a>
+                           data-bs-toggle="dropdown">Citas</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'tienda:alimento' %}">Listar categorías</a></li>
+                            <li><a class="dropdown-item" href="#">Listar citas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -159,15 +156,6 @@
     </nav>
 </header>
 {% endif %}
-<div>
-    <nav aria-label="breadcrumb" id="miga">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-            <li class="breadcrumb-item">{% block miga1 %} {% endblock %}</li>
-            <li class="breadcrumb-item active" aria-current="page">{% block miga2 %} {% endblock %}</li>
-        </ol>
-    </nav>
-</div>
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible"
@@ -179,11 +167,70 @@
 {% endif %}
 {% block contenedor %}
 {% endblock %}
+<!---------------- Modales ---------------->
+
+<!-- The Modal Compra-->
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Atención!</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body d-flex justify-content-center">
+                Necesitas iniciar sesión para comprar.
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="iniciarSesion_Registrarse.html">
+                    <button style="background-color: #8F82B7;" type="button"
+                            class="btn btn-primary glyphicon glyphicon-user" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Iniciar sesión
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start" id="demo">
+    <div class="offcanvas-header">
+      <h1 class="offcanvas-title">Menú</h1>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            <h5>Productos</h5>
+            <ul>
+                <li><a class="nav-link" href="alimento.html">Alimento</a></li>
+                <li><a class="nav-link" href="delimpieza.html">De limpieza</a></li>
+            </ul>
+        </div>
+        <h5><a class="nav-link" href="servicios.html">Servicios</a></h5>
+        <div>
+            <h5>Quiénes somos</h5>
+            <ul>
+                <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
+                <li><a class="nav-link" href="historia.html">Historia</a></li>
+                <li><a class="nav-link" href="nuestroequipo.html">Nuestro equipo</a></li>
+            </ul>
+        </div>
+        <h5><a class="nav-link" href="contactanos.html">Contáctanos</a></h5>
+    </div>
+  </div>
 <script src="{% static 'tienda/js/script.js' %}"></script>
 <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
 <footer>
     <h6>+Cotitas S.A.</h6>
     <h6>Todos los derechos reservados ®</h6>
+    <h6><i class="bi bi-whatsapp"></i>+57 304 5318796 <i class="bi bi-instagram"></i> mas_cotitas</h6>
 </footer>
+
 </body>
 </html>

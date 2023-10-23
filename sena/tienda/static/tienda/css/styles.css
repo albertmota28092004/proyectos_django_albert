@@ -49,10 +49,10 @@
 /*Nuestros productos*/
 
 #seccion_productos {
-    margin-top: 600px;
+    margin-top: 850px;
 }
 
-#titulo_lista-productos{
+.titulo_lista-productos{
     text-align: center;
     margin-top: 100px;
     margin-bottom: 50px;
@@ -67,29 +67,31 @@
     display:block;
 }
 
-#boton_comprar {
-    border: solid 2px transparent;
-    color: #000000;
+.boton_comprar {
+    border: solid 2px transparent !important;
+    background-color: #8F82B7 !important;
+    color: white !important;
     display: block;
     justify-content: center;
     margin: auto;
-    background-color: #FFDAF3;
     width: 400px;
     margin-bottom: 10px;
     outline: none;
 }
 
-#boton_comprar:hover {
-    background-color: #ffdaf375;
-    border: 2px solid #FFDAF3;
-    color: #0000003d;
+.boton_comprar:hover {
+    background-color: #FFFFFF !important;
+    color: #8F82B7 !important;
+    border: 2px solid #8F82B7 !important;
 }
 
 /*SOBRE NOSOTROS*/
 
+
 .titulo_sobre_nosotros {
+    font-size: 45.15px;
     text-align: center;
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .subtitulo_sobre_nosotros {
@@ -97,7 +99,9 @@
     margin-bottom: 50px;
 }
 
-#contenedor__equipo{
+#contenedor__equipo {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     text-align: center;
     margin-left: 20px;
@@ -105,15 +109,49 @@
 }
 
 .equipo {
-    gap: 1px;
     width: 400px;
     max-width: 800px;
-    height: 200px;
+    height: 400px;
     position: relative;
     margin-right: 60px;
-    display:flex;
     justify-content: center;
     text-align: center;
+}
+
+@media (max-width: 1450px) {
+    .equipo {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .equipo h4 {
+        position: relative;
+        top: 0;
+        /* Restaura la posición original del nombre */
+    }
+}
+
+@media (max-width: 780px) {
+
+    #botones_registrarse_iniciarsesion {
+        grid-template-columns: 1fr;
+        /* Una sola columna */
+    }
+
+
+    .apartados_index {
+        display: none;
+    }
+}
+
+@media (max-width: 575.20px) {
+
+    #menu_hamburguesa {
+        display: inline-block;
+    }
 }
 
 /*Agendar cita*/
@@ -133,11 +171,13 @@
     width: 1030px;
 }
 
+/*CONTÁCTANOS*/
+
 #contenedor__contactanos {
     justify-content: center;
     position: relative;
-    margin-left: 400px;
-    margin-right: 500px;
+    margin-left: 300px;
+    margin-right: 300px;
 }
 
 .titulo_contactanos {

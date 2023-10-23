@@ -5,12 +5,22 @@
 {% block contenedor %}
 <br>
 
+<div>
+        <nav aria-label="breadcrumb" id="miga">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item">Productos</li>
+              <li class="breadcrumb-item active" aria-current="page">Listar productos</li>
+            </ol>
+        </nav>
+    </div>
+
 <a class="btn btn-success m-3" href="{% url 'tienda:productos_formulario' %}">Crear</a><br><br>
 
 
 {% if data %}
 
-<form class="d-flex m-3" role="search" method="post" action="{% url 'tienda:alimento_buscar' %}">
+<form class="d-flex m-3" role="search" method="post" action="#}">
     {% csrf_token %}
     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar"
            value="{{ buscado }}">

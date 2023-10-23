@@ -9,18 +9,18 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
               <li class="breadcrumb-item">Pedidos</li>
-              <li class="breadcrumb-item active" aria-current="page">Crear producto</li>
+              <li class="breadcrumb-item active" aria-current="page">Listar pedidos</li>
             </ol>
         </nav>
     </div>
 
 <a class="btn btn-success m-3" href="{% url 'tienda:pedidos_formulario' %}">Crear</a><br><br>
 
-<form class="d-flex" role="search" method="post" action="{% url 'tienda:alimento_buscar' %}">
+<form class="d-flex" role="search" method="post" action="#">
     {% csrf_token %}
     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar"
            value="{{ buscado }}">
-    <a class="btn btn-outline-success" href="{% url 'tienda:alimento' %}" type="button"><i
+    <a class="btn btn-outline-success" href="" type="button"><i
             class="bi bi-arrow-left-square"></i></a>
     <button class="btn btn-outline-success" type="submit">Buscar</button>
 </form>
