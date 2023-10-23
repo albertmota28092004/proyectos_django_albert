@@ -23,8 +23,6 @@ def agendarcita(request):
     return render(request, "tienda/citas.html")
 
 
-
-
 def login(request):
     if request.method == "POST":
         usuario = request.POST.get("nick")
@@ -277,7 +275,10 @@ def usuarios(request):
 
 
 def usuarios_formulario(request):
-    return render(request, "tienda/usuarios/usu-form.html")
+    q = request.session.get("logueo", False)
+    query = Usuario.objects.get(pk=q["id"])
+    contexto = {"data": query}
+    return render(request, "tienda/usuarios/usu-form.html", contexto)
 
 
 def usuarios_guardar(request):

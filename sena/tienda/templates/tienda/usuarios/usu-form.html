@@ -3,7 +3,11 @@
 {% block title %} Crear Usuario {% endblock %}
 {% block contenedor %}
 
-<h3>Editar: {{ data.id }}</h3>
+{% if id %}
+    <h3>Editar: {{ data.id }}</h3>
+{% else %}
+    <h3 class="m-3">Crear: </h3>
+{% endif %}
 
 <br> <br>
 <form method="post" action="{% url 'tienda:usuarios_guardar' %}">
@@ -26,7 +30,7 @@
     </div>
     <div class="input-group m-3" width="600px">
         <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Password" name="Password" value="{{ data.password }}">
+        <input type="text" class="form-control" placeholder="Password" name="password" value="{{ data.password }}">
     </div>
     <div class="input-group m-3">
         <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
@@ -34,7 +38,11 @@
     </div>
 
     <br>
-    <button type="submit" class="btn btn-primary m-3">Actualizar</button>
+     {% if id %}
+        <button type="submit" class="btn btn-primary m-3">Actualizar</button>
+    {% else %}
+        <button type="submit" class="btn btn-primary m-3">Crear</button>
+    {% endif %}
 </form>
 
 {% endblock %}
