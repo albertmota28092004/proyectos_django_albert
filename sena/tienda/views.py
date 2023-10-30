@@ -18,8 +18,10 @@ def index(request):
 def index2(request):
     return render(request, "tienda/index2.html")
 
+
 def agendarcita(request):
     return render(request, "tienda/citas.html")
+
 
 def login(request):
     if request.method == "POST":
@@ -76,13 +78,11 @@ def inicioAdmin(request):
 def productos(request):
     query = Producto.objects.all()
     context = {"data": query}
-    return render(request, "tienda/productos/listar.html", context)
+    return render(request, "tienda/productos/productos.html", context)
 
 
 def productos_formulario(request):
-    query = Categoria.objects.all()
-    contexto = {"categorias": query}
-    return render(request, "tienda/productos/pro-form.html", contexto)
+    return render(request, "tienda/productos/pro-form.html")
 
 
 def productos_guardar(request):
@@ -91,8 +91,6 @@ def productos_guardar(request):
         nombre = request.POST.get("nombre")
         precio = request.POST.get("precio")
         fecha_compra = request.POST.get("fecha_compra")
-        # Foráneas deben ser instancias de su clase
-        categoria_instancia = Categoria.objects.get(pk=request.POST.get("categoria"))
 
         if id == "":
             # crear
@@ -101,7 +99,6 @@ def productos_guardar(request):
                     nombre=nombre,
                     precio=precio,
                     fecha_compra=fecha_compra,
-                    categoria=categoria_instancia
                 )
                 pro.save()
                 messages.success(request, "Guardado correctamente!!")
@@ -114,7 +111,6 @@ def productos_guardar(request):
                 q.nombre = nombre
                 q.precio = precio
                 q.fecha_compra = fecha_compra
-                q.categoria = categoria_instancia
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
             except Exception as e:
@@ -139,8 +135,7 @@ def productos_eliminar(request, id):
 
 def productos_editar(request, id):
     q = Producto.objects.get(pk=id)
-    query = Categoria.objects.all()
-    contexto = {"id": id, "data": q, "categorias": query}
+    contexto = {"id": id, "data": q}
     return render(request, "tienda/productos/pro-form.html", contexto)
 
 
@@ -163,11 +158,11 @@ def servicios_guardar(request):
         if id == "":
             # crear
             try:
-                pro = Servicio(
+                ser = Servicio(
                     nombre=nombre,
                     descripcion=descripcion
                 )
-                pro.save()
+                ser.save()
                 messages.success(request, "Guardado correctamente!!")
             except Exception as e:
                 messages.error(request, f"Error. {e}")
@@ -221,18 +216,18 @@ def pedidos_guardar(request):
         fecha = request.POST.get("fecha")
         descripcion = request.POST.get("descripcion")
         precio = request.POST.get("precio")
-        usuario_instancia = Usuario.objects.get(pk=request.POST.get("usuario"))
+        # usuario_instancia = Usuario.objects.get(pk=request.POST.get("usuario"))
 
         if id == "":
             # crear
             try:
-                pro = Pedido(
-                    nombre=fecha,
+                ped = Pedido(
+                    fecha=fecha,
                     descripcion=descripcion,
                     precio=precio,
-                    usuario=usuario_instancia
+                    # usuario=usuario_instancia
                 )
-                pro.save()
+                ped.save()
                 messages.success(request, "Guardado correctamente!!")
             except Exception as e:
                 messages.error(request, f"Error. {e}")
@@ -243,7 +238,7 @@ def pedidos_guardar(request):
                 q.fecha = fecha
                 q.descripcion = descripcion
                 q.precio = precio
-                q.usuario = usuario_instancia
+                # q.usuario = usuario_instancia
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
             except Exception as e:
@@ -268,8 +263,8 @@ def pedidos_eliminar(request, id):
 
 def pedidos_editar(request, id):
     q = Pedido.objects.get(pk=id)
-    query = Usuario.objects.all()
-    contexto = {"id": id, "data": q, "usuarios": query}
+    # query = Usuario.objects.all()
+    contexto = {"id": id, "data": q}
     return render(request, "tienda/pedidos/ped-form.html", contexto)
 
 
@@ -341,6 +336,75 @@ def usuarios_editar(request, id):
     q = Usuario.objects.get(pk=id)
     contexto = {"id": id, "data": q}
     return render(request, "tienda/usuarios/usu-form.html", contexto)
+
+
+def citas(request):
+    query = Servicio.objects.all()
+    contexto = {"data": query}
+    return render(request, "tienda/citas/citas.html", contexto)
+
+
+def citas_formulario(request):
+    return render(request, "tienda/citas/cit-form.html")
+
+
+def citas_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        fecha_hora = request.POST.get("fecha_hora")
+        servicio = Servicio.objects.get(pk=request.POST.get("servicio"))
+        precio = request.POST.get("precio")
+        cliente = Usuario.objects.get(pk=request.POST.get("usuario"), rol=3)
+
+        if id == "":
+            # crear
+            try:
+                cit = Cita(
+                    fecha_hora=fecha_hora,
+                    servicio=servicio,
+                    precio=precio,
+                    cliente=cliente,
+                )
+                cit.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Servicio.objects.get(pk=id)
+                q.fecha_hora = fecha_hora
+                q.servicio = servicio
+                q.precio = precio
+                q.cliente = cliente
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:citas", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:citas_formulario", args=()))
+
+
+def citas_eliminar(request, id):
+    try:
+        q = Cita.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:citas", args=()))
+
+
+def citas_editar(request, id):
+    q = Cita.objects.get(pk=id)
+    query = Servicio.objects.all()
+    query2 = Usuario.objects.all()
+    contexto = {"id": id, "data": q, "servicios": query, "clientes": query2}
+    return render(request, "tienda/citas/cit-form.html", contexto)
 
 
 def vacunas(request):

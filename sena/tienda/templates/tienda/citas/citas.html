@@ -1,19 +1,19 @@
 {% extends 'tienda/base.html' %}
 {% load static %}
-{% block title %}Servicios{% endblock %}
+{% block title %}Citas{% endblock %}
 {% block contenedor %}
 
     <div>
         <nav aria-label="breadcrumb" id="miga">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-              <li class="breadcrumb-item">Servicios</li>
-              <li class="breadcrumb-item active" aria-current="page">Listar servicios</li>
+              <li class="breadcrumb-item">Citas</li>
+              <li class="breadcrumb-item active" aria-current="page">Listar citas</li>
             </ol>
         </nav>
     </div>
 
-<a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}">Crear</a><br><br>
+<a class="btn btn-success m-3" href="{% url 'tienda:citas_formulario' %}">Crear</a><br><br>
 
 <form class="d-flex" role="search" method="post" action="#">
     {% csrf_token %}
@@ -28,18 +28,26 @@
 <table class="table table-hover m-3">
     <tr>
         <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
+        <th>Fecha y hora</th>
+        <th>Servicio</th>
+        <th>Precio</th>
+        <th>Cliente</th>
         <th>Acciones</th>
     </tr>
-    {% for e in data %}
+    {% for c in data %}
     <tr>
-        <td>{{ e.id }}</td>
-        <td>{{ e.nombre }}</td>
-        <td>{{ e.descripcion }}</td>
+        <td>{{ c.id }}</td>
+        <td>{{ c.fecha_hora }}</td>
+        <td>{{ c.servicio }}</td>
+        <td>{{ c.precio }}</td>
         <td>
-            <a href="{% url 'tienda:servicios_editar' e.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{{ e.id }}', '{% url 'tienda:servicios_eliminar' e.id %}?id=');"
+            {% if c.usuario.rol == 3 %}
+                {{ c.usuario.nombre }}
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'tienda:citas_editar' c.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{{ c.id }}', '{% url 'tienda:citas_eliminar' c.id %}?id=');"
                class="btn btn-danger">Eliminar</a>
         </td>
     </tr>

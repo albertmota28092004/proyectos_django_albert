@@ -16,7 +16,7 @@
         <span class="input-group-text"><i class="bi bi-hash"></i></span>
         <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
     </div>
-    <div class="input-group m-3" width="600px">
+    <div class="input-group m-3">
         <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
         <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" value="{{ data.descripcion }}">
     </div>
@@ -28,6 +28,7 @@
         <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
         <input type="number" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
     </div>
+    <!--
     <div class="input-group m-3">
         <span class="input-group-text"><i class="bi bi-bookmark"></i></span>
         <select name="usuario" class="form-control">
@@ -37,13 +38,15 @@
             {% endfor %}
         </select>
     </div>
-
+    -->
     <br>
+
     {% if id %}
     <button type="submit" class="btn btn-primary m-3">Actualizar</button>
     {% else %}
     <button type="submit" class="btn btn-primary m-3">Crear</button>
     {% endif %}
 </form>
+
 
 {% endblock %}

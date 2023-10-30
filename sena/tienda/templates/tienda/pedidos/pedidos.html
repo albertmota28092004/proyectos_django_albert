@@ -4,15 +4,15 @@
 {% block title %}Pedidos{% endblock %}
 {% block contenedor %}
 
-    <div>
-        <nav aria-label="breadcrumb" id="miga">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-              <li class="breadcrumb-item">Pedidos</li>
-              <li class="breadcrumb-item active" aria-current="page">Listar pedidos</li>
-            </ol>
-        </nav>
-    </div>
+<div>
+    <nav aria-label="breadcrumb" id="miga">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item">Pedidos</li>
+            <li class="breadcrumb-item active" aria-current="page">Listar pedidos</li>
+        </ol>
+    </nav>
+</div>
 
 <a class="btn btn-success m-3" href="{% url 'tienda:pedidos_formulario' %}">Crear</a><br><br>
 
@@ -32,7 +32,6 @@
         <th>Descripción</th>
         <th>Fecha</th>
         <th>Precio</th>
-        <th>Usuario</th>
         <th>Acciones</th>
     </tr>
     {% for p in data %}
@@ -41,7 +40,7 @@
         <td>{{ p.descripcion }}</td>
         <td>{{ p.fecha }}</td>
         <td class="text-end">${{ p.precio|intcomma }}</td>
-        <td>
+        <!--<td>
             {% if p.usuario.nombre == "Lionel" %}
                 <button type="button" class="btn btn-primary position-relative">
                     {{ p.usuario }}
@@ -53,11 +52,10 @@
             {% else %}
                 {{ p.usuario }}
             {% endif %}
-        </td>
-
+        </td>-->
         <td>
-            <a href="{% url 'tienda:pedidos_editar' e.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{% url 'tienda:pedidos_eliminar' e.id %}');"
+            <a href="{% url 'tienda:pedidos_editar' p.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{{ p.id }}', '{% url 'tienda:pedidos_eliminar' p.id %}?id=');"
                class="btn btn-danger">Eliminar</a>
         </td>
     </tr>
@@ -79,22 +77,13 @@
         </li>
     </ul>
 </nav>
-    <script>
-        function validarUsuario(){
-            let u = document.getElementById("usuario").value;
-            let c = document.getElementById("contraseña").value;
-            if (u == "admin") {
-                if (c == "admin12345") {
-                    window.open("inicioAdmin.html")
-                }
-            }
-            else if (u == "empleado") {
-                if (c == "empleado12345") {
-                    window.open("inicioEmpleado.html")
-                }
-            }
-        }
-    </script>
+<script>
+    function confirmar_eliminar(id, url) {
+    if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+        window.location.href = url + id;
+    }
+  }
+</script>
 </body>
 </html>
 {% endif %}

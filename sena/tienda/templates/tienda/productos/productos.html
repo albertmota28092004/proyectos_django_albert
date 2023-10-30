@@ -35,17 +35,16 @@
         <th>Nombre</th>
         <th class="text-end">Precio</th>
         <th>Fecha Compra</th>
-        <th>Categoria</th>
         <th>Acciones</th>
     </tr>
-    {% for i in data %}
+    {% for a in data %}
     <tr>
-        <td>{{ i.id }}</td>
-        <td>{{ i.nombre }}</td>
-        <td class="text-end">${{ i.precio|intcomma }}</td>
-        <td>{{ i.fecha_compra|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>{{ a.id }}</td>
+        <td>{{ a.nombre }}</td>
+        <td class="text-end">${{ a.precio|intcomma }}</td>
+        <td>{{ a.fecha_compra|date:"SHORT_DATE_FORMAT" }}</td>
         <td>
-            {% if i.categoria.nombre == "Carros" %}
+            <!--{% if i.categoria.nombre == "Carros" %}
                 <button type="button" class="btn btn-primary position-relative">
                     {{ i.categoria }}
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -55,11 +54,11 @@
                 </button>
             {% else %}
                 {{ i.categoria }}
-            {% endif %}
+            {% endif %}-->
         </td>
         <td>
-            <a href="{% url 'tienda:productos_editar' i.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{% url 'tienda:productos_eliminar' i.id %}');"
+            <a href="{% url 'tienda:productos_editar' a.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{{ a.id }}', '{% url 'tienda:productos_eliminar' a.id %}?id=');"
                class="btn btn-danger">Eliminar</a>
         </td>
     </tr>
@@ -86,5 +85,15 @@
     No hay registros
 </div>
 
+    <script>
+        function confirmar_eliminar(id, url) {
+            if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+                window.location.href = url + id;
+            }
+        }
+    </script>
+
+</body>
+</html>
 {% endif %}
 {% endblock %}

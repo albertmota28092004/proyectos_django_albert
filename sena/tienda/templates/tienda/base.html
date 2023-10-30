@@ -42,7 +42,7 @@
                             <a id="barra" class="nav-link dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown">Citas</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Listar categorías</a></li>
+                                <li><a class="dropdown-item" href="{% url 'tienda:citas' %}">Listar citas</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -74,7 +74,11 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'tienda:usuarios' %}">Listar usuarios</a></li>
                             </ul>
-                       </li>
+                    </li>
+
+                    {% else %}
+
+
 
                     {% endif %}
                 </ul>
@@ -224,7 +228,13 @@
         <h5><a class="nav-link" href="contactanos.html">Contáctanos</a></h5>
     </div>
   </div>
-<script src="{% static 'tienda/js/script.js' %}"></script>
+<script src="{% static 'tienda/js/script.js' %}">
+    function confirmar_eliminar(id, url) {
+        if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+            window.location.href = url + id;
+        }
+    }
+</script>
 <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
 <footer>
     <h6>+Cotitas S.A.</h6>

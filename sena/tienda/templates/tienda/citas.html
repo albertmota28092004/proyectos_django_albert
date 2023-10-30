@@ -113,13 +113,6 @@
     background-color: #8F82B7;
 
   }
-
-
-
-
-
-
-
 </style>
 <body>
 
@@ -278,10 +271,11 @@
     </div>
 </div>
 
-
-
-<script src="../js/script.js">
+<script>
   /*-----------------------------AGENDAR CITA----------------------------*/
+
+    document.getElementById("text2").style.display = "none";
+    document.getElementById("text3").style.display = "none";
 
     function validarDatos() {
         // Obtener referencias a los campos del formulario
@@ -380,8 +374,7 @@
         }
       }
 
-      document.getElementById("text2").style.display = "none";
-      document.getElementById("text3").style.display = "none";
+
 
       function siguiente() {
         let text1 = document.getElementById("text1");

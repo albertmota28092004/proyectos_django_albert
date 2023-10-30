@@ -13,7 +13,6 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ["fecha_compra"]
 
 
-
 class ServicioAdmin(admin.ModelAdmin):
     list_display = ["id", "nombre", "descripcion"]
     search_fields = ["nombre", "descripcion"]
@@ -36,10 +35,16 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ["id", "usuario", "fecha", "descripcion", "precio"]
+    list_display = ["id", "fecha", "descripcion", "precio"]
+
+
+class CitaAdmin(admin.ModelAdmin):
+    list_display = ["id", "fecha_hora", "usuario", "servicio", "precio"]
+    search_fields = ["usuario", "servicio"]
 
 
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Pedido, PedidoAdmin)
+admin.site.register(Cita, CitaAdmin)

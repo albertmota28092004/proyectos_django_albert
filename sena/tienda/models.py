@@ -25,7 +25,7 @@ class Usuario(models.Model):
     ROLES = (
         (1, 'Administrador'),
         (2, 'Empleado'),
-        (3, 'Usuario'),
+        (3, 'Cliente'),
     )
     foto = models.ImageField(null=True, blank=True, upload_to='fotos', default='fotos/default.png')
     nombre = models.CharField(max_length=254)
@@ -42,7 +42,16 @@ class Pedido(models.Model):
     fecha = models.DateField(max_length=254)
     descripcion = models.TextField(null=True, blank=True)
     precio = models.IntegerField()
+
+    def __str__(self):
+        return self.descripcion
+
+
+class Cita(models.Model):
+    fecha_hora = models.DateTimeField(max_length=254)
+    servicio = models.ForeignKey(Servicio, on_delete=models.DO_NOTHING)
+    precio = models.IntegerField()
     usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.usuario
+        return f'{self.usuario} - {self.servicio}'

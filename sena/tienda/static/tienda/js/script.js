@@ -249,3 +249,11 @@ function validarDatos() {
       text2.style.display = "none";
       text1.style.display = "none";
     }
+  }
+
+
+  function confirmar_eliminar(id, url) {
+    if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+        window.location.href = url + id;
+    }
+  }
