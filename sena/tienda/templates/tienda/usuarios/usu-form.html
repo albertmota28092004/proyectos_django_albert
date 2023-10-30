@@ -30,7 +30,7 @@
     </div>
     <div class="input-group m-3" width="600px">
         <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Password" name="Password" value="{{ data.password }}">
+        <input type="text" class="form-control" placeholder="Password" name="password" value="{{ data.password }}">
     </div>
     <div class="input-group m-3">
         <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
@@ -38,10 +38,10 @@
     </div>
 
     <br>
-    {% if id %}
-    <button type="submit" class="btn btn-primary m-3">Actualizar</button>
+     {% if id %}
+        <button type="submit" class="btn btn-primary m-3">Actualizar</button>
     {% else %}
-    <button type="submit" class="btn btn-primary m-3">Crear</button>
+        <button type="submit" class="btn btn-primary m-3">Crear</button>
     {% endif %}
 </form>
 
