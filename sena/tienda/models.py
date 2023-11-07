@@ -48,10 +48,11 @@ class Pedido(models.Model):
 
 
 class Cita(models.Model):
+    id = models.AutoField(primary_key=True)
     fecha_hora = models.DateTimeField(max_length=254)
     servicio = models.ForeignKey(Servicio, on_delete=models.DO_NOTHING)
     precio = models.IntegerField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    cliente = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return f'{self.usuario} - {self.servicio}'

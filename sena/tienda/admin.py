@@ -39,7 +39,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
 
 class CitaAdmin(admin.ModelAdmin):
-    list_display = ["id", "fecha_hora", "usuario", "servicio", "precio"]
+    list_display = ["id", "fecha_hora", "cliente", "servicio", "precio"]
     search_fields = ["usuario", "servicio"]
 
 

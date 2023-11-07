@@ -7,11 +7,11 @@
 }
 
 body {
-    /*background-image: url("{% static 'tienda/img/banner_inicio.jpg' %}");
+    background-image: url("{% static 'tienda/img/banner_inicio.jpg' %}");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed;*/
+    background-attachment: fixed;
     background-color: #000000;
 }
 

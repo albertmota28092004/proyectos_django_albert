@@ -339,14 +339,21 @@ def usuarios_editar(request, id):
 
 
 def citas(request):
-    query = Servicio.objects.all()
+    query = Cita.objects.all()
     contexto = {"data": query}
     return render(request, "tienda/citas/citas.html", contexto)
 
 
 def citas_formulario(request):
-    return render(request, "tienda/citas/cit-form.html")
+    servicio = Servicio.objects.all()  # Obtén la lista de servicios
+    usuario = Usuario.objects.filter(rol=3)  # Filtra los usuarios con rol 3 (clientes)
 
+    context = {
+        'servicio': servicio,
+        'usuario': usuario,
+    }
+
+    return render(request, "tienda/citas/cit-form.html", context)
 
 def citas_guardar(request):
     if request.method == "POST":
@@ -372,7 +379,7 @@ def citas_guardar(request):
         else:
             # actualizar
             try:
-                q = Servicio.objects.get(pk=id)
+                q = Cita.objects.get(pk=id)
                 q.fecha_hora = fecha_hora
                 q.servicio = servicio
                 q.precio = precio

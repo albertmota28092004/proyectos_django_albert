@@ -38,10 +38,10 @@
     <tr>
         <td>{{ c.id }}</td>
         <td>{{ c.fecha_hora }}</td>
-        <td>{{ c.servicio }}</td>
+        <td>{{ c.servicio.descripcion }}</td>
         <td>{{ c.precio }}</td>
         <td>
-            {% if c.usuario.rol == 3 %}
+            {% if c.usuario %}
                 {{ c.usuario.nombre }}
             {% endif %}
         </td>
