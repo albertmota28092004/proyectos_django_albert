@@ -79,7 +79,6 @@
                     {% else %}
 
 
-
                     {% endif %}
                 </ul>
             </div>
@@ -87,9 +86,9 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item dropdown dropstart">
                         <a id="barra" class="navbar-brand" href="#" role="button"
-                           data-bs-toggle="dropdown" style="z-index:1;" width="100px"><img src="{{ request.session.logueo.foto }}" width="100px" height="100px" style="border-radius:100px;"></a>
+                           data-bs-toggle="dropdown" style="" width="100px"><img src="{{ request.session.logueo.foto }}" width="100px" height="100px" style="border-radius:100px;"></a>
                         <h6>{{ request.session.logueo.nombre }} </h6>
-                        <ul class="dropdown-menu" style="border:0px solid transparent;">
+                        <ul class="dropdown-menu" style="border:0px solid transparent; margin-top: 70px; border-radius: 50px 0px 50px 50px; border: 2px solid black; padding: 25px;">
                             <li><h6 style="font-size: 20px; text-align: center;">{% if request.session.logueo.nombre_rol == "Administrador" %}{{ request.session.logueo.nombre_rol }} {% endif %}</h6></li>
                             <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 20px;">Cerrar Sesión</a></li>
                         </ul>
