@@ -1,0 +1,16 @@
+{% load humanize %}
+{% if datos %}
+{% for i in datos %}
+<div id="producto_carrito">
+    <img src="{{ i.foto }}" style="width: 100px; height: 100px; ">
+    <div style="margin-left: 10px">
+        <h2 style="font-size: 20px; font-weight: bold">{{ i.nombre }}</h2>
+        <h6>$ {{ i.precio|intcomma }}</h6>
+        <input type="number" value="{{ i.cantidad }}"
+               style="border: 2px solid #dadada !important; border: 2px solid black; width: 40px; text-align: center !important; ">
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>Carrito Vacío</p>
+{% endif %}

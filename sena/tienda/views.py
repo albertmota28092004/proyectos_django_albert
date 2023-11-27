@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from .models import *
@@ -70,6 +70,7 @@ def login(request):
 def logout(request):
     try:
         del request.session["logueo"]
+        del request.session["carrito"]
         messages.success(request, "Cesión cerrada correctamente")
     except Exception as e:
         messages.error(request, f"Error: {e}")
@@ -529,3 +530,48 @@ def ver_perfil(request):
     q = Usuario.objects.get(pk=usuario["id"])
     contexto = {"data": q}
     return render(request, "tienda/usuarios/perfil.html", contexto)
+
+
+def carrito_agregar(request):
+    if request.method == "POST":
+        id_producto = request.POST.get("id")
+        cantidad = int(request.POST.get("cantidad"))
+
+        if not request.session.get("carrito", False):
+            request.session["carrito"] = []
+
+        carrito = request.session.get("carrito", False)
+
+        encontrado = False
+        for p in carrito :
+            if p["id"] == id_producto:
+                encontrado = True
+                # Si existe, incrementamos la cantidad
+                p["cantidad"] += cantidad
+                messages.success(request, "Producto ya en carrito, se incrementa la cantidad!!")
+                break
+
+        if not encontrado:
+            # Si no existe, agrego el elemento completo, es decir, el diccionario
+            carrito.append({ "id": id_producto,"cantidad": cantidad})
+            messages.success(request, "Producto agregado al carrito!!")
+
+        # Sobreescribo la sesión
+        request.session["carrito"] = carrito
+        print(carrito)
+    else:
+        messages.warning(request, "No se enviarion datos...")
+
+    return redirect("tienda:catalogo")
+
+def carrito_listar(request):
+    carrito = request.session.get("carrito", False)
+    if carrito:
+        for p in carrito:
+            query = Producto.objects.get(pk=p["id"])
+            p["nombre"] = query.nombre
+            p["precio"] = query.precio
+            p["foto"] = query.foto.url
+
+    contexto = {"datos": carrito}
+    return render(request, "tienda/catalogo/listar_carrito.html", contexto)

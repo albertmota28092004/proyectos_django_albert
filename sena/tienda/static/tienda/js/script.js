@@ -249,3 +249,26 @@ function validarDatos() {
       text2.style.display = "none";
       text1.style.display = "none";
     }
+   }
+
+  function ver_carrito(url_django){
+        $.ajax({
+            url: url_django
+        })
+        .fail(function( result ) {
+            alert("Error: " + result);
+        })
+        .done(function( result ) {
+            cuerpo = $('#respuesta_carrito');
+            // Sobreescribir el contenido del offcanvas
+            cuerpo.html(result)
+            // Mostrar el OffCanvas
+            const myOffcanvas = $('#offcanvasRight');
+            myOffcanvas.offcanvas('toggle');
+        });
+
+
+  }
+
+
+

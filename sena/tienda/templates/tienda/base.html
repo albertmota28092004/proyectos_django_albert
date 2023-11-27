@@ -22,7 +22,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'tienda/favicon_io/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'tienda/favicon_io/site.webmanifest' %}">
 
-    <script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
 </head>
 
 <body>
@@ -179,8 +178,28 @@
 </div>
 {% endfor %}
 {% endif %}
+
+<button class="btn btn-primary" type="button" aria-controls="offcanvasRight"
+        onclick="ver_carrito(`{% url 'tienda:carrito_listar' %}`)">Carrito
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito de compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" id="respuesta_carrito">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
 {% block contenedor %}
 {% endblock %}
+
+
+
 <!---------------- Modales ---------------->
 
 <!-- The Modal Compra-->
@@ -244,6 +263,10 @@
     <h6>Todos los derechos reservados ®</h6>
     <h6><i class="bi bi-whatsapp"></i>+57 304 5318796 <i class="bi bi-instagram"></i> mas_cotitas</h6>
 </footer>
+
+<script src="{% static 'tienda/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'tienda/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'tienda/js/script.js' %}"></script>
 
 </body>
 </html>
