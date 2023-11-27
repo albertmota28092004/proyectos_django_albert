@@ -1,0 +1,53 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+{% block title %} Crear Cita {% endblock %}
+{% block contenedor %}
+
+{% if id %}
+    <h3>Editar: {{ data.id }}</h3>
+{% else %}
+    <h3 class="m-3">Crear: </h3>
+{% endif %}
+
+<br> <br>
+<form method="post" action="{% url 'tienda:citas_guardar' %}" class="forms">
+    {% csrf_token %}
+    {% if id %}
+        <input type="hidden" name="id" value="{{ data.id }}">
+    {% endif %}
+    <div class="mb-3">
+        <label class="form-label">Fecha y hora</label>
+        <input type="datetime-local" class="form-control" placeholder="Fecha y hora" name="fecha_hora" value="{{ data.fecha_hora|date:'Y-m-d\TH:i' }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Servicio</label>
+        <select name="servicio" class="form-control">
+            <option value="">Seleccione:</option>
+            {% for s in servicio %}
+                <option value="{{ s.id }}" {% if data.servicio.id == s.id %}selected{% endif %}>{{ s.descripcion }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Cliente</label>
+        <select name="usuario" class="form-control">
+            <option value="">Seleccione:</option>
+            {% for u in usuario %}
+                <option value="{{ u.id }}" {% if data.usuario.id == u.id %}selected{% endif %}>{{ u.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br>
+
+    {% if id %}
+    <button type="submit" class="btn btn-primary m-3 boton_guardar_formulario">Actualizar</button>
+    {% else %}
+    <button type="submit" class="btn btn-primary m-3 boton_guardar_formulario">Crear</button>
+    {% endif %}
+</form>
+
+{% endblock %}

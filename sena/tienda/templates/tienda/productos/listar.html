@@ -35,7 +35,7 @@
         <th>Nombre</th>
         <th class="text-end">Precio</th>
         <th>Fecha Compra</th>
-        <th>Categoria</th>
+        <th>Foto</th>
         <th>Acciones</th>
     </tr>
     {% for i in data %}
@@ -45,7 +45,8 @@
         <td class="text-end">${{ i.precio|intcomma }}</td>
         <td>{{ i.fecha_compra|date:"SHORT_DATE_FORMAT" }}</td>
         <td>
-            {% if i.categoria.nombre == "Carros" %}
+            {{ i.foto }}
+            <!--{% if i.categoria.nombre == "Carros" %}
                 <button type="button" class="btn btn-primary position-relative">
                     {{ i.categoria }}
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -55,7 +56,7 @@
                 </button>
             {% else %}
                 {{ i.categoria }}
-            {% endif %}
+            {% endif %}-->
         </td>
         <td>
             <a href="{% url 'tienda:productos_editar' i.id %}" class="btn btn-info">Editar</a>

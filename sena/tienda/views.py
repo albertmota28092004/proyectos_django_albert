@@ -15,6 +15,23 @@ def index(request):
         return HttpResponseRedirect(reverse("tienda:login"))
 
 
+def catalogo(request):
+    if request.session.get("logueo", False):
+        c = Categoria.objects.all()
+
+        filtro_categoria = request.GET.get("id")
+
+        if filtro_categoria != None and filtro_categoria != '0':
+            p = Producto.objects.filter(categoria_id=filtro_categoria)
+        else:
+            p = Producto.objects.all()
+
+        contexto = {"categorias": c, "productos": p}
+        return render(request, "tienda/catalogo/catalogo.html", contexto)
+    else:
+        return HttpResponseRedirect(reverse("tienda:catalogo"))
+
+
 def index2(request):
     return render(request, "tienda/index2.html")
 
@@ -73,6 +90,67 @@ def inicioAdmin(request):
     else:
         messages.warning(request, "No se enviaron datos...")
     return HttpResponseRedirect(reverse("tienda:alimento", args=()))"""
+
+
+def categorias(request):
+    query = Categoria.objects.all()
+    context = {"data": query}
+    return render(request, "tienda/categorias/categorias.html", context)
+
+
+def categorias_formulario(request):
+    return render(request, "tienda/categorias/cat-form.html")
+
+
+def categorias_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        nombre = request.POST.get("nombre")
+        descripcion = request.POST.get("descripcion")
+
+        if id == "":
+            # crear
+            try:
+                pro = Categoria(
+                    nombre=nombre,
+                    descripcion=descripcion
+                )
+                pro.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Categoria.objects.get(pk=id)
+                q.nombre = nombre
+                q.descripcion = descripcion
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:categorias", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:categorias_formulario", args=()))
+
+
+def categorias_eliminar(request, id):
+    try:
+        q = Categoria.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:categorias", args=()))
+
+
+def categorias_editar(request, id):
+    q = Categoria.objects.get(pk=id)
+    contexto = {"id": id, "data": q}
+    return render(request, "tienda/categorias/cat-form.html", contexto)
 
 
 def productos(request):
@@ -335,6 +413,83 @@ def usuarios_eliminar(request, id):
     return HttpResponseRedirect(reverse("tienda:usuarios", args=()))
 
 
+def citas(request):
+    query = Cita.objects.all()
+    contexto = {"data": query}
+    return render(request, "tienda/citas/citas.html", contexto)
+
+
+def citas_formulario(request):
+    servicio = Servicio.objects.all()  # Obtén la lista de servicios
+    usuario = Usuario.objects.filter(rol=3)  # Filtra los usuarios con rol 3 (clientes)
+
+    context = {
+        'servicio': servicio,
+        'usuario': usuario,
+    }
+
+    return render(request, "tienda/citas/cit-form.html", context)
+
+
+def citas_guardar(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        fecha_hora = request.POST.get("fecha_hora")
+        servicio = Servicio.objects.get(pk=request.POST.get("servicio"))
+        precio = request.POST.get("precio")
+        cliente = Usuario.objects.get(pk=request.POST.get("usuario"), rol=3)
+
+        if id == "":
+            # crear
+            try:
+                cit = Cita(
+                    fecha_hora=fecha_hora,
+                    servicio=servicio,
+                    precio=precio,
+                    cliente=cliente,
+                )
+                cit.save()
+                messages.success(request, "Guardado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+        else:
+            # actualizar
+            try:
+                q = Cita.objects.get(pk=id)
+                q.fecha_hora = fecha_hora
+                q.servicio = servicio
+                q.precio = precio
+                q.cliente = cliente
+                q.save()
+                messages.success(request, "Actualizado correctamente!!")
+            except Exception as e:
+                messages.error(request, f"Error. {e}")
+
+        return HttpResponseRedirect(reverse("tienda:citas", args=()))
+
+    else:
+        messages.warning(request, "No se enviarion datos...")
+        return HttpResponseRedirect(reverse("tienda:citas_formulario", args=()))
+
+
+def citas_eliminar(request, id):
+    try:
+        q = Cita.objects.get(pk=id)
+        q.delete()
+        messages.success(request, "Eliminado correctamente!!")
+    except Exception as e:
+        messages.error(request, f"Error. {e}")
+    return HttpResponseRedirect(reverse("tienda:citas", args=()))
+
+
+def citas_editar(request, id):
+    q = Cita.objects.get(pk=id)
+    query = Servicio.objects.all()
+    query2 = Usuario.objects.all()
+    contexto = {"id": id, "data": q, "servicios": query, "clientes": query2}
+    return render(request, "tienda/citas/cit-form.html", contexto)
+
+
 def usuarios_editar(request, id):
     q = Usuario.objects.get(pk=id)
     contexto = {"id": id, "data": q}
@@ -367,3 +522,10 @@ def patrocinios(request):
 
 def contactanos(request):
     return render(request, "tienda/categorias_inicio/contactanos/contactanos.html")
+
+
+def ver_perfil(request):
+    usuario = request.session.get("logueo", False)
+    q = Usuario.objects.get(pk=usuario["id"])
+    contexto = {"data": q}
+    return render(request, "tienda/usuarios/perfil.html", contexto)

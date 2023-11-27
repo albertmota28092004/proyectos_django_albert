@@ -10,26 +10,25 @@
 {% endif %}
 
 <br> <br>
-<form method="post" action="{% url 'tienda:pedidos_guardar' %}">
+<form method="post" action="{% url 'tienda:pedidos_guardar' %}" class="forms">
     {% csrf_token %}
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-hash"></i></span>
-        <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
+    {% if id %}
+        <input type="hidden" name="id" value="{{ data.id }}">
+    {% endif %}
+    <div class="mb-3">
+        <label class="form-label">Descripción:</label>
+        <input type="text" class="form-control" placeholder="Descripción" name="descripcion" value="{{ data.descripcion }}">
     </div>
-    <div class="input-group m-3" width="600px">
-        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" value="{{ data.descripcion }}">
+    <div class="mb-3">
+        <label class="form-label">Fecha:</label>
+        <input type="text" class="form-control" placeholder="Fecha" name="fecha" value="{{ data.fecha|date:'Y-m-d' }}">
     </div>
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-        <input type="date" class="form-control" placeholder="Fecha" name="fecha" value="{{ data.fecha|date:'Y-m-d' }}">
+    <div class="mb-3">
+        <label class="form-label">Precio:</label>
+        <input type="text" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
     </div>
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-        <input type="number" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
-    </div>
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-bookmark"></i></span>
+    <div class=" ">
+        <label class="form-label">Cliente:</label>
         <select name="usuario" class="form-control">
             <option value="">Seleccione:</option>
             {% for u in usuarios %}
@@ -40,9 +39,9 @@
 
     <br>
     {% if id %}
-    <button type="submit" class="btn btn-primary m-3">Actualizar</button>
+    <button type="submit" class="btn btn-primary m-3 boton_guardar_formulario">Actualizar</button>
     {% else %}
-    <button type="submit" class="btn btn-primary m-3">Crear</button>
+    <button type="submit" class="btn btn-primary m-3 boton_guardar_formulario">Crear</button>
     {% endif %}
 </form>
 

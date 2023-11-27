@@ -6,11 +6,22 @@ from django.utils.html import mark_safe
 from .models import *
 
 
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ["id", "nombre", "descripcion"]
+    search_fields = ["nombre", "descripcion"]
+
+
 class ProductoAdmin(admin.ModelAdmin):
-    fields = ["nombre", "precio", "fecha_compra"]
-    list_display = ["id", "nombre", "precio", "fecha_compra"]
+    fields = ["nombre", "precio", "fecha_compra", "stock", "foto", "categoria"]
+    list_display = ["id", "nombre", "precio", "fecha_compra", "stock", "foto", "foto_producto", "categoria"]
     search_fields = ["nombre"]
     list_filter = ["fecha_compra"]
+
+    def foto_producto(self, obj):
+        try:
+            return mark_safe(f"<img src='{obj.foto.url}' style='width:20%;'>")
+        except Exception as e:
+            return f"Error, el archivo fue eliminado."
 
 
 class ServicioAdmin(admin.ModelAdmin):
@@ -38,7 +49,14 @@ class PedidoAdmin(admin.ModelAdmin):
     list_display = ["id", "usuario", "fecha", "descripcion", "precio"]
 
 
+class CitaAdmin(admin.ModelAdmin):
+    list_display = ["id", "fecha_hora", "cliente", "servicio", "precio"]
+    search_fields = ["usuario", "servicio"]
+
+
+admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Pedido, PedidoAdmin)
+admin.site.register(Cita, CitaAdmin)
