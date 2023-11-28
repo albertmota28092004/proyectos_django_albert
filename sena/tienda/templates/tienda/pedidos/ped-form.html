@@ -27,12 +27,12 @@
         <label class="form-label">Precio:</label>
         <input type="text" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
     </div>
-    <div class=" ">
-        <label class="form-label">Cliente:</label>
+    <div class="mb-3">
+        <label class="form-label">Cliente</label>
         <select name="usuario" class="form-control">
             <option value="">Seleccione:</option>
-            {% for u in usuarios %}
-                <option value="{{ u.id }}" {% if data.usuario.id == u.id %}selected=""{% endif %}>{{ u.nombre }}</option>
+            {% for u in usuario %}
+                <option value="{{ u.id }}" {% if data.usuario.id == u.id %}selected{% endif %}>{{ u.nombre }}</option>
             {% endfor %}
         </select>
     </div>

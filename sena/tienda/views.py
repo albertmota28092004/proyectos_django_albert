@@ -161,7 +161,12 @@ def productos(request):
 
 
 def productos_formulario(request):
-    return render(request, "tienda/productos/pro-form.html")
+    categoria = Categoria.objects.all()
+
+    context = {
+        'categoria': categoria
+    }
+    return render(request, "tienda/productos/pro-form.html", context)
 
 
 def productos_guardar(request):
@@ -170,6 +175,7 @@ def productos_guardar(request):
         nombre = request.POST.get("nombre")
         precio = request.POST.get("precio")
         fecha_compra = request.POST.get("fecha_compra")
+        categoria = Categoria.objects.get(pk=request.POST.get("categoria"))
 
         if id == "":
             # crear
@@ -177,7 +183,8 @@ def productos_guardar(request):
                 pro = Producto(
                     nombre=nombre,
                     precio=precio,
-                    fecha_compra=fecha_compra
+                    fecha_compra=fecha_compra,
+                    categoria=categoria
                 )
                 pro.save()
                 messages.success(request, "Guardado correctamente!!")
@@ -190,6 +197,7 @@ def productos_guardar(request):
                 q.nombre = nombre
                 q.precio = precio
                 q.fecha_compra = fecha_compra
+                q.categoria = categoria
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
             except Exception as e:
@@ -214,7 +222,8 @@ def productos_eliminar(request, id):
 
 def productos_editar(request, id):
     q = Producto.objects.get(pk=id)
-    contexto = {"id": id, "data": q}
+    query = Categoria.objects.all()
+    contexto = {"id": id, "data": q, "categoria": query}
     return render(request, "tienda/productos/pro-form.html", contexto)
 
 
@@ -286,7 +295,12 @@ def pedidos(request):
 
 
 def pedidos_formulario(request):
-    return render(request, "tienda/pedidos/ped-form.html")
+    usuario = Usuario.objects.filter(rol=3)
+
+    context = {
+        'usuario': usuario
+    }
+    return render(request, "tienda/pedidos/ped-form.html", context)
 
 
 def pedidos_guardar(request):
@@ -295,7 +309,7 @@ def pedidos_guardar(request):
         fecha = request.POST.get("fecha")
         descripcion = request.POST.get("descripcion")
         precio = request.POST.get("precio")
-        usuario_instancia = Usuario.objects.get(pk=request.POST.get("usuario"))
+        cliente = Usuario.objects.get(pk=request.POST.get("usuario"), rol=3)
 
         if id == "":
             # crear
@@ -304,7 +318,7 @@ def pedidos_guardar(request):
                     nombre=fecha,
                     descripcion=descripcion,
                     precio=precio,
-                    usuario=usuario_instancia
+                    cliente=cliente,
                 )
                 pro.save()
                 messages.success(request, "Guardado correctamente!!")
@@ -317,7 +331,7 @@ def pedidos_guardar(request):
                 q.fecha = fecha
                 q.descripcion = descripcion
                 q.precio = precio
-                q.usuario = usuario_instancia
+                q.cliente = cliente
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
             except Exception as e:
@@ -343,7 +357,7 @@ def pedidos_eliminar(request, id):
 def pedidos_editar(request, id):
     q = Pedido.objects.get(pk=id)
     query = Usuario.objects.all()
-    contexto = {"id": id, "data": q, "usuarios": query}
+    contexto = {"id": id, "data": q, "clientes": query}
     return render(request, "tienda/pedidos/ped-form.html", contexto)
 
 
