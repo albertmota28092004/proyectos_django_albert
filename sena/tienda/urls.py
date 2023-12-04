@@ -9,7 +9,7 @@ urlpatterns = [
     path("index2/", views.index2, name="index2"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
-    path("catalogo/", views.catalogo, name="catalogo"),
+    path("catalogo/<str:abrir_off_canva>/", views.catalogo, name="catalogo"),
     path("agendarcita/", views.agendarcita, name="agendarcita"),
     path("inicioAdmin/", views.inicioAdmin, name="inicioAdmin"),
     path("categorias/", views.categorias, name="categorias"),
@@ -55,5 +55,6 @@ urlpatterns = [
     # Carrito de compras...
     path("carrito_agregar/", views.carrito_agregar, name="carrito_agregar"),
     path("carrito_listar/", views.carrito_listar, name="carrito_listar"),
+    path("carrito_eliminar_producto/<int:id>", views.carrito_eliminar_producto, name="carrito_eliminar_producto"),
 
 ]

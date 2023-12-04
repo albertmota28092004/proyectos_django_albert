@@ -15,7 +15,11 @@ def index(request):
         return HttpResponseRedirect(reverse("tienda:login"))
 
 
-def catalogo(request):
+def catalogo(request, abrir_off_canva=False):
+    if abrir_off_canva == "si":
+        print("Sí abrir")
+    else:
+        print("No abrir")
     if request.session.get("logueo", False):
         c = Categoria.objects.all()
 
@@ -23,13 +27,15 @@ def catalogo(request):
 
         if filtro_categoria != None and filtro_categoria != '0':
             p = Producto.objects.filter(categoria_id=filtro_categoria)
+            request.session["submenu"] = int(filtro_categoria)
         else:
             p = Producto.objects.all()
+            request.session["submenu"] = 0
 
         contexto = {"categorias": c, "productos": p}
         return render(request, "tienda/catalogo/catalogo.html", contexto)
     else:
-        return HttpResponseRedirect(reverse("tienda:catalogo"))
+        return HttpResponseRedirect(reverse("tienda:login"))
 
 
 def index2(request):
@@ -68,9 +74,12 @@ def login(request):
 
 
 def logout(request):
+    carrito = request.session.get("carrito", False)
     try:
         del request.session["logueo"]
-        del request.session["carrito"]
+        if carrito:
+            del request.session["carrito"]
+            del request.session["cantidad_productos"]
         messages.success(request, "Cesión cerrada correctamente")
     except Exception as e:
         messages.error(request, f"Error: {e}")
@@ -553,11 +562,12 @@ def carrito_agregar(request):
 
         if not request.session.get("carrito", False):
             request.session["carrito"] = []
+            request.session["cantidad_productos"] = 0
 
         carrito = request.session.get("carrito", False)
 
         encontrado = False
-        for p in carrito :
+        for p in carrito:
             if p["id"] == id_producto:
                 encontrado = True
                 # Si existe, incrementamos la cantidad
@@ -567,16 +577,18 @@ def carrito_agregar(request):
 
         if not encontrado:
             # Si no existe, agrego el elemento completo, es decir, el diccionario
-            carrito.append({ "id": id_producto,"cantidad": cantidad})
+            carrito.append({"id": id_producto, "cantidad": cantidad})
             messages.success(request, "Producto agregado al carrito!!")
 
         # Sobreescribo la sesión
         request.session["carrito"] = carrito
+        request.session["cantidad_productos"] = len(request.session["carrito"])
         print(carrito)
     else:
         messages.warning(request, "No se enviarion datos...")
 
-    return redirect("tienda:catalogo")
+    return redirect("tienda:catalogo", abrir_off_canva="si")
+
 
 def carrito_listar(request):
     carrito = request.session.get("carrito", False)
@@ -586,6 +598,35 @@ def carrito_listar(request):
             p["nombre"] = query.nombre
             p["precio"] = query.precio
             p["foto"] = query.foto.url
+            p["subtotal"] = p["cantidad"] * query.precio
 
     contexto = {"datos": carrito}
     return render(request, "tienda/catalogo/listar_carrito.html", contexto)
+
+
+def carrito_eliminar_producto(request, id):
+    if request.method == "GET":
+        carrito = request.session.get("carrito", False)
+        if carrito:
+            if int(id) == 0:
+                carrito.clear()
+            else:
+                encontrado = False
+                cont = 0
+                for p in carrito:
+                    if int(p["id"]) == id:
+                        encontrado = True
+                        # Sí existe, lo eliminamos
+                        carrito.remove(p)
+                        messages.success(request, "Producto eliminado!!")
+                        break
+                    cont += 1
+
+            request.session["carrito"] = carrito
+            request.session["cantidad_productos"] = len(request.session["carrito"])
+        else:
+            messages.warning(request, "Carrito vacío...")
+    else:
+        messages.warning(request, "No se enviaron datos...")
+
+    return redirect("tienda:catalogo", abrir_off_canva='si')

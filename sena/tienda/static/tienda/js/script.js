@@ -61,7 +61,7 @@ function customAlert() {
     document.body.appendChild(overlay);
 }
 
-
+/*
 fetch('base.html')
 .then(response => response.text())
 .then(data => {
@@ -72,7 +72,7 @@ fetch('base_admin.html')
 .then(response => response.text())
 .then(data => {
     document.getElementById('base-container_admin').innerHTML = data;
-});
+});*/
 
 document.addEventListener("DOMContentLoaded", function () {
     const especieSelect = document.getElementById("especie");
@@ -200,8 +200,8 @@ function validarDatos() {
     }
   }
 
-  document.getElementById("text2").style.display = "none";
-  document.getElementById("text3").style.display = "none";
+  /*document.getElementById("text2").style.display = "none";
+  document.getElementById("text3").style.display = "none";*/
 
   function siguiente() {
     let text1 = document.getElementById("text1");
@@ -267,8 +267,18 @@ function validarDatos() {
             myOffcanvas.offcanvas('toggle');
         });
 
-
   }
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    // abrir off canvas en caso especial después de agregar producto
+    var pathname = window.location.pathname;
+    pathname = pathname.split("/")
+    if (pathname[2] == "si"){
+        ver_carrito("/carrito_listar/")
+    }
+});
+
 
 
 

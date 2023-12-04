@@ -10,23 +10,22 @@
         <div class="row align-items-start">
             <div class="col col-3">
                 <div class="list-group categorias_catalogo" style="width: 180px; margin-left: -70px; margin-top: 80px">
-                    <a href="{% url 'tienda:catalogo' %}?id=0" class="list-group-item list-group-item-action list-group-item-warning active" aria-current="true">
+                    <a href="{% url 'tienda:catalogo' 'no' %}?id=0" class="list-group-item list-group-item-action list-group-item-warning active" aria-current="true">
                         Todos
                     </a>
                     {% for c in categorias %}
-                        <a href="{% url 'tienda:catalogo' %}?id={{ c.id }}" class="list-group-item list-group-item-action list-group-item-warning {% if request.session.submenu == 0 %}active{% endif %} ">{{ c.nombre }}</a>
+                        <a href="{% url 'tienda:catalogo' 'no' %}?id={{ c.id }}" class="list-group-item list-group-item-action list-group-item-warning {% if request.session.submenu == 0 %}active{% endif %} ">{{ c.nombre }}</a>
                     {% endfor %}
                 </div>
             </div>
             <div class="col col-9">
                 <div class="card contenedor_productos_catalogo" style="width: 1092px !important; margin-left: -200px;">
-                    <h5 class="card-header">Categoría....</h5>
+                    <h5 class="card-header">Catálogo</h5>
                     <div class="card-body">
                         {% for p in productos %}
                             {% if forloop.first %}
                                 <div class="row">
                             {% endif %}
-
                                 <div class="card" style="width: 18rem; float:left;">
                                     <img src="{{ p.foto.url }}" class="card-img-top" alt="..." >
                                     <div class="card-body">
