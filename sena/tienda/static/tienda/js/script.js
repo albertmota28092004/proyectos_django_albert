@@ -279,6 +279,27 @@ $( document ).ready(function() {
     }
 });
 
+/*--------------------------------------*/
+
+function actualizar_totales(id, cantidad, precio){
+    console.log(`Id producto ${id} - Cantidad ${cantidad} - Precio ${precio}`)
+
+    id_subtotal = document.getElementById("subtotal_"+id)
+    total_carrito = document.getElementById("total_carrito")
+
+    id_subtotal.innerHTML = "$"+ (cantidad * precio).toLocaleString()
+
+    precios = document.getElementsByName("precios")
+    cantidades = document.getElementsByName("cantidades")
+
+    total = 0
+    for (obj=0; obj < precios.length; obj++){
+        total = total + (precios[obj].value * cantidades[obj].value);
+    }
+
+    total_carrito.innerHTML = total.toLocaleString()
+}
+
 
 
 

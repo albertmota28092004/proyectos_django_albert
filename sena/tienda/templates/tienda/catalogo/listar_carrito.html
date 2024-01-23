@@ -4,10 +4,13 @@
 <div id="producto_carrito" style="position: relative; border: 1px solid #dadada; padding: 10px; margin: 10px;">
     <img src="{{ i.foto }}" style="width: 100px; height: 100px; ">
     <div style="margin-left: 10px">
+        <input type="hidden" name="id" value="{{ i.id }}">
+        <input type="hidden" name="precios" value="{{ i.precio }}" style="width:100px;">
         <h2 style="font-size: 20px; font-weight: bold">{{ i.nombre }}</h2>
-        <h6 id="precio_producto">$ {{ i.subtotal|intcomma }}</h6>
-        <input type="number" value="{{ i.cantidad }}"
-               style="border: 2px solid #dadada !important; border: 2px solid black; width: 40px; text-align: center !important; ">
+        <h6 id="subtotal_{{ i.id }}">$ {{ i.subtotal|intcomma }}</h6>
+        <!--<input type="hidden" id="subtotal_memoria_bruto{{ i.id }}" value="{{ total }}">-->
+        <input type="number" min="1" max="{{ i.stock }}" name="cantidades" onchange="actualizar_totales({{ i.id }}, this.value, {{ i.precio }})" onkeyup="actualizar_totales({{ i.id }}, this.value), {{ i.precio }}" value="{{ i.cantidad }}"
+               style="border: 2px solid #dadada !important; border: 2px solid black; width: 60px; text-align: center !important; ">
     </div>
     <div style="position: absolute; top: 0; right: 5px;">
         <a href="{% url 'tienda:carrito_eliminar_producto' i.id %}" style="color: black; text-decoration: none;">X</a>
@@ -15,7 +18,8 @@
 </div>
 
 {% endfor %}
-<h4>Total: {{ i.total }}</h4>
+<!--<input type="hidden" id="total_carrito_bruto" value="{{ total }}">-->
+<h6 id="total_carrito">Total: $<span id="total_carrito">{{ total|intcomma }}</span></h6>
 {% else %}
 <p>Carrito Vacío</p>
 
