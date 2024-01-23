@@ -297,7 +297,7 @@ function actualizar_totales(id, cantidad, precio){
         total = total + (precios[obj].value * cantidades[obj].value);
     }
 
-    total_carrito.innerHTML = total.toLocaleString()
+    total_carrito.innerHTML = `Total: $${total.toLocaleString()}`
 }
 
 
