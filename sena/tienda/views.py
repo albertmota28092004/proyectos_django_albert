@@ -599,6 +599,31 @@ def carrito_agregar(request):
 
     return redirect("tienda:catalogo", abrir_off_canva="si")
 
+def carrito_actualizar(request):
+    if request.method == "GET":
+        id_producto = request.GET.get("id")
+        cantidad = int(request.GET.get("cantidad"))
+
+        carrito = request.session.get("carrito", False)
+
+        #Buscar producto para obtener stock
+        pro = Producto.objects.get(pk=id_producto)
+
+        encontrado = False
+        for p in carrito:
+            if p["id"] == id_producto:
+                encontrado = True
+                # Si existe y no supera el stock, incrementamos la cantidad
+                if cantidad > 0 and (p["cantidad"] + cantidad) <= pro.stock:
+                    p["cantidad"] = cantidad
+                break
+
+        # Sobreescribo la sesión
+        request.session["carrito"] = carrito
+        return HttpResponse("OK")
+    else:
+        messages.warning("No se enviarion datos...")
+        return HttpResponse("Error")
 
 def carrito_listar(request):
     carrito = request.session.get("carrito", False)
@@ -609,6 +634,7 @@ def carrito_listar(request):
             p["nombre"] = query.nombre
             p["precio"] = query.precio
             p["foto"] = query.foto.url
+            p["stock"] = query.stock
             p["subtotal"] = p["cantidad"] * query.precio
             total += p["subtotal"]
 

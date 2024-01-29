@@ -12,7 +12,7 @@
     <link href="{% static 'tienda/css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'tienda/css/styles2.css' %}" rel="stylesheet">
     <link href="{% static 'tienda/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'tienda/icons-main/font/bootstrap-icons.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -192,6 +192,11 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito de compras ({{ request.session.cantidad_productos|default:0 }})</h5>
+        <span id="loading_cc" class="d-none">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </span>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body" id="respuesta_carrito">

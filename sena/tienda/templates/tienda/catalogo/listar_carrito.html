@@ -9,7 +9,10 @@
         <h2 style="font-size: 20px; font-weight: bold">{{ i.nombre }}</h2>
         <h6 id="subtotal_{{ i.id }}">$ {{ i.subtotal|intcomma }}</h6>
         <!--<input type="hidden" id="subtotal_memoria_bruto{{ i.id }}" value="{{ total }}">-->
-        <input type="number" min="1" max="{{ i.stock }}" name="cantidades" onchange="actualizar_totales({{ i.id }}, this.value, {{ i.precio }})" onkeyup="actualizar_totales({{ i.id }}, this.value), {{ i.precio }}" value="{{ i.cantidad }}"
+        <input type="number" min="1" max="{{ i.stock }}" name="cantidades"
+               onchange="actualizar_totales({{ i.id }}, this.value, {{ i.precio }}); actualizar_carrito(`{% url 'tienda:carrito_actualizar' %}`, {{ i.id }}, this.value);"
+               onkeyup="actualizar_totales({{ i.id }}, this.value, {{ i.precio }}); actualizar_carrito(`{% url 'tienda:carrito_actualizar' %}`, {{ i.id }}, this.value);"
+               value="{{ i.cantidad }}"
                style="border: 2px solid #dadada !important; border: 2px solid black; width: 60px; text-align: center !important; ">
     </div>
     <div style="position: absolute; top: 0; right: 5px;">

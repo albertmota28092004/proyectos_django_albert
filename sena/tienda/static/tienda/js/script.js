@@ -74,7 +74,7 @@ fetch('base_admin.html')
     document.getElementById('base-container_admin').innerHTML = data;
 });*/
 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     const especieSelect = document.getElementById("especie");
     const tamañoSelect = document.getElementById("tamaño");
     const productos = document.querySelectorAll(".producto");
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Filtrar productos al cargar la página
     filtrarProductos();
 });
-
+*/
 /*-----------------------------AGENDAR CITA----------------------------*/
 
 function validarDatos() {
@@ -300,6 +300,25 @@ function actualizar_totales(id, cantidad, precio){
     total_carrito.innerHTML = `Total: $${total.toLocaleString()}`
 }
 
+function actualizar_carrito(url_django, id, cantidad){
+    loader = $('#loading_cc');
+    loader.removeClass("d-none")
+    loader.addClass("d-block")
 
+    $.ajax({
+      url: url_django,
+      method: "GET",
+      data: { "id": id, "cantidad": cantidad }
+    })
+    .fail(function( result ) {
+        alert( "Error: " + result );
+        loader.removeClass("d-block")
+        loader.addClass("d-none")
+    })
+    .done(function( result ) {
+        loader.removeClass("d-block")
+        loader.addClass("d-none")
+    });
+}
 
 
