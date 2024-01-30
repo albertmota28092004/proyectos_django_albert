@@ -12,14 +12,15 @@
 <br> <br>
 <form method="post" action="{% url 'tienda:citas_guardar' %}" class="forms">
     {% csrf_token %}
-    {% if id %}
-        <input type="hidden" name="id" value="{{ data.id }}">
-    {% endif %}
-    <div class="mb-3">
-        <label class="form-label">Fecha y hora</label>
-        <input type="datetime-local" class="form-control" placeholder="Fecha y hora" name="fecha_hora" value="{{ data.fecha_hora|date:'Y-m-d\TH:i' }}">
+    <div class="input-group m-3">
+        <span class="input-group-text"><i class="bi bi-hash"></i></span>
+        <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
     </div>
-    <div class="mb-3">
+    <div class="input-group m-3" width="600px">
+        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
+        <input type="datetime-local" class="form-control" placeholder="Fecha y Hora" name="fecha_hora" value="{{ data.fecha_hora }}">
+    </div>
+    <div class="input-group m-3" width="600px">
         <label class="form-label">Servicio</label>
         <select name="servicio" class="form-control">
             <option value="">Seleccione:</option>
@@ -28,12 +29,13 @@
             {% endfor %}
         </select>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Precio</label>
+    <div class="input-group m-3" width="600px">
+        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
         <input type="number" class="form-control" placeholder="Precio" name="precio" value="{{ data.precio }}">
     </div>
-    <div class="mb-3">
+    <div class="input-group m-3" width="600px">
         <label class="form-label">Cliente</label>
+        <br>
         <select name="usuario" class="form-control">
             <option value="">Seleccione:</option>
             {% for u in usuario %}

@@ -49,7 +49,7 @@ class Usuario(models.Model):
 
 
 class Pedido(models.Model):
-    fecha = models.DateField(max_length=254)
+    fecha = models.DateField()
     descripcion = models.TextField(null=True, blank=True)
     precio = models.IntegerField()
     usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)

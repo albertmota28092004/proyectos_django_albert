@@ -325,13 +325,13 @@ def pedidos_guardar(request):
         if id == "":
             # crear
             try:
-                pro = Pedido(
-                    nombre=fecha,
+                ped = Pedido(
+                    fecha=fecha,
                     descripcion=descripcion,
                     precio=precio,
                     cliente=cliente,
                 )
-                pro.save()
+                ped.save()
                 messages.success(request, "Guardado correctamente!!")
             except Exception as e:
                 messages.error(request, f"Error. {e}")
@@ -368,7 +368,7 @@ def pedidos_eliminar(request, id):
 def pedidos_editar(request, id):
     q = Pedido.objects.get(pk=id)
     query = Usuario.objects.all()
-    contexto = {"id": id, "data": q, "clientes": query}
+    contexto = {"id": id, "data": q, "cliente": query}
     return render(request, "tienda/pedidos/ped-form.html", contexto)
 
 
