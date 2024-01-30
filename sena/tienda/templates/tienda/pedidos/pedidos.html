@@ -56,8 +56,8 @@
         </td>
 
         <td>
-            <a href="{% url 'tienda:pedidos_editar' e.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{% url 'tienda:pedidos_eliminar' e.id %}');"
+            <a href="{% url 'tienda:pedidos_editar' p.id %}" class="btn btn-info">Editar</a>
+            <a href="javascript:confirmar_eliminar('{% url 'tienda:pedidos_eliminar' p.id %}');"
                class="btn btn-danger">Eliminar</a>
         </td>
     </tr>
