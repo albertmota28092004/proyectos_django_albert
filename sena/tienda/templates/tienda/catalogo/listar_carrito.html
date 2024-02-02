@@ -23,6 +23,7 @@
 {% endfor %}
 <!--<input type="hidden" id="total_carrito_bruto" value="{{ total }}">-->
 <h6 id="total_carrito">Total: $<span id="total_carrito">{{ total|intcomma }}</span></h6>
+<a href="{% url 'tienda:establecer_venta' %}" class="btn btn-info">Pagar</a>
 {% else %}
 <p>Carrito Vacío</p>
 

@@ -174,9 +174,7 @@ def productos(request):
 def productos_formulario(request):
     categoria = Categoria.objects.all()
 
-    context = {
-        'categoria': categoria
-    }
+    context = {'categoria': categoria}
     return render(request, "tienda/productos/pro-form.html", context)
 
 
@@ -667,3 +665,49 @@ def carrito_eliminar_producto(request, id):
         messages.warning(request, "No se enviaron datos...")
 
     return redirect("tienda:catalogo", abrir_off_canva='si')
+
+
+def establecer_venta(request):
+    # ============= transacción ================
+
+    # Crear el encabezado de la venta
+    logueo = request.session.get("logueo", False)
+
+    user = Usuario.objects.get(pk=logueo["id"])
+
+    query_venta = Venta(usuario = user)
+    query_venta.save()
+
+    id_venta = Venta.objects.latest('id')
+
+    messages.success(request, f"Muchas gracias por su compra << {id_venta} >>!!")
+
+    # Obtengo el objeto venta a través de su ID
+    carrito = request.session.get("carrito", False)
+    for p in carrito:
+        # Obtengo el objeto producto a través de su ID
+        p_object = Producto.objects.get(pk=p["id"])
+        q = DetalleVenta(
+            venta = id_venta,
+            producto = p_object,
+            cantidad = p["cantidad"],
+            precio_historico = p_object.precio
+        )
+        q.save()
+
+    messages.success(request, f"Todos los productos asociados a la venta << {id_venta} >>!!")
+
+    return redirect("tienda:catalogo", abrir_off_canva='no')
+    # Asociar los productos del carrito la ID de la venta, previamente creado...
+
+    # Disminuir stock de productos
+
+    # Vaciar carrito y redirigir a inicio
+
+    # ============= fin transacción si todo ok ================
+
+    # **************** si ERROR ***************
+
+        # rollback
+
+    # ===== fin ====

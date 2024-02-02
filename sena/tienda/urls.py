@@ -57,4 +57,7 @@ urlpatterns = [
     path("carrito_listar/", views.carrito_listar, name="carrito_listar"),
     path("carrito_eliminar_producto/<int:id>", views.carrito_eliminar_producto, name="carrito_eliminar_producto"),
     path("carrito_actualizar/", views.carrito_actualizar, name="carrito_actualizar"),
+
+    path("establecer_venta/", views.establecer_venta, name="establecer_venta"),
+
 ]
