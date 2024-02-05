@@ -79,7 +79,7 @@ class Venta(models.Model):
     estado = models.IntegerField(choices=ESTADOS, default=1)
 
     def __str__(self):
-        return f'{self.id} - {self.usuario}'
+        return f'{self.id}'
 
 class DetalleVenta(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.DO_NOTHING)

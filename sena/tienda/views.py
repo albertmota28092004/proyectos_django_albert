@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import *
 from django.db.models import Q
+from django.db import IntegrityError, transaction
 
 
 # Create your views here.
@@ -547,11 +548,19 @@ def patrocinios(request):
 def contactanos(request):
     return render(request, "tienda/categorias_inicio/contactanos/contactanos.html")
 
+
 def ver_perfil(request):
     usuario = request.session.get("logueo", False)
     q = Usuario.objects.get(pk=usuario["id"])
     contexto = {"data": q}
     return render(request, "tienda/usuarios/perfil.html", contexto)
+
+
+def mis_compras(request):
+    query = Venta.objects.all()
+    query2 = DetalleVenta.objects.all()
+    contexto = {"data": query, "detalle": query2}
+    return render(request, "tienda/usuarios/mis_compras.html", contexto)
 
 
 def carrito_agregar(request):
@@ -565,7 +574,7 @@ def carrito_agregar(request):
 
         carrito = request.session.get("carrito", False)
 
-        #Buscar producto para obtener stock
+        # Buscar producto para obtener stock
         pro = Producto.objects.get(pk=id_producto)
 
         encontrado = False
@@ -597,6 +606,7 @@ def carrito_agregar(request):
 
     return redirect("tienda:catalogo", abrir_off_canva="si")
 
+
 def carrito_actualizar(request):
     if request.method == "GET":
         id_producto = request.GET.get("id")
@@ -604,7 +614,7 @@ def carrito_actualizar(request):
 
         carrito = request.session.get("carrito", False)
 
-        #Buscar producto para obtener stock
+        # Buscar producto para obtener stock
         pro = Producto.objects.get(pk=id_producto)
 
         encontrado = False
@@ -623,21 +633,29 @@ def carrito_actualizar(request):
         messages.warning("No se enviarion datos...")
         return HttpResponse("Error")
 
+
 def carrito_listar(request):
     carrito = request.session.get("carrito", False)
     if carrito is not False:
         total = 0
-        for p in carrito:
-            query = Producto.objects.get(pk=p["id"])
-            p["nombre"] = query.nombre
-            p["precio"] = query.precio
-            p["foto"] = query.foto.url
-            p["stock"] = query.stock
-            p["subtotal"] = p["cantidad"] * query.precio
-            total += p["subtotal"]
+        for indice, p in enumerate(carrito):
+            try:
+                query = Producto.objects.get(pk=p["id"])
+                p["nombre"] = query.nombre
+                p["precio"] = query.precio
+                p["foto"] = query.foto.url
+                p["stock"] = query.stock
+                p["subtotal"] = p["cantidad"] * query.precio
+                total += p["subtotal"]
+            except Producto.DoesNotExist:
+                print(f"No existe {p}")
+                # Caso especial, se eliminó un producto de la DB, entonces elimino de carrito.
+                carrito.pop(indice)
+                request.session["carrito"] = carrito
 
     contexto = {"datos": carrito, "total": total}
     return render(request, "tienda/catalogo/listar_carrito.html", contexto)
+
 
 def carrito_eliminar_producto(request, id):
     if request.method == "GET":
@@ -667,47 +685,67 @@ def carrito_eliminar_producto(request, id):
     return redirect("tienda:catalogo", abrir_off_canva='si')
 
 
+@transaction.atomic
 def establecer_venta(request):
     # ============= transacción ================
+    try:
+        # Crear el encabezado de la venta
 
-    # Crear el encabezado de la venta
-    logueo = request.session.get("logueo", False)
+        logueo = request.session.get("logueo", False)
 
-    user = Usuario.objects.get(pk=logueo["id"])
+        user = Usuario.objects.get(pk=logueo["id"])
 
-    query_venta = Venta(usuario = user)
-    query_venta.save()
+        query_venta = Venta(usuario=user)
+        query_venta.save()
 
-    id_venta = Venta.objects.latest('id')
+        # Obtener ID inmediatamente
+        id_venta = Venta.objects.latest('id')
 
-    messages.success(request, f"Muchas gracias por su compra << {id_venta} >>!!")
+        # Obtengo el objeto venta a través de su ID
+        # v = Venta.objects.get(pk=id_venta)
 
-    # Obtengo el objeto venta a través de su ID
-    carrito = request.session.get("carrito", False)
-    for p in carrito:
-        # Obtengo el objeto producto a través de su ID
-        p_object = Producto.objects.get(pk=p["id"])
-        q = DetalleVenta(
-            venta = id_venta,
-            producto = p_object,
-            cantidad = p["cantidad"],
-            precio_historico = p_object.precio
-        )
-        q.save()
+        # Obtengo el objeto venta a través de su ID
+        carrito = request.session.get("carrito", False)
+        for p in carrito:
+            # Obtengo el objeto producto a través de su ID
+            try:
+                p_object = Producto.objects.get(pk=p["id"])
+            except Producto.DoesNotExist:
+                messages.error(request, f"El producto {p} ya no existe")
+                raise Exception(f"No se pudo realizar la compra, El producto {p} ya no existe..")
 
-    messages.success(request, f"Todos los productos asociados a la venta << {id_venta} >>!!")
+            if p_object.stock >= p["cantidad"]:
+                # Asociar los productos del carrito la ID de la venta, previamente creado...
+                q = DetalleVenta(
+                    venta=id_venta,
+                    producto=p_object,
+                    cantidad=p["cantidad"],
+                    precio_historico=p_object.precio
+                )
+                q.save()
+                # Disminuir stock de productos
+                p_object.stock -= p["cantidad"]
+                p_object.save()
+            else:
+                messages.warning(request,
+                                 f"El producto {p_object} no cuenta con suficientes unidades. Solo tiene {p_object.stock}")
+                raise ValueEerror(
+                    f"El producto {p_object} no cuenta con suficientes unidades. Solo tiene {p_object.stock}")
 
-    return redirect("tienda:catalogo", abrir_off_canva='no')
-    # Asociar los productos del carrito la ID de la venta, previamente creado...
+        # Vaciar carrito y redirigir a inicio
+        carrito.clear()
+        request.session["carrito"] = carrito
+        request.session["cantidad_productos"] = 0
 
-    # Disminuir stock de productos
+        messages.success(request, f"Muchas gracias por su compra << {id_venta} >>!!")
 
-    # Vaciar carrito y redirigir a inicio
+        return redirect("tienda:catalogo", abrir_off_canva='no')
 
-    # ============= fin transacción si todo ok ================
-
-    # **************** si ERROR ***************
-
+        # ============= fin transacción si todo ok ================
+    except Exception as e:
+        # **************** si ERROR ***************
+        transaction.set_rollback(True)
         # rollback
-
+        messages.error(request, f"Ocurrió un error, intente de nuevo. {e}")
+        return redirect("tienda:catalogo", abrir_off_canva='si')
     # ===== fin ====

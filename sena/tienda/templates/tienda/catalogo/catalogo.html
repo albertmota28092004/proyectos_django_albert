@@ -1,4 +1,4 @@
-    {% extends 'tienda/base.html' %}
+{% extends 'tienda/base.html' %}
 
 {% load static %}
 
@@ -35,12 +35,16 @@
                                                 <cite>Categoría: {{ p.categoria.nombre }}</cite>
                                             </figcaption>
                                         </p>
-                                        <form action="{% url 'tienda:carrito_agregar' %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id" value="{{ p.id }}">
-                                            <input type="number" min="1" max="{{ p.stock }}" value="1" size="3" style="text-align: center;" name="cantidad">
-                                            <button type="submit" class="btn btn-primary">Add Carrito</button>
-                                        </form>
+                                        {% if p.stock <= 0 %}
+                                            <strong class="text-danger">Agotado</strong>
+                                        {% else %}
+                                            <form action="{% url 'tienda:carrito_agregar' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ p.id }}">
+                                                <input type="number" min="1" max="{{ p.stock }}" value="1" size="3" style="text-align: center;" name="cantidad">
+                                                <button type="submit" class="btn btn-primary">Add Carrito</button>
+                                            </form>
+                                        {% endif %}
                                     </div>
                                 </div>
 

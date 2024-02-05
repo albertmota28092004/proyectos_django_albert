@@ -44,8 +44,7 @@
         <td>{{ u.rol }}</td>
         <td>
             <a href="{% url 'tienda:usuarios_editar' u.id %}" class="btn btn-info">Editar</a>
-            <a href="javascript:confirmar_eliminar('{% url 'tienda:usuarios_eliminar' u.id %}');"
-               class="btn btn-danger">Eliminar</a>
+            <a href="javascript:confirmar_eliminar('{{ u.id }}', '{% url 'tienda:usuarios_eliminar' u.id %}');" class="btn btn-danger">Eliminar</a>
         </td>
     </tr>
     {% endfor %}
@@ -67,20 +66,11 @@
     </ul>
 </nav>
     <script>
-        function validarUsuario(){
-            let u = document.getElementById("usuario").value;
-            let c = document.getElementById("contraseña").value;
-            if (u == "admin") {
-                if (c == "admin12345") {
-                    window.open("inicioAdmin.html")
-                }
+        function confirmar_eliminar(id, url) {
+            if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+                window.location.href = url;
             }
-            else if (u == "empleado") {
-                if (c == "empleado12345") {
-                    window.open("inicioEmpleado.html")
-                }
-            }
-        }
+      }
     </script>
 </body>
 </html>

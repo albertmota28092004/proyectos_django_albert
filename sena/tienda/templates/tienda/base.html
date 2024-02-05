@@ -84,7 +84,10 @@
                                 <li><a class="dropdown-item" href="{% url 'tienda:usuarios' %}">Listar usuarios</a></li>
                             </ul>
                        </li>
-
+                    {% else %}
+                        <li class="nav-item">
+                                <a id="barra" class="nav-link" href="{% url 'tienda:catalogo' 'no'  %}">Catálogo</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
@@ -96,6 +99,9 @@
                         <ul class="dropdown-menu" style="border:2px solid black; padding: 10px; border-radius: 40px 0px 40px 40px; margin-top: 70px">
                             <li><h6 style="margin-left: 10px;">{{ request.session.logueo.nombre }} </h6></li>
                             <li><h6 style="font-size: 20px; text-align: center;">{% if request.session.logueo.nombre_rol == "Administrador" %}{{ request.session.logueo.nombre_rol }} {% endif %}</h6></li>
+                            {% if request.session.logueo.nombre_rol == "Usuario" %}
+                                <li><a href="{% url 'tienda:mis_compras' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Mis compras</a></li>
+                            {% endif %}
                             <li><a href="{% url 'tienda:ver_perfil' %}" class="btn btn-success"  style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Ver perfil</a></li>
                             <li><a href="{% url 'tienda:usuarios_formulario' %}" class="btn btn-success" style="margin-top: 10px; background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Editar usuario</a></li>
                             <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-top: 10px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Cerrar sesión</a></li>
