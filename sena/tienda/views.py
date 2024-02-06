@@ -555,12 +555,20 @@ def ver_perfil(request):
     contexto = {"data": q}
     return render(request, "tienda/usuarios/perfil.html", contexto)
 
-
 def mis_compras(request):
-    query = Venta.objects.all()
-    query2 = DetalleVenta.objects.all()
-    contexto = {"data": query, "detalle": query2}
+    ventas = Venta.objects.all()
+    detalle_ventas = DetalleVenta.objects.all()
+
+    subtotal_por_venta = {}
+    for venta in ventas:
+        detalles = detalle_ventas.filter(venta=venta)
+        subtotal = sum(detalle.cantidad * detalle.precio_historico for detalle in detalles)
+        subtotal_por_venta[venta.id] = subtotal
+
+    contexto = {'data': ventas, 'subtotal_por_venta': subtotal_por_venta}
+
     return render(request, "tienda/usuarios/mis_compras.html", contexto)
+
 
 
 def carrito_agregar(request):

@@ -53,6 +53,7 @@ class CitaAdmin(admin.ModelAdmin):
     list_display = ["id", "fecha_hora", "cliente", "servicio", "precio"]
     search_fields = ["usuario", "servicio"]
 
+
 class VentaAdmin(admin.ModelAdmin):
     list_display = ["id", "fecha_venta", "usuario"]
 
@@ -61,7 +62,9 @@ class DetalleVentaAdmin(admin.ModelAdmin):
     list_display = ["id", "venta", "producto", "cantidad", "precio_historico", "subtotal"]
 
     def subtotal(self, obj):
-        return f"{obj.cantidad * obj.precio_historico}"
+        subtotal= obj.cantidad * obj.precio_historico
+        return subtotal
+
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
@@ -71,4 +74,3 @@ admin.site.register(Pedido, PedidoAdmin)
 admin.site.register(Cita, CitaAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(DetalleVenta, DetalleVentaAdmin)
-

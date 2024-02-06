@@ -4,41 +4,53 @@
 {% block contenedor %}
 
 {% if data %}
-<table class="table table-hover m-3">
-    <tr>
-        <th>ID</th>
-        <th>Fecha de la venta</th>
-        <th>Acciones</th>
-    </tr>
-    {% for c in data %}
-    <tr>
-        <td>{{ c.id }}</td>
-        <td>{{ c.fecha_venta }}</td>
-        <td>
-            <button role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#detalles_{{ c.id }}">Detalles</button>
-        </td>
-    </tr>
-    <tr>
-        <div id="detalles_{{ c.id }}" class="collapse">
-            {% for d in detalle %}
-                {% if c.id == d.venta %}
-                    <h1>Hola: {{ c.id }}: {{ d.producto }}</h1>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </tr>
+    <table class="table table-hover m-3">
+        <tr>
+            <th>ID</th>
+            <th>Fecha de la venta</th>
+            <th>Acciones</th>
+        </tr>
+        {% for venta in data %}
+        <tr>
+            <td>{{ venta.id }}</td>
+            <td>{{ venta.fecha_venta }}</td>
+            <td>
+                <button role="button" aria-expanded="false" aria-controls="detalles_{{ venta.id }}" type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#detalles_{{ venta.id }}">Detalles</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div id="detalles_{{ venta.id }}" class="collapse">
+                    <table class="table table-hover m-3">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        {% for detalle in venta.detalleventa_set.all %}
+                        <tr>
+                            <td>{{ detalle.producto.nombre }}</td>
+                            <td>{{ detalle.cantidad }}</td>
+                            <td>{{ detalle.precio_historico }}</td>
+                            <td>{{ subtotal_por_venta|default:"No disponible" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </td>
+        </tr>
     {% endfor %}
-</table>
-
-    <script>
-        function confirmar_eliminar(id, url) {
-            if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
-                window.location.href = url;
-            }
-      }
-    </script>
-</body>
-</html>
+    </table>
+        <script>
+            function confirmar_eliminar(id, url) {
+                if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+                    window.location.href = url;
+                }
+          }
+        </script>
+    </body>
+    </html>
 {% endif %}
 
 {% endblock %}
