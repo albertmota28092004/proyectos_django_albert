@@ -558,15 +558,14 @@ def ver_perfil(request):
 def mis_compras(request):
     ventas = Venta.objects.all()
     detalle_ventas = DetalleVenta.objects.all()
+    subtotal_por_venta = []
 
-    subtotal_por_venta = {}
     for venta in ventas:
         detalles = detalle_ventas.filter(venta=venta)
         subtotal = sum(detalle.cantidad * detalle.precio_historico for detalle in detalles)
-        subtotal_por_venta[venta.id] = subtotal
+        subtotal_por_venta.append(subtotal)
 
-    contexto = {'data': ventas, 'subtotal_por_venta': subtotal_por_venta}
-
+    contexto = {'data': zip(ventas, subtotal_por_venta)}
     return render(request, "tienda/usuarios/mis_compras.html", contexto)
 
 
