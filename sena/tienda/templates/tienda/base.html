@@ -102,7 +102,7 @@
                             {% if request.session.logueo.nombre_rol == "Usuario" %}
                                 <li><a href="{% url 'tienda:mis_compras' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Mis compras</a></li>
                             {% endif %}
-                            <li><a href="{% url 'tienda:ver_perfil' %}" class="btn btn-success"  style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Ver perfil</a></li>
+                            <li><a href="{% url 'tienda:ver_perfil' %}" class="btn btn-success"  style="margin-top: 10px; background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Ver perfil</a></li>
                             <li><a href="{% url 'tienda:usuarios_formulario' %}" class="btn btn-success" style="margin-top: 10px; background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Editar usuario</a></li>
                             <li><a href="{% url 'tienda:logout' %}" class="btn btn-success" style="background-color: #8F82B7 !important; border:2px solid transparent !important; font-size: 15px; margin-top: 10px; margin-left: 10px; width: 150px; height: 30px; text-align: center; padding: 4px 10px;">Cerrar sesión</a></li>
                         </ul>

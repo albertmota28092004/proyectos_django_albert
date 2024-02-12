@@ -1,11 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.conf import settings
+from django.core.mail import BadHeaderError, EmailMessage
 from django.contrib import messages
 from .models import *
 from django.db.models import Q
 from django.db import IntegrityError, transaction
-
+from django.template import loader
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -555,6 +558,7 @@ def ver_perfil(request):
     contexto = {"data": q}
     return render(request, "tienda/usuarios/perfil.html", contexto)
 
+
 def mis_compras(request):
     ventas = Venta.objects.all()
     detalle_ventas = DetalleVenta.objects.all()
@@ -567,7 +571,6 @@ def mis_compras(request):
 
     contexto = {'data': zip(ventas, subtotal_por_venta)}
     return render(request, "tienda/usuarios/mis_compras.html", contexto)
-
 
 
 def carrito_agregar(request):
@@ -746,6 +749,33 @@ def establecer_venta(request):
 
         messages.success(request, f"Muchas gracias por su compra << {id_venta} >>!!")
 
+        try:
+            destinatario = user.email
+
+            mensaje = f"""
+                <h1 style='color:blue;'>Compra existosa!</h1>
+                <p>Su pedido está listo y en estado "creado".</p>
+                <p>Número de pedido: {q.venta}</p>
+                <p>Productos: {q.producto}</p>
+                <p>Precio: {q.precio_historico}</p>
+                <p>Cantidad: {q.cantidad}</p>
+                <p>Tienda ADSO, 2024</p>
+                <h1>  </h1>
+            """
+
+            try:
+                msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
+                msg.content_subtype = "html"  # Habilitar html
+                msg.send()
+                return HttpResponse("Correo enviado")
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
+            except Exception as e:
+                return HttpResponse(f"Error: {e}")
+
+        except Exception as e:
+            print(f"{e}")
+
         return redirect("tienda:catalogo", abrir_off_canva='no')
 
         # ============= fin transacción si todo ok ================
@@ -756,3 +786,44 @@ def establecer_venta(request):
         messages.error(request, f"Ocurrió un error, intente de nuevo. {e}")
         return redirect("tienda:catalogo", abrir_off_canva='si')
     # ===== fin ====
+
+
+
+def correo(request):
+    usuario = request.session.get("logueo", False)
+    query = Usuario.objects.get(pk=usuario["id"])
+    ventas = Venta.objects.all()
+    detalle_ventas = DetalleVenta.objects.all()
+    destinatario = query.email
+    subtotal_por_venta = []
+
+    for venta in ventas:
+        detalles = detalle_ventas.filter(venta=venta)
+        subtotal = sum(detalle.cantidad * detalle.precio_historico for detalle in detalles)
+        subtotal_por_venta.append(subtotal)
+
+    mensaje = render_to_string('tienda/mensaje.html', {'data': zip(ventas, subtotal_por_venta)})
+
+    try:
+        msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
+        msg.content_subtype = "html"  # Habilitar html
+        msg.send()
+        return HttpResponse("Correo enviado")
+    except BadHeaderError:
+        return HttpResponse("Invalid header found.")
+    except Exception as e:
+        return HttpResponse(f"Error: {e}")
+
+
+def pruebas(request):
+    usuario = request.session.get("logueo", False)
+    query = Usuario.objects.get(pk=usuario["id"])
+    venta = Venta.objects.filter(usuario=usuario["nick"])
+    print(f"Ventas: {venta}")
+    return HttpResponse("Prueba hecha")
+
+
+
+
+
+# mensaje = render_to_string('tienda/mensaje.html', {'data': zip(ventas, subtotal_por_venta)})

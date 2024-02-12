@@ -42,6 +42,7 @@ class Usuario(models.Model):
     apellido = models.CharField(max_length=254)
     nick = models.CharField(max_length=254)
     password = models.CharField(max_length=254)
+    email = models.EmailField(max_length=254, default="argenisgaray28@gmail.com")
     rol = models.IntegerField(choices=ROLES, default=3)
 
     def __str__(self):

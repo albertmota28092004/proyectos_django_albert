@@ -61,4 +61,6 @@ urlpatterns = [
     path("establecer_venta/", views.establecer_venta, name="establecer_venta"),
     path("mis_compras/", views.mis_compras, name="mis_compras"),
 
+    path("correo/", views.correo, name="correo"),
+    path("pruebas/", views.pruebas, name="pruebas"),
 ]

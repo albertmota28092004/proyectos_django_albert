@@ -1,0 +1,59 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+{% block title %}Mis ventas{% endblock %}
+{% block contenedor %}
+
+{% if data %}
+    <table class="table table-hover m-3">
+        <tr>
+            <th>ID</th>
+            <th>Fecha de la venta</th>
+            <th>Acciones</th>
+        </tr>
+        {% for venta in data %}
+        <tr>
+            <td>{{ venta.0.id }}</td>
+            <td>{{ venta.0.fecha_venta }}</td>
+            <td>
+                <button role="button" aria-expanded="false" aria-controls="detalles_{{ venta.0.id }}" type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#detalles_{{ venta.0.id }}">Detalles</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div id="detalles_{{ venta.0.id }}" class="collapse">
+                    <table class="table table-hover m-3">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        {% for detalle in venta.0.detalleventa_set.all %}
+                        <tr>
+                            <td>{{ detalle.producto.nombre }}</td>
+                            <td>{{ detalle.cantidad }}</td>
+                            <td>{{ detalle.precio_historico }}</td>
+                            <td>{{ venta.1 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+        <script>
+            function confirmar_eliminar(id, url) {
+                if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+                    window.location.href = url;
+                }
+          }
+        </script>
+    </body>
+    </html>
+{% endif %}
+
+{% endblock %}
+
+</body>
+</html>
