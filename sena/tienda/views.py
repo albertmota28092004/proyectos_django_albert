@@ -767,7 +767,6 @@ def establecer_venta(request):
                 msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
                 msg.content_subtype = "html"  # Habilitar html
                 msg.send()
-                return HttpResponse("Correo enviado")
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             except Exception as e:
