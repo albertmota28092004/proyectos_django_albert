@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block contenedor %}
-
+<body style="background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;">
     <a href="{% url 'tienda:index' %}">
         <img id="logo" src="{% static 'tienda/img/logo_mascotitas.png' %}" alt="" height="100px" width="100px" >
     </a>
@@ -33,6 +37,7 @@
                         <span id="iconoMostrarInicio" class="bi bi-eye-fill"></span>
                         <span id="iconoOcultarInicio" class="bi bi-eye-slash-fill"></span>
                     </button>
+                    <a href="{% url 'tienda:recuperar_contrasena' %}" class="btn recuperar_contrasena_boton" style="color: #8F82B7 !important; margin-left: -12px !important;">¿Has olvidado tu contraseña?</a>
                     <button class="entrar" type="submit" class="btn">Entrar</button>
                 </form>
                 <!--Registro-->

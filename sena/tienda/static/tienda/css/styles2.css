@@ -6,15 +6,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body {
-    /*background-image: url("{% static 'tienda/img/banner_inicio.jpg' %}");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;*/
-    background-color: #000000;
-}
-
 main {
     width: 100%;
     padding: 20px;
@@ -189,4 +180,9 @@ main {
     border-radius: 4px;
     font-family: Arial, sans-serif;
     font-size: 16px;
+}
+
+.entrar {
+    background-color: #000000 !important;
+
 }

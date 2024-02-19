@@ -1,0 +1,72 @@
+{% extends 'tienda/base2.html' %}
+{% load static %}
+
+{% block contenedor %}
+<style>
+    body {
+    background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    }
+
+    .contenedor__recuperar_contrasena {
+    padding: 20px;
+    background-color: white;
+    position: absolute;
+    border-radius: 20px; text-align: center;
+    margin-left: 620px
+    }
+
+    .entrar {
+    background-color: #8F82B7 !important;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    }
+
+    .entrar:hover{
+    background-color: #FFFFFF;
+    color: #8F82B7;
+    border: 2px solid #8F82B7;
+    transition: all 300ms;
+    }
+
+    form {
+    display: flex;
+    flex-direction: column
+    }
+
+    input {
+    margin-top: 30px;
+    }
+
+</style>
+
+<body style="background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;">
+    <a href="{% url 'tienda:index' %}">
+        <img id="logo" src="{% static 'tienda/img/logo_mascotitas.png' %}" alt="" height="100px" width="100px" >
+    </a>
+
+    <main>
+        <div class="contenedor__recuperar_contrasena">
+            <form action="{% url 'tienda:login' %}" method="post" class="formulario__login">
+                {% csrf_token %}
+                <h2>¡Correo enviado!</h2>
+                <p>
+                    ¡Revisa tu correo electrónico y sigue los pasos para restaurar tu contraseña!
+                </p>
+                <img src="{% static 'tienda/img/gif_perro.gif' %}" alt="GIF Example" width="300" height="200">
+            </form>
+        </div>
+    </main>
+    <!--<script src="../js/script2.js"></script>-->
+</body>
+
+</html>
+{% endblock %}

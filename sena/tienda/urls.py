@@ -63,4 +63,8 @@ urlpatterns = [
 
     path("correo/", views.correo, name="correo"),
     path("pruebas/", views.pruebas, name="pruebas"),
+    path("recuperar_contrasena/", views.recuperar_contrasena, name="recuperar_contrasena"),
+    path("correo_enviado/", views.correo_enviado, name="correo_enviado"),
+    path("nueva_contrasena/", views.nueva_contrasena, name="nueva_contrasena"),
+
 ]

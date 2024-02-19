@@ -1,0 +1,77 @@
+{% extends 'tienda/base2.html' %}
+{% load static %}
+
+{% block contenedor %}
+<style>
+    body {
+    background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    }
+
+    .contenedor__recuperar_contrasena {
+    padding: 20px;
+    background-color: white;
+    position: absolute;
+    border-radius: 20px; text-align: center;
+    margin-left: 620px
+    }
+
+    .entrar {
+    background-color: #8F82B7 !important;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    }
+
+    .entrar:hover{
+    background-color: #FFFFFF;
+    color: #8F82B7;
+    border: 2px solid #8F82B7;
+    transition: all 300ms;
+    }
+
+    form {
+    display: flex;
+    flex-direction: column
+    }
+
+    input {
+    margin-top: 30px;
+    }
+
+</style>
+
+<body style="background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;">
+    <a href="{% url 'tienda:index' %}">
+        <img id="logo" src="{% static 'tienda/img/logo_mascotitas.png' %}" alt="" height="100px" width="100px" >
+    </a>
+
+    <div class="contenedor__recuperar_contrasena">
+        <form action="{% url 'tienda:correo_enviado' %}" method="post">
+            {% csrf_token %}
+            <h2>Recuperar contraseña</h2>
+            <button type="button" style="position: absolute; display: inline; margin-top: -43px; margin-left: 270px; background-color: transparent; color: black;" id="btnMostrarContrasenaRecuperar" onclick="toggleMostrarContrasenaRecuperar()">
+            <input type="password" id="contrasenaRecuperar" placeholder="Contraseña" required>
+                <span id="iconoMostrarRecuperar" class="bi bi-eye-fill"></span>
+                <span id="iconoOcultarRecuperar" class="bi bi-eye-slash-fill"></span>
+            </button>
+            <input type="password" id="confirmarContrasenaRecuperar" placeholder="Confirmar contraseña" required>
+            <button type="button" style="position: absolute; display: inline; margin-top: -43px; margin-left: 270px; background-color: transparent; color: black;" id="btnMostrarConfirmarContrasenaRecuperar" onclick="toggleMostrarConfirmarContrasenaRecuperar()">
+                <span id="iconoMostrarConfirmarRecuperar" class="bi bi-eye-fill"></span>
+                <span id="iconoOcultarConfirmarRecuperar" class="bi bi-eye-slash-fill"></span
+            </button>
+        </form>
+    </div>
+
+    <!--<script src="../js/script2.js"></script>-->
+</body>
+
+</html>
+{% endblock %}

@@ -169,3 +169,37 @@ function toggleMostrarContrasenaRegistro() {
       event.preventDefault();
     }
   }
+
+  function toggleMostrarContrasenaRecuperar() {
+    var inputContrasenaRecuperar = document.getElementById("contrasenaRecuperar");
+    var btnMostrarContrasenaRecuperar = document.getElementById("btnMostrarContrasenaRecuperar");
+    var iconoMostrarRecuperar = document.getElementById("iconoMostrarRecuperar");
+    var iconoOcultarRecuperar = document.getElementById("iconoOcultarRecuperar");
+
+    if (inputContrasenaRecuperar.type === "password") {
+      inputContrasenaRecuperar.type = "text";
+      iconoMostrarRecuperar.style.display = "none";
+      iconoOcultarRecuperar.style.display = "block";
+    } else {
+      inputContrasenaRecuperar.type = "password";
+      iconoMostrarRecuperar.style.display = "block";
+      iconoOcultarRecuperar.style.display = "none";
+    }
+  }
+
+  function toggleMostrarConfirmarContrasenaRecuperar() {
+    var inputConfirmarContrasenaRecuperar = document.getElementById("confirmarContrasenaRecuperar");
+    var btnMostrarConfirmarContrasenaRecuperar = document.getElementById("btnMostrarConfirmarContrasenaRecuperar");
+    var iconoMostrarConfirmarRecuperar = document.getElementById("iconoMostrarConfirmarRecuperar");
+    var iconoOcultarConfirmarRecuperar = document.getElementById("iconoOcultarConfirmarRecuperar");
+
+    if (inputConfirmarContrasenaRecuperar.type === "password") {
+      inputConfirmarContrasenaRecuperar.type = "text";
+      iconoMostrarConfirmarRecuperar.style.display = "none";
+      iconoOcultarConfirmarRecuperar.style.display = "block";
+    } else {
+      inputConfirmarContrasenaRecuperar.type = "password";
+      iconoMostrarConfirmarRecuperar.style.display = "block";
+      iconoOcultarConfirmarRecuperar.style.display = "none";
+    }
+  }

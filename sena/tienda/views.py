@@ -10,6 +10,7 @@ from django.db import IntegrityError, transaction
 from django.template import loader
 from django.template.loader import render_to_string
 
+# En este archivo, están todas las vistas del software. Con los módulos
 # Create your views here.
 
 def index(request):
@@ -95,6 +96,33 @@ def logout(request):
 def inicioAdmin(request):
     return render(request, "tienda/inicioAdmin.html")
 
+
+def recuperar_contrasena(request):
+    return render(request, "tienda/usuarios/recuperar_contrasena.html")
+
+
+def correo_enviado(request):
+    destinatario = request.POST.get('correo_recuperar')
+    mensaje = """
+    <h1 style='color:blue;'>Recuperar contraseña.</h1>
+    <p>Este es tu código para recuperar contraseña.</p>
+    <a class="btn btn-primary" href="http://127.0.0.1:8000/correo_enviado/">Click aquí</a>
+    <p>Tienda ADSO, 2024</p>
+    """
+
+    try:
+        msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
+        msg.content_subtype = "html"  # Habilitar html
+        msg.send()
+        return render(request, "tienda/usuarios/correo_enviado.html")
+    except BadHeaderError:
+        return HttpResponse("Invalid header found.")
+    except Exception as e:
+        return HttpResponse(f"Error: {e}")
+
+
+def nueva_contrasena(request):
+    return render(request, "tienda/usuarios/nueva_contrasena.html")
 
 """def alimento_buscar(request):
     if request.method == "POST":
@@ -787,7 +815,6 @@ def establecer_venta(request):
     # ===== fin ====
 
 
-
 def correo(request):
     usuario = request.session.get("logueo", False)
     query = Usuario.objects.get(pk=usuario["id"])
@@ -820,9 +847,5 @@ def pruebas(request):
     venta = Venta.objects.filter(usuario=usuario["nick"])
     print(f"Ventas: {venta}")
     return HttpResponse("Prueba hecha")
-
-
-
-
 
 # mensaje = render_to_string('tienda/mensaje.html', {'data': zip(ventas, subtotal_por_venta)})
