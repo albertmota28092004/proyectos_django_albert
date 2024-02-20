@@ -170,6 +170,8 @@ function toggleMostrarContrasenaRegistro() {
     }
   }
 
+  /*-------------------------------------------------*/
+
   function toggleMostrarContrasenaRecuperar() {
     var inputContrasenaRecuperar = document.getElementById("contrasenaRecuperar");
     var btnMostrarContrasenaRecuperar = document.getElementById("btnMostrarContrasenaRecuperar");
@@ -201,5 +203,20 @@ function toggleMostrarContrasenaRegistro() {
       inputConfirmarContrasenaRecuperar.type = "password";
       iconoMostrarConfirmarRecuperar.style.display = "block";
       iconoOcultarConfirmarRecuperar.style.display = "none";
+    }
+  }
+
+  function validarContrasenaRecuperar() {
+    var contrasenaRecuperar = document.getElementById("contrasenaRecuperar").value;
+    var confirmarContrasenaRecuperar = document.getElementById("confirmarContrasenaRecuperar").value;
+
+    if (contrasenaRecuperar === confirmarContrasenaRecuperar) {
+      // Las contraseñas coinciden, puedes realizar la acción deseada aquí
+      console.log("Las contraseñas coinciden");
+    } else {
+      // Las contraseñas no coinciden, puedes mostrar un mensaje de error o realizar otra acción
+      console.log("Las contraseñas no coinciden");
+      mostrarAlerta("Las contraseñas no coinciden")
+      event.preventDefault();
     }
   }

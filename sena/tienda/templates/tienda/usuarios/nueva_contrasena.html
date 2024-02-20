@@ -16,7 +16,8 @@
     background-color: white;
     position: absolute;
     border-radius: 20px; text-align: center;
-    margin-left: 620px
+    margin-left: 750px;
+    margin-top: 200px;
     }
 
     .entrar {
@@ -42,6 +43,23 @@
     margin-top: 30px;
     }
 
+    button {
+    padding: 10px 40px;
+    margin-top: 20px; /* Espacio entre los botones */
+    border: none;
+    background-color: transparent; /* Fondo transparente */
+    color: black; /* Color del texto */
+    cursor: pointer;
+    outline: none;
+}
+
+/* Estilos para el icono de ojo */
+.bi {
+    display: inline-block; /* Para asegurar que los iconos se muestren correctamente */
+    font-size: 1.2rem; /* Tamaño del icono */
+    margin-right: 5px; /* Espacio entre el icono y el texto */
+}
+
 </style>
 
 <body style="background-image: url('{% static 'tienda/img/banner_inicio.jpg' %}') !important;
@@ -54,19 +72,13 @@
     </a>
 
     <div class="contenedor__recuperar_contrasena">
-        <form action="{% url 'tienda:correo_enviado' %}" method="post">
+        <form action="{% url 'tienda:actualizar_contrasenas' %}" method="post">
             {% csrf_token %}
             <h2>Recuperar contraseña</h2>
-            <button type="button" style="position: absolute; display: inline; margin-top: -43px; margin-left: 270px; background-color: transparent; color: black;" id="btnMostrarContrasenaRecuperar" onclick="toggleMostrarContrasenaRecuperar()">
-            <input type="password" id="contrasenaRecuperar" placeholder="Contraseña" required>
-                <span id="iconoMostrarRecuperar" class="bi bi-eye-fill"></span>
-                <span id="iconoOcultarRecuperar" class="bi bi-eye-slash-fill"></span>
-            </button>
-            <input type="password" id="confirmarContrasenaRecuperar" placeholder="Confirmar contraseña" required>
-            <button type="button" style="position: absolute; display: inline; margin-top: -43px; margin-left: 270px; background-color: transparent; color: black;" id="btnMostrarConfirmarContrasenaRecuperar" onclick="toggleMostrarConfirmarContrasenaRecuperar()">
-                <span id="iconoMostrarConfirmarRecuperar" class="bi bi-eye-fill"></span>
-                <span id="iconoOcultarConfirmarRecuperar" class="bi bi-eye-slash-fill"></span
-            </button>
+            <input type="text" id="usuarioRecuperar" placeholder="Usuario" required name="usuarioRecuperar">
+            <input type="password" id="contrasenaRecuperar" placeholder="Contraseña" required name="contrasenaRecuperar">
+            <input type="password" id="confirmarContrasenaRecuperar" placeholder="Confirmar contraseña" required name="confirmarContrasenaRecuperar">
+            <button class="entrar" type="submit" class="btn" onclick="validarContrasenaRecuperar()">Actualizar contraseña</button>
         </form>
     </div>
 

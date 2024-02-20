@@ -10,6 +10,7 @@ from django.db import IntegrityError, transaction
 from django.template import loader
 from django.template.loader import render_to_string
 
+
 # En este archivo, están todas las vistas del software. Con los módulos
 # Create your views here.
 
@@ -114,7 +115,7 @@ def correo_enviado(request):
         msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
         msg.content_subtype = "html"  # Habilitar html
         msg.send()
-        return render(request, "tienda/usuarios/correo_enviado.html")
+        return render(request, "tienda/usuarios/nueva_contrasena.html")
     except BadHeaderError:
         return HttpResponse("Invalid header found.")
     except Exception as e:
@@ -123,6 +124,29 @@ def correo_enviado(request):
 
 def nueva_contrasena(request):
     return render(request, "tienda/usuarios/nueva_contrasena.html")
+
+
+def actualizar_contrasenas(request):
+    if request.method == 'POST':
+        usuario = request.POST.get('usuarioRecuperar')
+        contrasena = request.POST.get('contrasenaRecuperar')
+        confirmar_contrasena = request.POST.get('confirmarContrasenaRecuperar')
+
+        if contrasena == confirmar_contrasena:
+            try:
+                # Buscar al usuario por su nombre de usuario
+                usuario_obj = Usuario.objects.get(nick=usuario)
+                # Actualizar la contraseña del usuario
+                usuario_obj.set_password(contrasena)
+                usuario_obj.save()
+                return redirect('tienda:login')  # Redirigir al usuario a la página de inicio de sesión
+            except Usuario.DoesNotExist:
+                return render(request, "tienda/index.html", {'error': 'El usuario no existe'})
+        else:
+            return render(request, "tienda/index.html", {'error': 'Las contraseñas no coinciden'})
+
+    return render(request, "tienda/index.html")
+
 
 """def alimento_buscar(request):
     if request.method == "POST":
