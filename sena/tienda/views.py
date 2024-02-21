@@ -107,7 +107,7 @@ def correo_enviado(request):
     mensaje = """
     <h1 style='color:blue;'>Recuperar contraseña.</h1>
     <p>Este es tu código para recuperar contraseña.</p>
-    <a class="btn btn-primary" href="http://127.0.0.1:8000/correo_enviado/">Click aquí</a>
+    <a class="btn btn-primary" href="http://127.0.0.1:8000/nueva_contrasena/">Click aquí</a>
     <p>Tienda ADSO, 2024</p>
     """
 
@@ -115,7 +115,7 @@ def correo_enviado(request):
         msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
         msg.content_subtype = "html"  # Habilitar html
         msg.send()
-        return render(request, "tienda/usuarios/nueva_contrasena.html")
+        return render(request, "tienda/usuarios/correo_enviado.html")
     except BadHeaderError:
         return HttpResponse("Invalid header found.")
     except Exception as e:
@@ -137,8 +137,9 @@ def actualizar_contrasenas(request):
                 # Buscar al usuario por su nombre de usuario
                 usuario_obj = Usuario.objects.get(nick=usuario)
                 # Actualizar la contraseña del usuario
-                usuario_obj.set_password(contrasena)
+                usuario_obj.password = contrasena
                 usuario_obj.save()
+                messages.success(request, "Contraseña actualizada correctamente!!")
                 return redirect('tienda:login')  # Redirigir al usuario a la página de inicio de sesión
             except Usuario.DoesNotExist:
                 return render(request, "tienda/index.html", {'error': 'El usuario no existe'})

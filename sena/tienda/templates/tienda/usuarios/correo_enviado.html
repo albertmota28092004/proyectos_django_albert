@@ -55,14 +55,11 @@
 
     <main>
         <div class="contenedor__recuperar_contrasena">
-            <form action="{% url 'tienda:login' %}" method="post" class="formulario__login">
-                {% csrf_token %}
-                <h2>¡Correo enviado!</h2>
-                <p>
-                    ¡Revisa tu correo electrónico y sigue los pasos para restaurar tu contraseña!
-                </p>
-                <img src="{% static 'tienda/img/gif_perro.gif' %}" alt="GIF Example" width="300" height="200">
-            </form>
+            <h2>¡Correo enviado!</h2>
+            <p>
+                ¡Revisa tu correo electrónico y sigue los pasos para restaurar tu contraseña!
+            </p>
+            <img src="{% static 'tienda/img/gif_perro.gif' %}" alt="GIF Example" width="300" height="200">
         </div>
     </main>
     <!--<script src="../js/script2.js"></script>-->
