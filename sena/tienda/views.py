@@ -142,11 +142,10 @@ def actualizar_contrasenas(request):
                 messages.success(request, "Contraseña actualizada correctamente!!")
                 return redirect('tienda:login')  # Redirigir al usuario a la página de inicio de sesión
             except Usuario.DoesNotExist:
-                return render(request, "tienda/index.html", {'error': 'El usuario no existe'})
+                return render(request, "tienda/iniciarSesion_Registrarse.html", {'error': 'El usuario no existe'})
         else:
-            return render(request, "tienda/index.html", {'error': 'Las contraseñas no coinciden'})
+            return render(request, "tienda/iniciarSesion_Registrarse.html", {'error': 'Las contraseñas no coinciden'})
 
-    return render(request, "tienda/index.html")
 
 
 """def alimento_buscar(request):
