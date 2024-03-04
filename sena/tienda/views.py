@@ -5,9 +5,11 @@ from django.contrib import messages
 from .models import *
 from django.db.models import Q
 from django.db import IntegrityError, transaction
-
-
-# Create your views here.
+import datetime
+from django.conf import settings
+from django.core.mail import BadHeaderError, EmailMessage
+# Create your views here.from django.conf import settings
+# from django.core.mail import BadHeaderError, EmailMessage
 
 def index(request):
     if request.session.get("logueo", False):
@@ -42,9 +44,29 @@ def catalogo(request, abrir_off_canva=False):
 def index2(request):
     return render(request, "tienda/index2.html")
 
+def citas_usuario(request):
+
+    query = Cita.objects.all()
+    contexto = {"data": query}
+
+    return render(request, "tienda/citas/citas-usuario.html", contexto)
+
 
 def agendarcita(request):
-    return render(request, "tienda/citas.html")
+
+    q = Servicio.objects.all()
+    q2 = Cita.objects.all()
+    q3 = Usuario.objects.all()
+
+    context = {
+        "servicio": q,
+        "citas": q2,
+        "usuario": q3
+
+    }
+
+
+    return render(request, "tienda/citas/cit-form.html", context)
 
 
 def login(request):
@@ -319,7 +341,23 @@ def pedidos_guardar(request):
         fecha = request.POST.get("fecha")
         descripcion = request.POST.get("descripcion")
         precio = request.POST.get("precio")
-        cliente = Usuario.objects.get(pk=request.POST.get("usuario"), rol=3)
+        usuario_id = request.POST.get("usuario")
+
+        # Validar campos obligatorios
+        if not fecha or not descripcion or not precio or not usuario_id:
+            messages.error(request, "Por favor, completa todos los campos obligatorios.")
+            return HttpResponseRedirect(reverse("tienda:pedidos_formulario"))
+
+        # Validar el valor del campo usuario_id
+        if usuario_id == "":
+            messages.error(request, "El campo de usuario no puede estar vacío.")
+            return HttpResponseRedirect(reverse("tienda:pedidos_formulario"))
+
+        try:
+            cliente = Usuario.objects.get(pk=usuario_id, rol=3)
+        except Usuario.DoesNotExist:
+            messages.error(request, "Usuario no encontrado.")
+            return HttpResponseRedirect(reverse("tienda:pedidos_formulario"))
 
         if id == "":
             # crear
@@ -333,7 +371,7 @@ def pedidos_guardar(request):
                 ped.save()
                 messages.success(request, "Guardado correctamente!!")
             except Exception as e:
-                messages.error(request, f"Error. {e}")
+                messages.error(request, f"Error al guardar. {e}")
         else:
             # actualizar
             try:
@@ -344,15 +382,16 @@ def pedidos_guardar(request):
                 q.cliente = cliente
                 q.save()
                 messages.success(request, "Actualizado correctamente!!")
+            except Pedido.DoesNotExist:
+                messages.error(request, "Pedido no encontrado.")
             except Exception as e:
-                messages.error(request, f"Error. {e}")
+                messages.error(request, f"Error al actualizar. {e}")
 
-        return HttpResponseRedirect(reverse("tienda:pedidos", args=()))
+        return HttpResponseRedirect(reverse("tienda:pedidos"))
 
     else:
-        messages.warning(request, "No se enviarion datos...")
-        return HttpResponseRedirect(reverse("tienda:pedidos_formulario", args=()))
-
+        messages.warning(request, "No se enviaron datos...")
+        return HttpResponseRedirect(reverse("tienda:pedidos_formulario"))
 
 def pedidos_eliminar(request, id):
     try:
@@ -490,7 +529,7 @@ def citas_guardar(request):
             except Exception as e:
                 messages.error(request, f"Error. {e}")
 
-        return HttpResponseRedirect(reverse("tienda:citas", args=()))
+        return HttpResponseRedirect(reverse("tienda:citas_usuario", args=()))
 
     else:
         messages.warning(request, "No se enviarion datos...")
@@ -504,7 +543,7 @@ def citas_eliminar(request, id):
         messages.success(request, "Eliminado correctamente!!")
     except Exception as e:
         messages.error(request, f"Error. {e}")
-    return HttpResponseRedirect(reverse("tienda:citas", args=()))
+    return HttpResponseRedirect(reverse("tienda:citas_usuario", args=()))
 
 
 def citas_editar(request, id):
@@ -749,3 +788,21 @@ def establecer_venta(request):
         messages.error(request, f"Ocurrió un error, intente de nuevo. {e}")
         return redirect("tienda:catalogo", abrir_off_canva='si')
     # ===== fin ====
+
+def correo(request):
+	destinatario = "jor.sincelejo@gmail.com"
+	mensaje = """
+	<h1 style='color:blue;'>Tienda virtual</h1>
+	<p>Su pedido está listo y en estado "creado".</p>
+	<p>Tienda ADSO, 2024</p>
+	"""
+
+	try:
+		msg = EmailMessage("Tienda ADSO", mensaje, settings.EMAIL_HOST_USER, [destinatario])
+		msg.content_subtype = "html"	# Habilitar html
+		msg.send()
+		return HttpResponse("Correo enviado")
+	except BadHeaderError:
+		return HttpResponse("Invalid header found.")
+	except Exception as e:
+		return HttpResponse(f"Error: {e}")

@@ -40,9 +40,12 @@ class Usuario(models.Model):
     foto = models.ImageField(null=True, blank=True, upload_to='fotos', default='fotos/default.png')
     nombre = models.CharField(max_length=254)
     apellido = models.CharField(max_length=254)
+    correo = models.EmailField
     nick = models.CharField(max_length=254)
     password = models.CharField(max_length=254)
+
     rol = models.IntegerField(choices=ROLES, default=3)
+
 
     def __str__(self):
         return self.nick
@@ -55,7 +58,7 @@ class Pedido(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.usuario
+        return self.descripcion
 
 
 class Cita(models.Model):
