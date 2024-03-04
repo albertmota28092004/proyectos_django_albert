@@ -7,7 +7,7 @@
 }
 
 body {
-    /*background-image: url("{% static 'tienda/img/banner_inicio.jpg' %}");
+    /*background-image: url("{% static 'tienda/images/banner_inicio.jpg' %}");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

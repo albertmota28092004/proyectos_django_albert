@@ -38,6 +38,7 @@ urlpatterns = [
     path("usuarios_editar/<int:id>/", views.usuarios_editar, name="usuarios_editar"),
     path("usuarios_eliminar/<int:id>/", views.usuarios_eliminar, name="usuarios_eliminar"),
     path("citas/", views.citas, name="citas"),
+    path("citas_usuario/", views.citas_usuario, name="citas_usuario"),
     path("citas_formulario/", views.citas_formulario, name="citas_formulario"),
     path("citas_guardar/", views.citas_guardar, name="citas_guardar"),
     path("citas_editar/<int:id>/", views.citas_editar, name="citas_editar"),
@@ -60,5 +61,5 @@ urlpatterns = [
 
     path("establecer_venta/", views.establecer_venta, name="establecer_venta"),
     path("mis_compras/", views.mis_compras, name="mis_compras"),
-
+    path("correo/", views.correo, name="correo")
 ]
