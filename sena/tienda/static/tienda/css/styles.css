@@ -1,26 +1,12 @@
+@import url("{% static 'tienda/css/clash_display.css' %}");
 
-@font-face {
-  font-family: 'ClashDisplay';
-  src: url("{% static 'fonts/ClashDisplay-Variable.woff2' %}") format('woff2'),
-       url("{% static 'fonts/ClashDisplay-Variable.woff' %}") format('woff'),
-       url("{% static 'fonts/ClashDisplay-Variable.ttf' %}") format('truetype');
-       font-weight: 200 700;
-       font-display: swap;
-       font-style: normal;
+
+
+body {
+    font-family: var(--font-base);
+    line-height: 1.7;
+    color: var(--c-body);
 }
-
-:root {
-    --c-dark: #212529;
-    --c-brand: #4e57d4;
-    --c-brand-light: #4e57d4;
-    --c-brand-rgb: 78, 87, 212;
-    --c-body: #000000;
-    --font-base:"ClashDisplay", sans-serif;
-    --box-shadow: 0 15px 25px rgba(0,0,0,0.08);
-    --transition: all 0.5s ease;
-
-}
-
 
 * {
     margin: 0;
@@ -29,9 +15,6 @@
     text-decoration: none;
     background-color: #FFFFFF;
     font-size: 20px;
-    font-family: var(--font-base);
-    line-height: 1.7;
-    color: var(--c-body);
 }
 
 
@@ -39,10 +22,41 @@
 
 /*Barra de navegación y banner principal*/
 /* NAVBAR */
-.container {
-    margin-top: -20px !important;
+
+/* ENCABEZADOS */
+
+h1,h2,h3,h4,h5,h6,
+.h1, .h2, .h3, .h4, .h5, .h6{
+    font-weight: 600;
+    color: var(--c-dark);
 }
 
+
+a{
+    text-decoration: none;
+    color: var(--c-brand);
+    transition: var(--transition);
+}
+
+a:hover{
+    color: var(--c-brand-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.section-padding{
+    padding-top: 140px;
+    padding-bottom: 140px;
+}
+
+.theme-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+/* NAVBAR */
 .navbar{
     box-shadow:var(--box-shadow);
 }
@@ -57,204 +71,202 @@
     color: var(--c-brand);
 }
 
-/*Nuestros productos*/
-
-#seccion_productos {
-    margin-top: 850px;
+/* BOTONES */
+.btn{
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px, 24px;
 }
 
-.titulo_lista-productos{
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 50px;
+.btn-brand{
+    background-color: var(--c-brand);
+    background-color: var(--c-brand);
+    color: white;
+
 }
 
-#contenedor__lista-productos {
-    text-align: center;
-    margin: auto;
+.btn-brand:hover{
+    background-color: var(--c-brand-light);
+    border-color: var(--c-brand-light);
+    color: white;
 }
 
-#contenedor__producto{
-    display:block;
+#hero{
+    background: linear-gradient(#00000081, #00000076), url(../images/fondo.png);
+    background-position: center;
+    background-size: cover;
+
 }
 
-.boton_comprar {
-    border: solid 2px transparent !important;
-    background-color: #8F82B7 !important;
-    color: white !important;
-    display: block;
+/* SECCION DE TITULO */
+
+.section-title{
+    margin-bottom: 60px;
+}
+
+.section-title .line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin: 16px auto 24px auto;
+}
+
+.section-title p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iconbox {
+
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    margin: auto;
-    width: 400px;
-    margin-bottom: 10px;
-    outline: none;
+    background:linear-gradient(#8f82b73f, #8f82b7);
+    color: var(--c-brand);
+    font-size: 34px;
+    flex: none;
+
 }
 
-.boton_comprar:hover {
-    background-color: #FFFFFF !important;
-    color: #8F82B7 !important;
-    border: 2px solid #8F82B7 !important;
+.line {
+    background-color: var(--c-brand);
+    width: 60px;
+    height: 4px;
+    margin: 16px auto 24px auto;
 }
 
-/*SOBRE NOSOTROS*/
+/* SERVICE */
 
-
-.titulo_sobre_nosotros {
-    font-size: 45.15px;
-    text-align: center;
-    margin-top: 50px;
-}
-
-.subtitulo_sobre_nosotros {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-#contenedor__equipo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
-    margin-left: 20px;
-    margin-top: 100px;
-}
-
-.equipo {
-    width: 400px;
-    max-width: 800px;
-    height: 400px;
+.service {
     position: relative;
-    margin-right: 60px;
-    justify-content: center;
-    text-align: center;
+    overflow: hidden;
+    z-index: 2;
 }
 
-@media (max-width: 1450px) {
-    .equipo {
-        width: 100%;
-        max-width: none;
-        height: auto;
-        margin-right: 0;
-        text-align: center;
-    }
-
-    .equipo h4 {
-        position: relative;
-        top: 0;
-        /* Restaura la posición original del nombre */
-    }
+.service::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: rgba(white, 0.2);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: var(--transition);
 }
 
-@media (max-width: 780px) {
-
-    #botones_registrarse_iniciarsesion {
-        grid-template-columns: 1fr;
-        /* Una sola columna */
-    }
-
-
-    .apartados_index {
-        display: none;
-    }
+.service:hover::after {
+    width: 100%;
+    height: 100%;
+    background: var(--c-brand);
+    z-index: -1;
 }
 
-@media (max-width: 575.20px) {
-
-    #menu_hamburguesa {
-        display: inline-block;
-    }
+.service:hover h5,
+.service:hover p {
+    color: white;
 }
 
-/*Agendar cita*/
+.service:hover .iconbox {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
 
-#banner_cita {
-    width: 100% !important;
-    height: 100% !important;
-    position: absolute !important;
 }
 
-#boton_cita {
-    display: block;
+/* COUNTER */
+
+
+
+/* PORTAFOLIO */
+
+.image-zoom {
     position: relative;
-    top: 130px;
-    left: 735px;
-    height: 160px;
-    width: 1030px;
+    overflow: hidden;
 }
 
-/*CONTÁCTANOS*/
-
-#contenedor__contactanos {
-    justify-content: center;
+.image-zoom-wrapper {
+    overflow: hidden;
     position: relative;
-    margin-left: 300px;
-    margin-right: 300px;
 }
 
-.titulo_contactanos {
+.image-zoom-wrapper img {
+    transition:  var(--transition);
+}
+
+.image-zoom:hover .image-zoom-wrapper img {
+    transform: scale(1.1);
+}
+
+.portfolio-item .iconbox {
+    background-color: var(--c-brand);
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.portfolio-item:hover .iconbox {
+    opacity: 1;
+    top: 50%;
+}
+
+/*REVIEW*/
+
+.review-head {
     position: relative;
-    text-align: center;
-    margin-bottom: 80px;
-    margin-top: 300px;
 }
 
-#formulario_contactanos {
-    display: flex;
+.review-head::after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: -14;
+    background-color: white;
+    transform: rotate(45deg);
+}
+
+.review small{
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8f82b6;
+}
+
+/*TEAM*/
+.team-member-content {
+    background-color: #8f82b6;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    width: calc(70% - 50px);
+    transform: translateX(-50%);
+    padding: 24px;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.team-member:hover .team-member-content {
+    opacity: 1;
+    bottom: 24px;
+}
+
+
+/* CONTACT */
+
+#contact {
     position: relative;
-    flex-direction: column;
+    z-index: 2;
 }
 
-.form-control {
+#contact .form-control {
+    border-radius: 0;
 }
 
-.input-group-text {
-    background-color: transparent;
-}
+/* Catálogo */
 
-#boton_enviar_contactanos {
-    background-color: #231F20;
-    color: #FFFFFF;
-    border: solid 2px transparent;
-}
-
-#boton_enviar_contactanos:hover {
-    background-color:#FFFFFF ;
-    color: #231F20;
-    border: solid 2px #231F20;
-}
-
-footer {
-    margin-top: 100px;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-#demo {
-    border: 2px solid transparent;
-}
-
-.forms{
-    margin:-50px 500px !important;
-    border-radius: 50px !important;
-    padding: 30px !important;
-    border: 2px solid #D9D9D9;
-}
-
-.boton_guardar_formulario {
-    background-color: #8F82B7 !important;
-    border:2px solid transparent !important;
-    margin-left: 200px !important;
-}
-
-.categorias_catalogo {
-    margin: 0;
-}
-
-#producto_carrito {
-    display: flex;
-    border: 2px solid #dadada;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    height: 150px;
-}

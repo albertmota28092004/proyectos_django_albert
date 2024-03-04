@@ -3,6 +3,323 @@
 {% block title %}Inicio{% endblock %}
 {% block contenedor %}
 
+<style>
+    :root {
+    --c-dark: #212529;
+    --c-brand: #4e57d4;
+    --c-brand-light: #4e57d4;
+    --c-brand-rgb: 78, 87, 212;
+    --c-body: #000000;
+    --font-base:"ClashDisplay", sans-serif;
+    --box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+    --transition: all 0.5s ease;
+
+}
+
+    #contact:after {
+    content: "";
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.438)), url({% static 'tienda/img/contador.jpg' %});
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+#counter {
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.438)), url({% static 'tienda/img/contador.jpg' %});
+    background-position: center;
+    background-size: cover;
+}
+
+
+h1,h2,h3,h4,h5,h6,
+.h1, .h2, .h3, .h4, .h5, .h6{
+    font-weight: 600;
+    color: var(--c-dark);
+}
+
+
+a{
+    text-decoration: none;
+    color: var(--c-brand);
+    transition: var(--transition);
+}
+
+a:hover{
+    color: var(--c-brand-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.section-padding{
+    padding-top: 140px;
+    padding-bottom: 140px;
+}
+
+.theme-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+/* NAVBAR */
+.navbar{
+    box-shadow:var(--box-shadow);
+}
+
+.navbar-nav .nav-link{
+    font-weight: 500;
+    color: var(--c-dark);
+}
+
+
+.navbar-nav .nav-link.active{
+    color: var(--c-brand);
+}
+
+/* BOTONES */
+.btn{
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px, 24px;
+}
+
+.btn-brand{
+    background-color: var(--c-brand);
+    background-color: var(--c-brand);
+    color: white;
+
+}
+
+.btn-brand:hover{
+    background-color: var(--c-brand-light);
+    border-color: var(--c-brand-light);
+    color: white;
+}
+
+#hero{
+    background: linear-gradient(#00000081, #00000076), url(../images/fondo.png);
+    background-position: center;
+    background-size: cover;
+
+}
+
+/* SECCION DE TITULO */
+
+.section-title{
+    margin-bottom: 60px;
+}
+
+.section-title .line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin: 16px auto 24px auto;
+}
+
+.section-title p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iconbox {
+
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background:linear-gradient(#8f82b73f, #8f82b7);
+    color: var(--c-brand);
+    font-size: 34px;
+    flex: none;
+
+}
+
+.line {
+    background-color: var(--c-brand);
+    width: 60px;
+    height: 4px;
+    margin: 16px auto 24px auto;
+}
+
+/* SERVICE */
+
+.service {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.service::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: rgba(white, 0.2);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: var(--transition);
+}
+
+.service:hover::after {
+    width: 100%;
+    height: 100%;
+    background: var(--c-brand);
+    z-index: -1;
+}
+
+.service:hover h5,
+.service:hover p {
+    color: white;
+}
+
+.service:hover .iconbox {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+
+}
+
+/* COUNTER */
+
+
+
+/* PORTAFOLIO */
+
+.img-portfolio {
+    height: 300px;
+}
+
+.image-zoom {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-zoom-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.image-zoom-wrapper img {
+    transition:  var(--transition);
+}
+
+.image-zoom:hover .image-zoom-wrapper img {
+    transform: scale(1.1);
+}
+
+.portfolio-item .iconbox {
+    background-color: var(--c-brand);
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.portfolio-item:hover .iconbox {
+    opacity: 1;
+    top: 50%;
+}
+
+/*REVIEW*/
+
+.img-review {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50px;
+}
+
+.review-head {
+    position: relative;
+}
+
+.review-head::after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: -14;
+    background-color: white;
+    transform: rotate(45deg);
+}
+
+.review small{
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8f82b6;
+}
+
+/*TEAM*/
+.team-member-content {
+    background-color: #8f82b6;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    width: calc(70% - 50px);
+    transform: translateX(-50%);
+    padding: 24px;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.team-member:hover .team-member-content {
+    opacity: 1;
+    bottom: 24px;
+}
+
+
+/* CONTACT */
+
+#contact {
+    position: relative;
+    z-index: 2;
+}
+
+#contact .form-control {
+    border-radius: 0;
+}
+
+/* Catálogo */
+
+.categorias_catalogo {
+    margin: 0;
+}
+
+#producto_carrito {
+    display: flex;
+    border: 2px solid #dadada;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    height: 150px;
+}
+
+.categorias_catalogo {
+    margin: 0;
+}
+
+#producto_carrito {
+    display: flex;
+    border: 2px solid #dadada;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    height: 150px;
+}
+
+</style>
+
 <!---{% if request.session.logueo %}
     <a href="{% url 'tienda:logout' %}" class="btn btn-success">Cerrar Sesión</a>
 {% else %}
@@ -10,113 +327,525 @@
 {% endif %} -->
 
 
-<main>
-    <section>
-        <img id="banner" src="{% static 'tienda/img/banner_renovado.webp' %}" alt="banner_original">
-    </section>
-
-    <section>
-        <a href="{% url 'tienda:agendarcita' %}">
-            <img id="banner_cita" src="{% static 'tienda/img/banner_cita.png' %}" alt="">
-        </a>
-    </section>
-
-    <section id="seccion_productos">
-        <h1 class="titulo_lista-productos">¡Productos más comprados!</h1>
-        <div id="contenedor__lista-productos" class="row">
-            <div class="col-lg-6 contenedor__producto">
-                <h3>Pañitos Humedos Familia Mascotas Petys</h3>
-                <h3>$50.000</h3>
-                <img src="{% static 'tienda/img/delimpieza/producto1.png' %}" alt="" width="300px" height="300px">
-                <button type="button" class="boton_comprar btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#myModal2">Comprar
-                </button>
-            </div>
-            <div class="col-lg-6 contenedor__producto">
-                <h3>Dentalife juguete de cuidado oral</h3>
-                <h3>$2.000</h3>
-                <img src="{% static 'tienda/img/delimpieza/producto2.png' %}" alt="" width="300px" height="300px">
-                <button type="button" class="boton_comprar btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#myModal2">Comprar
-                </button>
-            </div>
-            <div class="contenedor__producto col-lg-6">
-                <h3>Alimento Para Perro Pro Plan Veterinary</h3>
-                <h3>$350.000</h3>
-                <img src="{% static 'tienda/img/alimento/producto11.webp' %}" alt="" width="300px" height="300px">
-                <button type="button" class="boton_comprar btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#myModal2">Comprar
-                </button>
-            </div>
-            <div class="contenedor__producto col-lg-6">
-                <h3>Chunky Adulto Razas Pequeñas</h3>
-                <h3>$70.000</h3>
-                <img src="{% static 'tienda/img/alimento/producto16.webp' %}" alt="" width="300px" height="300px">
-                <button type="button" class="boton_comprar btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#myModal2">Comprar
-                </button>
+<!--Fondo-->
+<section id="hero" class="min-vh-100 d-flex align-items-center text-center" style="
+    background: linear-gradient(#00000081, #00000076), url('{% static 'tienda/img/fondo.png' %}');
+    background-position: center;
+    background-size: cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-uppercase fw-semibold display-1 text-white" data-aos="fade-right"> BIENVENIDO A
+                    +COTITAS</h1>
+                <h5 class="text-white mt-3 mb-4" data-aos="fade-up">CUIDADOS QUE LE ENCANTARAN A TU MASCOTITA</h5>
+                <div>
+                    <a href="#" class="btn btn-brand me-2" data-aos="fade-up">BIENVENIDO</a>
+                    <a href="#" class="btn btn-light ms-2" data-aos="fade-up">+COTITAS</a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!--Final de Fondo-->
 
-    <section>
-        <h1 class="titulo_sobre_nosotros">Sobre nosotros</h1>
-        <h3 class="subtitulo_sobre_nosotros">Nuestro equipo de trabajo</h3>
-        <div id="contenedor__equipo">
-            <div class="equipo">
-                <h4>Albert Mota</h4>
-                <h5>Desarrollador de software</h5>
-                <img src="{% static 'tienda/img/albert.png' %}" alt="">
-            </div>
-            <div class="equipo">
-                <h4>Andrés Mauricio Bedoya</h4>
-                <h5>Desarrollador de software</h5>
-                <img src="{% static 'tienda/img/mauricio.png' %}" alt="">
-            </div>
-            <div class="equipo">
-                <h4>Carlos Andres Holguín</h4>
-                <h5>Desarrollador de software</h5>
-                <img src="{% static 'tienda/img/carlos.png' %}" alt="">
+<!--ABOUT-->
+<section id="about" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" data-aos="fade-up">
+                <div class="section-title">
+                    <h1 class="display-4 fw-semibold">SOBRE NOSOTROS</h1>
+                    <div class="line"></div>
+                    <p>Somos un equipo que busca ayudar a los animales y a tus mascotas, con nuestros servicios
+                        esperamos ofrecerte la mejor atencion posible para que tu mascota este muy feliz.</p>
+
+                </div>
             </div>
         </div>
-    </section>
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{% static 'tienda/img/veterinario2.png' %}" alt="" width="380px">
+            </div>
+            <div class="col-lg-4">
+                <img src="{% static 'tienda/img/veterinario.png' %}" alt="" width="380px">
+            </div>
+            <div class="col-lg-4">
+                <img src="{% static 'tienda/img/veterinario2.png' %}" alt="" width="380px">
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-5">
+                    <img src="{% static 'tienda/img/sobre_+cotitas.png' %}" alt="">
+                </div>
 
-    <section class="contactanos-section">
-        <h1 class="titulo_contactanos">Contáctanos</h1>
-        <div id="contenedor__contactanos" class="row">
-            <form class="col-lg-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                    <input type="text" class="form-control" placeholder="Nombre">
+                <div class="col-lg-5" data-aos="fade-up">
+
+                    <h1>SOBRE +COTITAS</h1>
+
+                    <div class="d-flex">
+                        <div class="iconbox me-4">
+                            <i class="ri-mail-send-fill"></i>
+                        </div>
+                        <div>
+                            <h5>RAPIDA ATENCION</h5>
+                            <p>Atencion contratiempo</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="iconbox me-4">
+                            <i class="ri-thumb-up-line"></i>
+                        </div>
+                        <div>
+                            <h5>ATENCION AL CLIENTE</h5>
+                            <p>Exelente servicio</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="iconbox me-4">
+                            <i class="ri-empathize-line"></i>
+                        </div>
+                        <div>
+                            <h5>EMPATIZAMOS CON EL CLIENTE</h5>
+                            <p>Por el amor a las mascotas</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                    <input type="text" class="form-control" placeholder="Apellido">
-                </div>
-                <div class="input-group">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" placeholder="Correo electrónico">
-                </div>
-                <div class="input-group">
-                    <textarea class="form-control" rows="5" id="comment" name="text"
-                              placeholder="Escribe un mensaje aquí..."></textarea>
-                </div>
-                <br>
-                <br>
-                <div class="input-group">
-                    <input id="boton_enviar_contactanos" type="submit" class="form-control btn btn-primary"
-                           placeholder="Enviar" onclick="event.preventDefault()">
-                </div>
-            </form>
-            <ul class="list-group col-lg-4">
-                <li class="list-group-item"><i class="bi bi-whatsapp"></i> +57 304 5318796</li>
-                <li class="list-group-item"><i class="bi bi-instagram"></i> mas_cotitas</li>
-                <li class="list-group-item"><i class="bi bi-facebook"> +Cotitas</i></li>
-            </ul>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+<!--Final ABOUT-->
 
-</main>
+<!--SERVICIOS-->
+<section id="services" class="section-padding border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold">SERVICOS ASOMBROSOS</h1>
+                    <div class="line"></div>
+                    <p>Aqui puedes los servicios que ofrecemos para tu +cotita</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-4 col-sm-6">
+                <div class="service theme-shadow p-lg-5 p-4">
+                    <div class="iconbox">
+                        <i class="ri-service-line"></i>
+                    </div>
+                    <h5 class="mt-4 mb-3">CUIDADOS</h5>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum vel expedita facere.</p>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="service theme-shadow p-lg-5 p-4">
+                    <div class="iconbox">
+                        <i class="ri-service-line"></i>
+                    </div>
+                    <h5 class="mt-4 mb-3">PRODUCTOS</h5>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum vel expedita facere.</p>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="service theme-shadow p-lg-5 p-4">
+                    <div class="iconbox">
+                        <i class="ri-service-line"></i>
+                    </div>
+                    <h5 class="mt-4 mb-3">CITAS</h5>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum vel expedita facere.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--FIN SERVICIOS-->
+
+<!--COUNTER-->
+<section id="counter" class="section-padding">
+    <div class="container text-center">
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6">
+                <h1>90,000</h1>
+                <h6 class="text-uppercase mb-0 text-white mt-3">DESCARGAS TOTALES</h6>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <h1>200,000</h1>
+                <h6 class="text-uppercase mb-0 text-white mt-3">VISITAS TOTALES</h6>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <h1>5,000</h1>
+                <h6 class="text-uppercase mb-0 text-white mt-3">ANIMALES AYUDADOS </h6>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <h1>1,000</h1>
+                <h6 class="text-uppercase mb-0 text-white mt-3">MIENBROS DEL EQUIPO</h6>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--FINAL COUNTER-->
+
+<!--PORTAFOLIO-->
+<section id="portfolio" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold">+CO MOMENTOS</h1>
+                    <div class="line"></div>
+                    <p>Aquí puedes ver nuestras experiencias más destacadas junto a nuestras +cotitas</p>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-5 gx-4">
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-01.jpg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #1"
+                             src="{% static 'tienda/img/porta-01.jpg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-02.jpeg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #2"
+                             src="{% static 'tienda/img/porta-02.jpeg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-03.jpg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #3"
+                             src="{% static 'tienda/img/porta-03.jpg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-04.jpeg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #4"
+                             src="{% static 'tienda/img/porta-04.jpeg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-05.jpg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #5"
+                             src="{% static 'tienda/img/porta-05.jpg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="portfolio-item image-zoom">
+                    <a href="{% static 'tienda/img/porta-06.jpeg' %}" data-fancybox="gallery">
+                        <img class="img-fluid img-portfolio" alt="Panning picture #6"
+                             src="{% static 'tienda/img/porta-06.jpeg' %}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Final PORTAFOLIO-->
+
+<!--TESTIMONIOS-->
+<section id="reviews" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold">TESTIMONIOS</h1>
+                    <div class="line"></div>
+                    <p>Conoce lo que nuestros usuarios opinan</p>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-5 gx-4">
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user1.jpeg' %}" alt="" width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user2.jpeg' %}" alt=""
+                             width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user3.png' %}" alt=""
+                             width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user4.png' %}" alt="" width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user5.jpeg' %}" alt=""
+                             width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="review">
+                    <div class="review-head p-4 bg-white theme-shadow">
+                        <div class="text-warning">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                    </div>
+                    <div class="review-persson mt-4 d-flex align-items-center">
+                        <img class="img-review" src="{% static 'tienda/img/user6.jpeg' %}" alt=""
+                             width="100x">
+                        <div class="ms-3">
+                            <h5>MAURICIO</h5>
+                            <small>Usuario</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--FINAL TESTIMONIOS-->
+
+<!--TEAM-->
+<section id="team" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold">NUESTRO EQUIPO</h1>
+                    <div class="line"></div>
+                    <p>Aqui presentamos y damos gracias a los involucrados en este proyecto</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col -md-4">
+                <div class="team-member image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/albert.png' %}" alt="" width="380">
+                    </div>
+                    <div class="team-member-content rounded-circle">
+                        <h4>ALBERT</h4>
+                        <p class="mb-0">DESARROLLADOR</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col -md-4">
+                <div class="team-member image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/mauricio.png' %}" alt="" width="380">
+                    </div>
+                    <div class="team-member-content rounded-circle">
+                        <h4>MAURICIO</h4>
+                        <p class="mb-0">DESARROLLADOR</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col -md-4">
+                <div class="team-member image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/carlos.png' %}" alt="" width="380">
+                    </div>
+                    <div class="team-member-content rounded-circle">
+                        <h4>CARLOS</h4>
+                        <p class="mb-0">DESARROLLADOR</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Final TEAM-->
+
+<!--CONTACT US-->
+<section class="section-padding bg-light" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold text-white">CONTACTANOS</h1>
+                    <div class="line"></div>
+                    <p class="text-white">Dudas, recomendacion o lo que estes pensando</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form action="" class="row g-3 p-lg-5 p-4 bg-white theme-shadow">
+                    <div class="form-group col-lg-6">
+                        <input type="text" class="form-control" placeholder="Escribe tu primer nombre">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <input type="text" class="form-control" placeholder="Escribe tu primer apellido">
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <input type="email" class="form-control" placeholder="Escribe tu  correo">
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <textarea name="message" rows="5" class="form-control" placeholder="Escribenos"></textarea>
+                    </div>
+                    <div class="form-group col-lg-12 d-grid">
+                        <button class="btn btn-brand">ENVIAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Final CONTACT US-->
+
+<!--BLOG-->
+<section id="blog" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="section-title" data-aos="fade-up">
+                    <h1 class="display-4 fw-semibold">BLOG</h1>
+                    <div class="line"></div>
+                    <p>Enterate de nuestras actividades</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="blog-post image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/contador.jpg' %}" alt="">
+                    </div>
+                    <h5 class="mt-4">JORNADA DE VACUNACION</h5>
+                    <p>Jornada de vacunacion en barrios de itagui</p>
+                    <a href="">Rad more</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-post image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/contador.jpg' %}" alt="">
+                    </div>
+                    <h5 class="mt-4">CAMINATA</h5>
+                    <p>Caminata con las +cotitas que buscan hogar</p>
+                    <a href="">Rad more</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-post image-zoom">
+                    <div class="image-zoom-wrapper">
+                        <img src="{% static 'tienda/img/contador.jpg' %}" alt="">
+                    </div>
+                    <h5 class="mt-4">PROXIMAMENTE</h5>
+                    <p>Muy pronto</p>
+                    <a href="">Rad more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Final BLOG-->
 
 
 {% endblock %}
