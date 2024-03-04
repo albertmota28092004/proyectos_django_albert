@@ -1,3 +1,27 @@
+
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url("{% static 'fonts/ClashDisplay-Variable.woff2' %}") format('woff2'),
+       url("{% static 'fonts/ClashDisplay-Variable.woff' %}") format('woff'),
+       url("{% static 'fonts/ClashDisplay-Variable.ttf' %}") format('truetype');
+       font-weight: 200 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+:root {
+    --c-dark: #212529;
+    --c-brand: #4e57d4;
+    --c-brand-light: #4e57d4;
+    --c-brand-rgb: 78, 87, 212;
+    --c-body: #000000;
+    --font-base:"ClashDisplay", sans-serif;
+    --box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+    --transition: all 0.5s ease;
+
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -5,49 +29,32 @@
     text-decoration: none;
     background-color: #FFFFFF;
     font-size: 20px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-base);
+    line-height: 1.7;
+    color: var(--c-body);
 }
+
 
 /*---------------------------INDEX---------------------------------*/
 
 /*Barra de navegación y banner principal*/
-.contenedor_productos_catalogo{
-    width: 1800px !important;
+/* NAVBAR */
+.container {
+    margin-top: -20px !important;
 }
 
-#barra{
-    background-color:#FFFFFF !important;
-    color: black !important;
-    width: 100% !important;
+.navbar{
+    box-shadow:var(--box-shadow);
 }
 
-#logo {
-    width: 70px;
-    height: 70px;
-}
-#usuario {
-    text-align:normal !important;
-}
-#miga {
-    background-color: #FFFFFF !important;
+.navbar-nav .nav-link{
+    font-weight: 500;
+    color: var(--c-dark);
 }
 
-#banner {
-    width: 100% !important;
-    height: 100% !important;
-    position: relative !important;
-}
 
-#boton_registrarse {
-    width: 100% !important;
-    background-color: #8F82B7 !important;
-    color: white !important;
-}
-
-#boton_registrarse:hover {
-    background-color: #FFFFFF !important;
-    color:#8F82B7 !important;
-    border: solid 2px #8F82B7;
+.navbar-nav .nav-link.active{
+    color: var(--c-brand);
 }
 
 /*Nuestros productos*/
