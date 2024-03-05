@@ -847,5 +847,72 @@ img {
 </section>
 <!--Final BLOG-->
 
+<!--Footer-->
+    <footer class="bg-dark" data-aos="fade-up" style="position: relative; bottom: 0; left: 0; margin-top: auto; ">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-5">
+                    <div class="col-lg-3 col-sm-6">
+                        <a href="">
+                            <img src="{% static 'tienda/img/logo_mascotitas_blanco.png' %}" alt="" width="150px" style="margin-left: 70px">
+                        </a>
+                        <div class="line"></div>
+                        <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat velit
+                            adipisci numquam?</p>
+                        <div>
+                            <a href=""><i class="ri-twitter-line"></i></a>
+                            <a href=""><i class="ri-instagram-line"></i></a>
+                            <a href=""><i class="ri-github-line"></i></a>
+                            <a href=""><i class="ri-facebook-line"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h5 class="text-white">SERVICIOS</h5>
+                        <div class="line ms-lg-3"></div>
+                        <ul>
+                            <li> <a class="text-white" href="{% url 'tienda:catalogo' 'no'  %}">Catálogo de Productos</a> </li>
+                            <li> <a class="text-white" href="">Citas</a> </li>
+                            <li> <a class="text-white" href="">Ventas</a> </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h5 class="text-white">SOBRE NOSOTROS</h5>
+                        <div class="line ms-lg-3"></div>
+                        <ul>
+                            <li> <a class="text-white" href="">BLOG</a> </li>
+                            <li> <a class="text-white" href="">Company</a> </li>
+                            <li> <a class="text-white" href="">Team</a> </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h5 class="text-white">CONTÁCTANOS</h5>
+                        <div class="line ms-lg-3"></div>
+                        <ul>
+                            <li> <a class="text-white" href="">Calatrava (itagui)</a> </li>
+                            <li> <a class="text-white" href="">Tel: 123456789</a> </li>
+                            <li> <a class="text-white" href="">mascotitas.pythonanywhere.com</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <p class="mb-0 text-white">
+                            © Copyright +Cotitas. All Rights Reserved
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0 text-white">
+                           Diseñado por <a href="">ALBERT-MAURICIO-CARLOS</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 
 {% endblock %}

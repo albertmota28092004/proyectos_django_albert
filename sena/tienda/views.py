@@ -147,23 +147,20 @@ def actualizar_contrasenas(request):
             return render(request, "tienda/iniciarSesion_Registrarse.html", {'error': 'Las contraseñas no coinciden'})
 
 
+def categorias(request):
+    query = Categoria.objects.all()
+    context = {"data": query}
+    return render(request, "tienda/categorias/categorias.html", context)
 
-"""def alimento_buscar(request):
+
+def categorias_buscar(request):
     if request.method == "POST":
         buscar = request.POST.get("buscar")
         query = Categoria.objects.filter(Q(nombre__istartswith=buscar) | Q(descripcion__istartswith=buscar))
         context = {"data": query, "buscado": buscar}
         # select * from Categoria
-        return render(request, "tienda/categorias_inicio/productos/alimento.html", context)
-    else:
-        messages.warning(request, "No se enviaron datos...")
-    return HttpResponseRedirect(reverse("tienda:alimento", args=()))"""
-
-
-def categorias(request):
-    query = Categoria.objects.all()
-    context = {"data": query}
-    return render(request, "tienda/categorias/categorias.html", context)
+        return render(request, "tienda/categorias/categorias.html", context)
+    return HttpResponseRedirect(reverse("tienda:categorias", args=()))
 
 
 def categorias_formulario(request):
@@ -225,6 +222,16 @@ def productos(request):
     query = Producto.objects.all()
     context = {"data": query}
     return render(request, "tienda/productos/listar.html", context)
+
+
+def productos_buscar(request):
+    if request.method == "POST":
+        buscar = request.POST.get("buscar")
+        query = Producto.objects.filter(Q(nombre__istartswith=buscar))
+        context = {"data": query, "buscado": buscar}
+        # select * from Categoria
+        return render(request, "tienda/productos/listar.html", context)
+    return HttpResponseRedirect(reverse("tienda:productos", args=()))
 
 
 def productos_formulario(request):
