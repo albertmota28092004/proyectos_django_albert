@@ -229,7 +229,7 @@ def productos_buscar(request):
         buscar = request.POST.get("buscar")
         query = Producto.objects.filter(Q(nombre__istartswith=buscar))
         context = {"data": query, "buscado": buscar}
-        # select * from Categoria
+        # select * from Producto
         return render(request, "tienda/productos/listar.html", context)
     return HttpResponseRedirect(reverse("tienda:productos", args=()))
 
@@ -305,6 +305,16 @@ def servicios(request):
     return render(request, "tienda/servicios/servicios.html", contexto)
 
 
+def servicios_buscar(request):
+    if request.method == "POST":
+        buscar = request.POST.get("buscar")
+        query = Servicio.objects.filter(Q(nombre__istartswith=buscar) | Q(descripcion__istartswith=buscar))
+        context = {"data": query, "buscado": buscar}
+        # select * from Servicio
+        return render(request, "tienda/servicios/servicios.html", context)
+    return HttpResponseRedirect(reverse("tienda:servicios", args=()))
+
+
 def servicios_formulario(request):
     return render(request, "tienda/servicios/ser-form.html")
 
@@ -364,6 +374,16 @@ def pedidos(request):
     query = Pedido.objects.all()
     contexto = {"data": query}
     return render(request, "tienda/pedidos/pedidos.html", contexto)
+
+
+def pedidos_buscar(request):
+    if request.method == "POST":
+        buscar = request.POST.get("buscar")
+        query = Pedido.objects.filter(Q(descripcion__istartswith=buscar))
+        context = {"data": query, "buscado": buscar}
+        # select * from Pedido
+        return render(request, "tienda/pedidos/pedidos.html", context)
+    return HttpResponseRedirect(reverse("tienda:pedidos", args=()))
 
 
 def pedidos_formulario(request):
@@ -439,11 +459,18 @@ def usuarios(request):
     return render(request, "tienda/usuarios/usuarios.html", contexto)
 
 
+def usuarios_buscar(request):
+    if request.method == "POST":
+        buscar = request.POST.get("buscar")
+        query = Usuario.objects.filter(Q(nick__istartswith=buscar) | Q(nombre__istartswith=buscar))
+        context = {"data": query, "buscado": buscar}
+        # select * from Usuario
+        return render(request, "tienda/usuarios/usuarios.html", context)
+    return HttpResponseRedirect(reverse("tienda:usuarios", args=()))
+
+
 def usuarios_formulario(request):
-    q = request.session.get("logueo", False)
-    query = Usuario.objects.get(pk=q["id"])
-    contexto = {"data": query}
-    return render(request, "tienda/usuarios/usu-form.html", contexto)
+    return render(request, "tienda/usuarios/usu-form.html")
 
 
 def usuarios_guardar(request):
@@ -483,11 +510,19 @@ def usuarios_guardar(request):
             except Exception as e:
                 messages.error(request, f"Error. {e}")
 
-        return HttpResponseRedirect(reverse("tienda:usuarios", args=()))
+        return HttpResponseRedirect(reverse("tienda:index", args=()))
 
     else:
         messages.warning(request, "No se enviarion datos...")
         return HttpResponseRedirect(reverse("tienda:usuarios_formulario", args=()))
+
+
+def usuarios_editar(request):
+    if request.session.get("logueo", False):
+        q = request.session.get("logueo", False)
+        query = Usuario.objects.get(pk=q["id"])
+        contexto = {"data": query}
+    return render(request, "tienda/usuarios/usu-form.html", contexto)
 
 
 def usuarios_eliminar(request, id):
@@ -504,6 +539,16 @@ def citas(request):
     query = Cita.objects.all()
     contexto = {"data": query}
     return render(request, "tienda/citas/citas.html", contexto)
+
+
+def citas_buscar(request):
+    if request.method == "POST":
+        buscar = request.POST.get("buscar")
+        query = Cita.objects.filter(Q(fecha_hora__istartswith=buscar))
+        context = {"data": query, "buscado": buscar}
+        # select * from Categoria
+        return render(request, "tienda/citas/citas.html", context)
+    return HttpResponseRedirect(reverse("tienda:citas", args=()))
 
 
 def citas_formulario(request):

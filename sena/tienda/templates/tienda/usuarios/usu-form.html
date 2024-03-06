@@ -3,46 +3,79 @@
 {% block title %} Crear Usuario {% endblock %}
 {% block contenedor %}
 
+<style>
+
+    .formulario_contenedor {
+        padding: 30px;
+        background-color: #8F82B7;
+        width: 600px;
+        margin-left: 30%;
+        border-radius: 50px;
+        box-shadow: 0 0 20px gray;
+    }
+
+    label {
+        color: white
+    }
+
+    input, select {
+        width: 500px !important;
+    }
+
+    .enviar_formulario {
+        background-color: #FFFFFF;
+        border: 2px solid transparent;
+        color: #8F82B7;
+    }
+
+    .enviar_formulario:hover {
+        background-color: #8F82B7;
+        color: #000000;
+        border: 2px solid #000000;
+    }
+
+</style>
+
 {% if id %}
     <h3>Editar: {{ data.id }}</h3>
 {% else %}
     <h3 class="m-3">Crear: </h3>
 {% endif %}
 
-<br> <br>
-<form method="post" action="{% url 'tienda:usuarios_guardar' %}">
+<div class="formulario_contenedor">
+    <form method="post" action="{% url 'tienda:usuarios_guardar' %}">
     {% csrf_token %}
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-hash"></i></span>
-        <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
-    </div>
-    <div class="input-group m-3" width="600px">
-        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="{{ data.nombre }}">
-    </div>
-    <div class="input-group m-3" width="600px">
-        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Apellido" name="apellido" value="{{ data.apellido }}">
-    </div>
-    <div class="input-group m-3" width="600px">
-        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Nick" name="nick" value="{{ data.nick }}">
-    </div>
-    <div class="input-group m-3" width="600px">
-        <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
-        <input type="text" class="form-control" placeholder="Password" name="password" value="{{ data.password }}">
-    </div>
-    <div class="input-group m-3">
-        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-        <input type="text" class="form-control" placeholder="Rol" name="rol" value="{{ data.rol }}">
-    </div>
+        <div class="mb-3" hidden>
+            <label class="form-label">ID del Usuario:</label>
+            <input class="form-control" type="text" name="id" value="{{ data.id }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre del Usuario:</label>
+            <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="{{ data.nombre }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Apellido del Usuario:</label>
+            <input type="text" class="form-control" placeholder="Apellido" name="apellido" value="{{ data.apellido }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre de Usuario del Usuario:</label>
+            <input type="text" class="form-control" placeholder="Nick" name="nick" value="{{ data.nick }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña del Usuario:</label>
+            <input type="text" class="form-control" placeholder="Password" name="password" value="{{ data.password }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Rol del Usuario:</label>
+            <input type="text" class="form-control" placeholder="Rol" name="rol" value="{{ data.rol }}">
+        </div>
 
-    <br>
-     {% if id %}
-        <button type="submit" class="btn btn-primary m-3">Actualizar</button>
-    {% else %}
-        <button type="submit" class="btn btn-primary m-3">Crear</button>
-    {% endif %}
+        {% if id %}
+        <button type="submit" class="btn btn-primary enviar_formulario">Actualizar</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary enviar_formulario">Crear</button>
+        {% endif %}
 </form>
+</div>
 
 {% endblock %}

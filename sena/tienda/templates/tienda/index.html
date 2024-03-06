@@ -318,14 +318,10 @@ img {
     height: 150px;
 }
 
+.testimonios{
+    background-color: #8f82b6 !important;
+}
 </style>
-
-<!---{% if request.session.logueo %}
-    <a href="{% url 'tienda:logout' %}" class="btn btn-success">Cerrar Sesión</a>
-{% else %}
-    No hay sesión abierta...
-{% endif %} -->
-
 
 <!--Fondo-->
 <section id="hero" class="min-vh-100 d-flex align-items-center text-center" style="
@@ -339,8 +335,7 @@ img {
                     +COTITAS</h1>
                 <h5 class="text-white mt-3 mb-4" data-aos="fade-up">CUIDADOS QUE LE ENCANTARAN A TU MASCOTITA</h5>
                 <div>
-                    <a href="#" class="btn btn-brand me-2" data-aos="fade-up">BIENVENIDO</a>
-                    <a href="#" class="btn btn-light ms-2" data-aos="fade-up">+COTITAS</a>
+                    <button href="#" class="btn btn-brand me-2" data-aos="fade-up" onclick="window.location.href='#contact'">¡ÚNETE A NOSOTROS!</button>
                 </div>
             </div>
         </div>
@@ -349,7 +344,7 @@ img {
 <!--Final de Fondo-->
 
 <!--ABOUT-->
-<section id="about" class="section-padding">
+<section id="about" class="section-padding sobre_nosotros">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center" data-aos="fade-up">
@@ -364,13 +359,13 @@ img {
         </div>
         <div class="row">
             <div class="col-lg-4">
-                <img src="{% static 'tienda/img/veterinario2.png' %}" alt="" width="380px">
+                <img src="{% static 'tienda/img/veterinario2_imagen.png' %}" alt="" width="380px">
             </div>
             <div class="col-lg-4">
-                <img src="{% static 'tienda/img/veterinario.png' %}" alt="" width="380px">
+                <img src="{% static 'tienda/img/veterinario_imagen.png' %}" alt="" width="380px">
             </div>
             <div class="col-lg-4">
-                <img src="{% static 'tienda/img/veterinario2.png' %}" alt="" width="380px">
+                <img src="{% static 'tienda/img/veterinario2_imagen.png' %}" alt="" width="380px">
             </div>
             <div class="row mt-5">
                 <div class="col-lg-5">
@@ -421,7 +416,7 @@ img {
         <div class="row">
             <div class="col-12 text-center">
                 <div class="section-title" data-aos="fade-up">
-                    <h1 class="display-4 fw-semibold">SERVICOS ASOMBROSOS</h1>
+                    <h1 class="display-4 fw-semibold">SERVICIOS ASOMBROSOS</h1>
                     <div class="line"></div>
                     <p>Aqui puedes los servicios que ofrecemos para tu +cotita</p>
 
@@ -558,14 +553,14 @@ img {
 <!--Final PORTAFOLIO-->
 
 <!--TESTIMONIOS-->
-<section id="reviews" class="section-padding">
+<section id="reviews" class="section-padding testimonios">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="section-title" data-aos="fade-up">
                     <h1 class="display-4 fw-semibold">TESTIMONIOS</h1>
                     <div class="line"></div>
-                    <p>Conoce lo que nuestros usuarios opinan</p>
+                    <p>Conoce lo que nuestros usuarios opinan acerca de nuestros servicios!</p>
                 </div>
             </div>
         </div>
@@ -581,12 +576,12 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>¡El software de +Cotitas ha sido una bendición para gestionar la atención médica de mis mascotas! Su interfaz intuitiva y las funciones personalizables hacen que sea fácil programar citas y llevar un registro de la salud de mis peludos amigos.</p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
                         <img class="img-review" src="{% static 'tienda/img/user1.jpeg' %}" alt="" width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>Juan Pérez</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -603,13 +598,13 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>Desde que descubrí +Cotitas, mi vida como dueña de mascotas ha sido mucho más organizada. Puedo acceder fácilmente a los registros médicos de mis animales, recibir recordatorios de vacunas y consultar información sobre cuidados veterinarios.</p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
-                        <img class="img-review" src="{% static 'tienda/img/user2.jpeg' %}" alt=""
+                        <img class="img-review" src="{% static 'tienda/img/user2.jpg' %}" alt=""
                              width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>María López</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -626,13 +621,13 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>Como voluntaria en un refugio de animales, el software de +Cotitas nos ha ayudado enormemente a gestionar la adopción y seguimiento de los animales. La capacidad de personalización nos permite adaptar el sistema.</p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
-                        <img class="img-review" src="{% static 'tienda/img/user3.png' %}" alt=""
+                        <img class="img-review" src="{% static 'tienda/img/user3.webp' %}" alt=""
                              width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>Ana García</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -649,12 +644,12 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>+Cotitas ha simplificado la gestión de mi negocio de servicios para mascotas. La programación de citas, el seguimiento de clientes y la facturación son mucho más eficientes gracias a esta plataforma. ¡Altamente recomendada para empresas del sector!</p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
-                        <img class="img-review" src="{% static 'tienda/img/user4.png' %}" alt="" width="100x">
+                        <img class="img-review" src="{% static 'tienda/img/user4.avif' %}" alt="" width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>Carlos Martínez</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -671,13 +666,13 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>Estoy encantada con el software de Mascotitas. Me permite llevar un control detallado de la dieta y el estado de salud de mis mascotas, así como recibir consejos útiles sobre cuidados veterinarios. ¡Es como tener a un veterinario en casa!</p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
-                        <img class="img-review" src="{% static 'tienda/img/user5.jpeg' %}" alt=""
+                        <img class="img-review" src="{% static 'tienda/img/user5.jpg' %}" alt=""
                              width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>Laura Rodríguez</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -694,13 +689,13 @@ img {
                             <i class="ri-star-line"></i>
                             <i class="ri-star-line"></i>
                         </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsam assumenda eius!</p>
+                        <p>Como veterinario, he incorporado el software de +Cotitas en mi consulta y ha sido una excelente decisión. Facilita la gestión de pacientes, el historial médico y la comunicación con los dueños de mascotas. </p>
                     </div>
                     <div class="review-persson mt-4 d-flex align-items-center">
-                        <img class="img-review" src="{% static 'tienda/img/user6.jpeg' %}" alt=""
+                        <img class="img-review" src="{% static 'tienda/img/user6.webp' %}" alt=""
                              width="100x">
                         <div class="ms-3">
-                            <h5>MAURICIO</h5>
+                            <h5>Roberto Sánchez</h5>
                             <small>Usuario</small>
                         </div>
                     </div>
@@ -719,7 +714,7 @@ img {
                 <div class="section-title" data-aos="fade-up">
                     <h1 class="display-4 fw-semibold">NUESTRO EQUIPO</h1>
                     <div class="line"></div>
-                    <p>Aqui presentamos y damos gracias a los involucrados en este proyecto</p>
+                    <p>Aqui presentamos y damos gracias a los involucrados en este proyecto.</p>
                 </div>
             </div>
         </div>
@@ -730,7 +725,7 @@ img {
                         <img src="{% static 'tienda/img/albert.png' %}" alt="" width="380">
                     </div>
                     <div class="team-member-content rounded-circle">
-                        <h4>ALBERT</h4>
+                        <h4>ALBERT MOTA</h4>
                         <p class="mb-0">DESARROLLADOR</p>
                     </div>
                 </div>
@@ -741,7 +736,7 @@ img {
                         <img src="{% static 'tienda/img/mauricio.png' %}" alt="" width="380">
                     </div>
                     <div class="team-member-content rounded-circle">
-                        <h4>MAURICIO</h4>
+                        <h4>MAURICIO BEDOYA</h4>
                         <p class="mb-0">DESARROLLADOR</p>
                     </div>
                 </div>
@@ -752,7 +747,7 @@ img {
                         <img src="{% static 'tienda/img/carlos.png' %}" alt="" width="380">
                     </div>
                     <div class="team-member-content rounded-circle">
-                        <h4>CARLOS</h4>
+                        <h4>CARLOS HOLGUÍN</h4>
                         <p class="mb-0">DESARROLLADOR</p>
                     </div>
                 </div>
@@ -768,9 +763,9 @@ img {
         <div class="row">
             <div class="col-12 text-center">
                 <div class="section-title" data-aos="fade-up">
-                    <h1 class="display-4 fw-semibold text-white">CONTACTANOS</h1>
+                    <h1 class="display-4 fw-semibold text-white">CONTÁCTANOS</h1>
                     <div class="line"></div>
-                    <p class="text-white">Dudas, recomendacion o lo que estes pensando</p>
+                    <p class="text-white">Danos tus datos para que puedas formar parte de nosotros.</p>
                 </div>
             </div>
         </div>
@@ -778,16 +773,16 @@ img {
             <div class="col-lg-8">
                 <form action="" class="row g-3 p-lg-5 p-4 bg-white theme-shadow">
                     <div class="form-group col-lg-6">
-                        <input type="text" class="form-control" placeholder="Escribe tu primer nombre">
+                        <input type="text" class="form-control" placeholder="Escribe tu nombre">
                     </div>
                     <div class="form-group col-lg-6">
-                        <input type="text" class="form-control" placeholder="Escribe tu primer apellido">
+                        <input type="text" class="form-control" placeholder="Escribe tu apellido">
                     </div>
                     <div class="form-group col-lg-12">
-                        <input type="email" class="form-control" placeholder="Escribe tu  correo">
+                        <input type="email" class="form-control" placeholder="Escribe tu correo">
                     </div>
                     <div class="form-group col-lg-12">
-                        <textarea name="message" rows="5" class="form-control" placeholder="Escribenos"></textarea>
+                        <textarea name="message" rows="5" class="form-control" placeholder="Danos una breve explicación de ti y tus intereses"></textarea>
                     </div>
                     <div class="form-group col-lg-12 d-grid">
                         <button class="btn btn-brand">ENVIAR</button>
@@ -819,7 +814,7 @@ img {
                     </div>
                     <h5 class="mt-4">JORNADA DE VACUNACION</h5>
                     <p>Jornada de vacunacion en barrios de itagui</p>
-                    <a href="">Rad more</a>
+                    <a href="">Ver más</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -829,7 +824,7 @@ img {
                     </div>
                     <h5 class="mt-4">CAMINATA</h5>
                     <p>Caminata con las +cotitas que buscan hogar</p>
-                    <a href="">Rad more</a>
+                    <a href="">Ver más</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -839,7 +834,7 @@ img {
                     </div>
                     <h5 class="mt-4">PROXIMAMENTE</h5>
                     <p>Muy pronto</p>
-                    <a href="">Rad more</a>
+                    <a href="">Ver más</a>
                 </div>
             </div>
         </div>
@@ -857,8 +852,6 @@ img {
                             <img src="{% static 'tienda/img/logo_mascotitas_blanco.png' %}" alt="" width="150px" style="margin-left: 70px">
                         </a>
                         <div class="line"></div>
-                        <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat velit
-                            adipisci numquam?</p>
                         <div>
                             <a href=""><i class="ri-twitter-line"></i></a>
                             <a href=""><i class="ri-instagram-line"></i></a>
@@ -901,12 +894,12 @@ img {
                 <div class="row justify-content-between">
                     <div class="col-auto">
                         <p class="mb-0 text-white">
-                            © Copyright +Cotitas. All Rights Reserved
+                            © Copyright +Cotitas. Todos los derechos reservados.
                         </p>
                     </div>
                     <div class="col-auto">
                         <p class="mb-0 text-white">
-                           Diseñado por <a href="">ALBERT-MAURICIO-CARLOS</a>
+                           Diseñado por High Develop Style</a>
                         </p>
                     </div>
                 </div>

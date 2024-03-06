@@ -3,9 +3,8 @@
 {% block title %}Categorías{% endblock %}
 {% block contenedor %}
 
-<a class="btn btn-success m-3" href="{% url 'tienda:categorias_formulario' %}">Crear</a><br><br>
-
 {% if data %}
+<a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}" >Crear</a>
 
 <form class="d-flex" role="search" method="post" action="{% url 'tienda:categorias_buscar' %}">
     {% csrf_token %}
@@ -14,6 +13,7 @@
     <a class="btn" href="" type="button"><i class="bi bi-backspace-fill"></i></a>
     <button class="btn btn-success" type="submit">Buscar</button>
 </form>
+
 <table class="table table-hover m-3">
     <tr>
         <th>ID</th>
@@ -27,7 +27,7 @@
         <td>{{ c.nombre }}</td>
         <td>{{ c.descripcion }}</td>
         <td>
-            <a href="{% url 'tienda:categorias_editar' c.id %}" class="btn btn-info">Editar</a>
+           <a href="{% url 'tienda:categorias_editar' c.id %}" class="btn btn-info">Editar</a>
            <a href="javascript:confirmar_eliminar('{{ c.id }}', '{% url 'tienda:categorias_eliminar' c.id %}');" class="btn btn-danger">Eliminar</a>
 
         </td>
@@ -44,6 +44,16 @@
     </script>
 </body>
 </html>
+
+{% else %}
+
+<div class="div_crear" style="box-shadow: 0 0 20px gray; display: flex; flex-direction: column; margin: 100px 500px; padding: 50px; text-align: center; border: 2px solid #dedede; width: 500px;">
+    <h2>¡Crea tu primera categoría</h2>
+    <h1 style="font-size: 150px; display: inline-block;">AQUÍ!</h1>
+    <a class="btn btn-success m-3" href="{% url 'tienda:categorias_formulario' %}" >Crear</a>
+</div>
+
+
 {% endif %}
 
 {% endblock %}

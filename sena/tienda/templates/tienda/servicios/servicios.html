@@ -3,28 +3,17 @@
 {% block title %}Servicios{% endblock %}
 {% block contenedor %}
 
-    <div>
-        <nav aria-label="breadcrumb" id="miga">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-              <li class="breadcrumb-item">Servicios</li>
-              <li class="breadcrumb-item active" aria-current="page">Listar servicios</li>
-            </ol>
-        </nav>
-    </div>
+{% if data %}
+<a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}" >Crear</a>
 
-<a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}">Crear</a><br><br>
-
-<form class="d-flex" role="search" method="post" action="#">
+<form class="d-flex" role="search" method="post" action="{% url 'tienda:servicios_buscar' %}">
     {% csrf_token %}
     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar"
            value="{{ buscado }}">
-    <a class="btn btn-outline-success" href="" type="button"><i
-            class="bi bi-arrow-left-square"></i></a>
-    <button class="btn btn-outline-success" type="submit">Buscar</button>
+    <a class="btn" href="" type="button"><i class="bi bi-backspace-fill"></i></a>
+    <button class="btn btn-success" type="submit">Buscar</button>
 </form>
 
-{% if data %}
 <table class="table table-hover m-3">
     <tr>
         <th>ID</th>
@@ -45,21 +34,6 @@
     {% endfor %}
 </table>
 
-<nav aria-label="...">
-    <ul class="pagination">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active">
-            <a class="page-link" href="#">2 <span class="sr-only"></span></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
     <script>
        function confirmar_eliminar(id, url) {
             if (confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
@@ -69,6 +43,17 @@
     </script>
 </body>
 </html>
+
+{% else %}
+
+<div class="div_crear" style="box-shadow: 0 0 20px gray; display: flex; flex-direction: column; margin: 100px 500px; padding: 50px; text-align: center; border: 2px solid #dedede; width: 500px;">
+    <h2>¡Crea tu primer servicio</h2>
+    <h1 style="font-size: 150px; display: inline-block;">AQUÍ!</h1>
+    <a class="btn btn-success m-3" href="{% url 'tienda:servicios_formulario' %}" >Crear</a>
+</div>
+
+
+
 {% endif %}
 
 {% endblock %}
